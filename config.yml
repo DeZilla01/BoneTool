@@ -1,0 +1,52 @@
+#The default BoneTool wand material
+toolMaterial: BONE
+#If using Builder's Utlities by Arcaniax, BoneTool will add new blocks to the Secret Blocks.
+#You can change that here.
+overlayBUtilSecretBlocks: true
+#This allows adding colors on signs using &
+allowColorOnSign: true
+#If you want to blacklist some specific tools, add them here
+#Look below for a list of Tools
+toolBlacklist: []
+#This adds the option to change light level to blocks. LightAPI is required. Kinda useless since light blocks exists (>=1.17)
+LightAPI: false
+
+#Secret/Illegal Blocks
+#You can disable them here if a specific one causes problems for you server.
+
+#SpecialItems: 
+netherPortal: true
+endPortal: true
+pistonHead: true
+doubleLadder: true
+litRedstoneLamp: true
+paintingByName: true
+#Unobtainable items:
+commandBlocks: true
+commandBlockMinecart: true
+sculkSensor: true
+jigsaw: true
+debugStick: true
+spawner: true
+barrier: true
+structureVoid: true
+dragonEgg: true
+structureBlock: true
+lightBlock: true
+
+#Spawner Configs
+#This decides how high a config can be set for a spawner.
+#You can also blacklist some entities.
+#Use the EntityType name to disable a mob
+#https://hub.spigotmc.org/javadocs/bukkit/org/bukkit/entity/EntityType.html
+entityBlacklist: ['ENDER_DRAGON', 'PLAYER', 'DROPPED_ITEM']
+spawnerDelay: 10000
+maxNearbyEntities: 1000
+minSpawnDelay: 10000
+maxSpawnDelay: 10000
+reqPlayerRange: 300
+spawnCount: 100
+spawnRange: 300
+
+#Tool name for blacklisting:
+#toolBlacklist: ['AGEABLE', 'ANALOGUEPOWERABLE', 'ATTACHABLE', 'BAMBOO', 'BEACON', 'BED', 'BISECTED', 'CAKE', 'COLOR', 'DEBUG', 'DIRECTIONAL', 'FACEATTACHABLE', 'HONEY', 'LEVELLED', 'LIGHTABLE', 'LIGHTAPI', 'MULTIPLEFACING', 'NONE', 'NOTEBLOCK', 'OPENABLE', 'ORIENTABLE', 'PLAYERFACE', 'POT', 'POWERABLE', 'RAIL', 'ROTATABLE', 'RESPAWNANCHOR', 'SIGN', 'SNOWABLE', 'SPAWNER', 'WATERLOGGED'] (There's a lot of tools and I'm too lazy to write them all)

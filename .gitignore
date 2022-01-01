@@ -1,0 +1,23 @@
+.classpath
+.project
+.settings
+eclipse
+.idea
+*.iml
+*.ipr
+*.iws
+
+bin
+build
+target
+.gradle
+forge-download
+out
+run
+
+/dependency-reduced-pom.xml
+*-private.sh
+
+# i18n
+worldedit-core/src/main/resources/lang/*
+!worldedit-core/src/main/resources/lang/strings.json

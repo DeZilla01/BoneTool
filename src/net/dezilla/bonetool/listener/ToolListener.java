@@ -18,11 +18,13 @@ import org.bukkit.event.block.SignChangeEvent;
 import org.bukkit.event.player.PlayerDropItemEvent;
 import org.bukkit.event.player.PlayerInteractEvent;
 
+import net.dezilla.bonetool.ToolMain;
 import net.dezilla.bonetool.ToolUser;
 import net.dezilla.bonetool.Util;
 import net.dezilla.bonetool.gui.BlockOptionGui;
 import net.dezilla.bonetool.gui.GuiHolder;
 import net.dezilla.bonetool.gui.ToolGui;
+import net.dezilla.bonetool.util.PlotSquaredUtil;
 import net.dezilla.bonetool.util.ToolConfig;
 
 public class ToolListener implements Listener{
@@ -57,6 +59,15 @@ public class ToolListener implements Listener{
 		if(now.getTime()-u.getLastUse().getTime() < 10) {
 			return;
 		}
+		if(ToolMain.isPlotEnabled() && event.getClickedBlock()!=null) {
+			if(!ToolConfig.allowOutsidePlotArea || PlotSquaredUtil.inPlotArea(p)) {
+				Block block = event.getClickedBlock();
+				if(!PlotSquaredUtil.canEdit(p, block)) {
+					u.setLastUseNow();
+					return;
+				}
+			}
+		}
 		
 		if(event.getAction() == Action.LEFT_CLICK_BLOCK) {
 			Block block = event.getClickedBlock();
@@ -85,6 +96,15 @@ public class ToolListener implements Listener{
 		ToolUser user = ToolUser.getUser(event.getPlayer());
 		if(!user.getEditSign())
 			return;
+		
+		if(ToolMain.isPlotEnabled()) {
+			if(!ToolConfig.allowOutsidePlotArea || PlotSquaredUtil.inPlotArea(event.getPlayer())) {
+				Block block = event.getClickedBlock();
+				if(!PlotSquaredUtil.canEdit(event.getPlayer(), block)) {
+					return;
+				}
+			}
+		}
 		
 		Block block = event.getClickedBlock();
 		Util.editSign(user.getPlayer(), block);

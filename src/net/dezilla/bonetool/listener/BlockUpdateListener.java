@@ -21,6 +21,8 @@ import org.bukkit.event.player.PlayerInteractEvent;
 
 import net.dezilla.bonetool.ToolMain;
 import net.dezilla.bonetool.ToolUser;
+import net.dezilla.bonetool.util.PlotSquaredUtil;
+import net.dezilla.bonetool.util.ToolConfig;
 
 public class BlockUpdateListener implements Listener{
 	
@@ -94,6 +96,14 @@ public class BlockUpdateListener implements Listener{
 	
 	@EventHandler(ignoreCancelled = true)
 	public void onBlockBreak(BlockBreakEvent e) {
+		if(ToolMain.isPlotEnabled()) {
+			if(!ToolConfig.allowOutsidePlotArea || PlotSquaredUtil.inPlotArea(e.getPlayer())) {
+				Block block = e.getBlock();
+				if(!PlotSquaredUtil.canEdit(e.getPlayer(), block)) {
+					return;
+				}
+			}
+		}
 		ToolUser user = ToolUser.getUser(e.getPlayer());
 		if(user.isBlockUpdateProtected()) {
 			protectBlock(e.getBlock(), 3);
@@ -102,6 +112,14 @@ public class BlockUpdateListener implements Listener{
 	
 	@EventHandler(ignoreCancelled = true)
 	public void onBlockPlace(BlockPlaceEvent e) {
+		if(ToolMain.isPlotEnabled()) {
+			if(!ToolConfig.allowOutsidePlotArea || PlotSquaredUtil.inPlotArea(e.getPlayer())) {
+				Block block = e.getBlock();
+				if(!PlotSquaredUtil.canEdit(e.getPlayer(), block)) {
+					return;
+				}
+			}
+		}
 		ToolUser user = ToolUser.getUser(e.getPlayer());
 		if(user.isBlockUpdateProtected()) {
 			protectBlock(e.getBlock(), 3);
@@ -110,6 +128,14 @@ public class BlockUpdateListener implements Listener{
 	
 	@EventHandler(ignoreCancelled = true)
 	public void onBlockInteract(PlayerInteractEvent e) {
+		if(ToolMain.isPlotEnabled() && e.getClickedBlock() != null) {
+			if(!ToolConfig.allowOutsidePlotArea || PlotSquaredUtil.inPlotArea(e.getPlayer())) {
+				Block block = e.getClickedBlock();
+				if(!PlotSquaredUtil.canEdit(e.getPlayer(), block)) {
+					return;
+				}
+			}
+		}
 		ToolUser user = ToolUser.getUser(e.getPlayer());
 		if(user.isBlockUpdateProtected() && e.getClickedBlock() != null)
 			protectBlock(e.getClickedBlock(), 3);

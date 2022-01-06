@@ -22,8 +22,11 @@ import org.bukkit.util.BlockIterator;
 
 import com.google.common.collect.Sets;
 
+import net.dezilla.bonetool.ToolMain;
 import net.dezilla.bonetool.ToolUser;
 import net.dezilla.bonetool.Util;
+import net.dezilla.bonetool.util.PlotSquaredUtil;
+import net.dezilla.bonetool.util.ToolConfig;
 import net.dezilla.bonetool.wandtool.DirectionalTool;
 
 public class SnipePlaceListener implements Listener {
@@ -52,6 +55,13 @@ public class SnipePlaceListener implements Listener {
 			Bukkit.getPluginManager().callEvent(breakEvent);
 			if(breakEvent.isCancelled())
 				return;
+			if(ToolMain.isPlotEnabled()) {
+				if(!ToolConfig.allowOutsidePlotArea || PlotSquaredUtil.inPlotArea(event.getPlayer())) {
+					if(!PlotSquaredUtil.canEdit(event.getPlayer(), targetted)) {
+						return;
+					}
+				}
+			}
 			targetted.setType(Material.AIR);
 		}
 		//place
@@ -65,6 +75,13 @@ public class SnipePlaceListener implements Listener {
 			Bukkit.getPluginManager().callEvent(placeEvent);
 			if(placeEvent.isCancelled() || !placeEvent.canBuild())
 				return;
+			if(ToolMain.isPlotEnabled()) {
+				if(!ToolConfig.allowOutsidePlotArea || PlotSquaredUtil.inPlotArea(event.getPlayer())) {
+					if(!PlotSquaredUtil.canEdit(event.getPlayer(), newBlock)) {
+						return;
+					}
+				}
+			}
 			newBlock.setType(event.getItem().getType());
 			if(newBlock.getBlockData() instanceof Directional)
 				DirectionalTool.setFacing(newBlock, Util.getBlockFacing(event.getPlayer(), DirectionalTool.getFaces(newBlock)));

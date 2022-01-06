@@ -18,10 +18,12 @@ import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.inventory.ItemStack;
 
 import net.dezilla.bonetool.listener.BlockUpdateListener;
+import net.dezilla.bonetool.ToolMain;
 import net.dezilla.bonetool.Util;
 import net.dezilla.bonetool.wandtool.DirectionalTool;
 import net.dezilla.bonetool.wandtool.OrientableTool;
 import net.dezilla.bonetool.wandtool.PistonHeadTool;
+import net.dezilla.bonetool.util.PlotSquaredUtil;
 import net.dezilla.bonetool.util.ToolConfig;
 import net.dezilla.bonetool.wandtool.LightableTool;
 
@@ -35,13 +37,21 @@ public class SpecialBlockListener implements Listener{
 		if(!Util.permCheck(e.getPlayer(), "bonetool.blocks.use"))
 			return;
 		
-		if(e.getClickedBlock().getRelative(e.getBlockFace()).getType() != Material.AIR)
+		Block block = e.getClickedBlock().getRelative(e.getBlockFace());
+		if(block.getType() != Material.AIR)
 			return;
+		
+		if(ToolMain.isPlotEnabled()) {
+			if(!ToolConfig.allowOutsidePlotArea || PlotSquaredUtil.inPlotArea(e.getPlayer())) {
+				if(!PlotSquaredUtil.canEdit(e.getPlayer(), block)) {
+					return;
+				}
+			}
+		}
 		
 		String itemName = e.getItem().getItemMeta().getDisplayName();
 		if(itemName.contains("Nether Portal Block") && ToolConfig.netherPortal) {
 			e.setCancelled(true);
-			Block block = e.getClickedBlock().getRelative(e.getBlockFace());
 			block.setType(Material.NETHER_PORTAL);
 			BlockFace face = Util.getBlockFacing(e.getPlayer(), new HashSet<BlockFace>(Arrays.asList(BlockFace.NORTH, BlockFace.SOUTH, BlockFace.EAST, BlockFace.WEST)));
 			switch(face) {
@@ -53,17 +63,14 @@ public class SpecialBlockListener implements Listener{
 			}
 		}else if(itemName.contains("End Portal Block") && ToolConfig.endPortal) {
 			e.setCancelled(true);
-			Block block = e.getClickedBlock().getRelative(e.getBlockFace());
 			block.setType(Material.END_PORTAL);
 		}else if(itemName.contains("Piston Head Block") && ToolConfig.pistonHead) {
 			e.setCancelled(true);
-			Block block = e.getClickedBlock().getRelative(e.getBlockFace());
 			block.setType(Material.PISTON_HEAD);
 			DirectionalTool.setFacing(block, Util.getBlockFacing(e.getPlayer(), DirectionalTool.getFaces(block)));
 			PistonHeadTool.setPistonHeadShot(block, true);
 		}else if(itemName.contains("Double Ladder Head") && ToolConfig.doubleLadder) {
 			e.setCancelled(true);
-			Block block = e.getClickedBlock().getRelative(e.getBlockFace());
 			BlockUpdateListener.protectBlock(block, 1);
 			block.setType(Material.LADDER);
 			DirectionalTool.setFacing(block, Util.getBlockFacing(e.getPlayer(), DirectionalTool.getFaces(block)));
@@ -75,7 +82,6 @@ public class SpecialBlockListener implements Listener{
 			}
 		}else if(itemName.contains("Lit Redstone Lamp") && ToolConfig.litRedstoneLamp) {
 			e.setCancelled(true);
-			Block block = e.getClickedBlock().getRelative(e.getBlockFace());
 			BlockUpdateListener.protectBlock(block, 1);
 			block.setType(Material.REDSTONE_LAMP);
 			LightableTool.setLit(block, true);

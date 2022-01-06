@@ -17,6 +17,7 @@ public class ToolConfig {
 	public static boolean allowColorOnSign = true;
 	public static List<String> toolBlacklist = new ArrayList<String>();
 	public static boolean LightAPI = false;
+	public static boolean allowOutsidePlotArea = false;
 	
 	//Illegal Blocks
 	public static boolean netherPortal = true;
@@ -68,6 +69,7 @@ public class ToolConfig {
 		try{allowColorOnSign = config.getBoolean("allowColorOnSign");}catch(Exception e) {}
 		try{toolBlacklist = config.getStringList("toolBlacklist");}catch(Exception e) {}
 		try{LightAPI = config.getBoolean("LightAPI");}catch(Exception e) {}
+		try{allowOutsidePlotArea = config.getBoolean("allowOutsidePlotArea");}catch(Exception e) {}
 		//Illegal Blocks
 		try{netherPortal = config.getBoolean("netherPortal");}catch(Exception e) {}
 		try{endPortal = config.getBoolean("endPortal");}catch(Exception e) {}
@@ -136,6 +138,7 @@ public class ToolConfig {
 	 * bonetool.blocks.lightblock - Permission to access the light block gui.
 	 * bonetool.admin.reload - Reload configuration file
 	 * bonetool.admin.bypass - Bypass the blacklists
+	 * bonetool.admin.plotbypass - Bypass plot restrictions (if using PlotSquared)
 	 */
 
 }

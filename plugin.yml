@@ -1,9 +1,9 @@
 name: BoneTool
 main: net.dezilla.bonetool.ToolMain
-version: 1.0.0
+version: 1.0.1
 api-version: 1.13
 website: https://www.dezilla.net/
 dev-url: https://www.dezilla.net/
 description: A tool for editing block properties and more.
 authors: [DeZilla]
-softdepend: [Builders-Utilities, LightAPI]
+softdepend: [Builders-Utilities, LightAPI, PlotSquared]

@@ -10,6 +10,8 @@ allowColorOnSign: true
 toolBlacklist: []
 #This adds the option to change light level to blocks. LightAPI is required. Kinda useless since light blocks exists (>=1.17)
 LightAPI: false
+#If using PlotSquared, players will only be able to use the tool inside a plot. If you want players to be able to use the tool outside of plot worlds/areas, you can turn this on.
+allowOutsidePlotArea: false
 
 #Secret/Illegal Blocks
 #You can disable them here if a specific one causes problems for you server.

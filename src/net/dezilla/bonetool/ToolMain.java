@@ -21,6 +21,7 @@ public class ToolMain extends JavaPlugin{
 	static ToolMain instance;
 	static String version;
 	static List<WandTool> tools = new ArrayList<WandTool>();
+	static boolean plotEnabled = false;
 	
 	@Override
 	public void onEnable() {
@@ -168,12 +169,18 @@ public class ToolMain extends JavaPlugin{
 	    
 		System.out.println("[BoneTool] Misc.");
 		/*-----[Misc]-----*/
+		if(this.getServer().getPluginManager().isPluginEnabled("PlotSquared"))
+			plotEnabled = true;
 		new MetricsLite(this, 9762);
 	}
 	
 	@Override
 	public void onDisable() {
 		
+	}
+	
+	public static boolean isPlotEnabled() {
+		return plotEnabled;
 	}
 	
 	public static ToolMain getInstance() {

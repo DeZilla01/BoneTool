@@ -74,10 +74,12 @@ public class IllegalBlocksGui extends GuiPage{
 			list.add(new ItemStack(Material.DRAGON_EGG));
 		if(ToolConfig.structureBlock)
 			list.add(new ItemStack(Material.STRUCTURE_BLOCK));
-		if(ToolConfig.sculkSensor)
+		if(ToolConfig.sculkSensor && ToolMain.getVersionNumber() < 19)
 			list.add(new ItemStack(Material.SCULK_SENSOR));
 		if(ToolConfig.jigsaw)
 			list.add(new ItemStack(Material.JIGSAW));
+		if(ToolConfig.invisFrame)
+			list.add(Util.getInvisibleFrame());
 		return list;
 	}
 

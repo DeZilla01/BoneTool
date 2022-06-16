@@ -7,6 +7,8 @@ import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
+import org.bukkit.inventory.meta.ItemMeta;
+import org.bukkit.persistence.PersistentDataType;
 
 public class GuiPage {
 	//Static stuff
@@ -84,9 +86,15 @@ public class GuiPage {
 	}
 	
 	public GuiItem getGuiItem(ItemStack item) {
+		ItemMeta meta = item.getItemMeta();
+		if(!meta.getPersistentDataContainer().has(GuiItem.getKey(), PersistentDataType.INTEGER))
+			return null;
+		int id = meta.getPersistentDataContainer().get(GuiItem.getKey(), PersistentDataType.INTEGER);
 		for(GuiItem[] array : rows) {
 			for(GuiItem guiItem : array) {
-				if(guiItem != null && guiItem.getItem() != null && guiItem.getItem().equals(item))
+				if(guiItem == null)
+					continue;
+				if(guiItem.getId() == id)
 					return guiItem;
 			}
 		}

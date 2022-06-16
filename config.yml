@@ -35,6 +35,7 @@ structureVoid: true
 dragonEgg: true
 structureBlock: true
 lightBlock: true
+invisFrame: true
 
 #Spawner Configs
 #This decides how high a config can be set for a spawner.

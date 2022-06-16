@@ -3,32 +3,30 @@ package net.dezilla.bonetool.wandtool;
 import org.bukkit.ChatColor;
 import org.bukkit.Material;
 import org.bukkit.block.Block;
-import org.bukkit.block.data.type.Lantern;
+import org.bukkit.block.data.Hangable;
 import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.inventory.ItemStack;
 
 import net.dezilla.bonetool.Util;
 
-public class LanternTool extends WandTool{
+public class HangingTool extends WandTool{
 	
 	@Override
 	public boolean isServerCompatible() {
-		if(checkClass("org.bukkit.block.data.Hangable"))
-			return false;
-		return checkClass("org.bukkit.block.data.type.Lantern");
+		return checkClass("org.bukkit.block.data.Hangable");
 	}
 
 	@Override
 	public boolean isBlockCompatible(Block block) {
-		return block.getBlockData() instanceof Lantern;
+		return block.getBlockData() instanceof Hangable;
 	}
 
 	@Override
 	public ItemStack getIcon(Block block) {
-		String name = "Lantern Hanging";
+		String name = "Hangable";
 		if(block!=null) {
-			Lantern l  = (Lantern) block.getBlockData();
-			name+=": "+(l.isHanging()?ChatColor.GREEN+"True":ChatColor.RED+"False");
+			Hangable h  = (Hangable) block.getBlockData();
+			name+=": "+(h.isHanging()?ChatColor.GREEN+"True":ChatColor.RED+"False");
 		}
 		return Util.setName(new ItemStack(Material.LANTERN), name);
 	}
@@ -49,11 +47,11 @@ public class LanternTool extends WandTool{
 	}
 	
 	public static void toggleHanging(Block block) {
-		if(!(block.getBlockData() instanceof Lantern))
+		if(!(block.getBlockData() instanceof Hangable))
 			return;
-		Lantern l  = (Lantern) block.getBlockData();
-		l.setHanging(!l.isHanging());
-		block.setBlockData(l);
+		Hangable h  = (Hangable) block.getBlockData();
+		h.setHanging(!h.isHanging());
+		block.setBlockData(h);
 	}
 
 }

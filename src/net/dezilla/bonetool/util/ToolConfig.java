@@ -1,14 +1,21 @@
 package net.dezilla.bonetool.util;
 
 import java.io.File;
+import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.bukkit.Bukkit;
 import org.bukkit.Material;
 import org.bukkit.configuration.file.FileConfiguration;
+import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.entity.EntityType;
+import org.bukkit.inventory.Inventory;
+import org.bukkit.inventory.ItemStack;
 
 import net.dezilla.bonetool.ToolMain;
+import net.dezilla.bonetool.Util;
+import net.dezilla.bonetool.gui.GuiHolder;
 
 public class ToolConfig {
 	//Misc
@@ -38,6 +45,7 @@ public class ToolConfig {
 	public static boolean dragonEgg = true;
 	public static boolean structureBlock = true;
 	public static boolean lightBlock = true;
+	public static boolean invisFrame = true;
 	
 	//Spawner Config
 	public static List<EntityType> entityBlacklist = new ArrayList<EntityType>();
@@ -89,6 +97,7 @@ public class ToolConfig {
 		try{dragonEgg = config.getBoolean("dragonEgg");}catch(Exception e) {}
 		try{structureBlock = config.getBoolean("structureBlock");}catch(Exception e) {}
 		try{lightBlock = config.getBoolean("lightBlock");}catch(Exception e) {}
+		try{invisFrame = config.getBoolean("invisFrame");}catch(Exception e) {}
 		//Spawner
 		entityBlacklist.clear();
 		for(String s : config.getStringList("entityBlacklist")) {
@@ -109,6 +118,9 @@ public class ToolConfig {
 			sculkSensor = false;
 			lightBlock = false;
 		}
+		if(ToolMain.getVersionNumber()>=19) {
+			sculkSensor = false; // Not needed since it appears in creative menu for 1.19
+		}
 	}
 	
 	public static void generateConfig() {
@@ -121,6 +133,20 @@ public class ToolConfig {
 				ToolMain.getInstance().saveDefaultConfig();
 				ToolMain.getInstance().reloadConfig();
 			}
+	}
+	
+	public static ItemStack invisFrameItem = null;
+	public static void loadItems() {
+		try {
+			YamlConfiguration yaml = YamlConfiguration.loadConfiguration(new InputStreamReader(ToolMain.getInstance().getResource("items.yml")));
+			invisFrameItem = yaml.getItemStack("invisFrame");
+		} catch(Exception e) {
+			e.printStackTrace();
+			invisFrameItem = Util.setName(new ItemStack(Material.ITEM_FRAME), "Error");
+		}
+		//This for whatever reasons prevent lags when loading the items for the first time
+		Inventory inv = Bukkit.getServer().createInventory(new GuiHolder(), 9, "ItemLoading");
+		inv.addItem(invisFrameItem);
 	}
 	
 	/*

@@ -1,21 +1,31 @@
 package net.dezilla.bonetool.listener;
 
 import java.util.Arrays;
+import java.util.HashMap;
 import java.util.HashSet;
+import java.util.Map;
 
 import org.bukkit.Art;
 import org.bukkit.Axis;
+import org.bukkit.Bukkit;
+import org.bukkit.Color;
 import org.bukkit.GameMode;
 import org.bukkit.Material;
+import org.bukkit.Particle;
 import org.bukkit.block.Block;
 import org.bukkit.block.BlockFace;
+import org.bukkit.entity.Entity;
+import org.bukkit.entity.ItemFrame;
 import org.bukkit.entity.Painting;
+import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.block.Action;
 import org.bukkit.event.hanging.HangingPlaceEvent;
 import org.bukkit.event.player.PlayerInteractEvent;
+import org.bukkit.event.player.PlayerItemHeldEvent;
 import org.bukkit.inventory.ItemStack;
+import org.bukkit.inventory.meta.ItemMeta;
 
 import net.dezilla.bonetool.listener.BlockUpdateListener;
 import net.dezilla.bonetool.ToolMain;
@@ -85,6 +95,37 @@ public class SpecialBlockListener implements Listener{
 			BlockUpdateListener.protectBlock(block, 1);
 			block.setType(Material.REDSTONE_LAMP);
 			LightableTool.setLit(block, true);
+		}
+	}
+	
+	private Map<Player, Integer> taskids = new HashMap<Player, Integer>();
+	
+	@EventHandler(ignoreCancelled = true)
+	public void playerChangeSlot(PlayerItemHeldEvent event) {
+		ItemStack item = event.getPlayer().getInventory().getItem(event.getNewSlot());
+		if(item != null && item.getType() == Material.ITEM_FRAME) {
+			ItemMeta meta = item.getItemMeta();
+			if(meta.hasDisplayName() && meta.getDisplayName().contains("Invisible Item Frame")) {
+				int taskid = Bukkit.getScheduler().scheduleSyncRepeatingTask(ToolMain.getInstance(), () -> {
+					ItemStack current = event.getPlayer().getInventory().getItemInMainHand();
+					if(!event.getPlayer().isOnline() || current == null || !current.equals(item)) {
+						Bukkit.getScheduler().cancelTask(taskids.get(event.getPlayer()));
+						taskids.remove(event.getPlayer());
+						return;
+					}
+					for(Entity e : event.getPlayer().getWorld().getNearbyEntities(event.getPlayer().getLocation(), 20, 20, 20)) {
+						if(e instanceof ItemFrame) {
+							ItemFrame i = (ItemFrame) e;
+							if(!i.isVisible())
+								event.getPlayer().spawnParticle(Particle.REDSTONE, i.getLocation(), 1, 0, 0, 0, 1, new Particle.DustOptions(Color.ORANGE, 1f));
+						}
+					}
+				}, 1, 8);
+				if(taskids.containsKey(event.getPlayer())) {
+					Bukkit.getScheduler().cancelTask(taskids.get(event.getPlayer()));
+				}
+				taskids.put(event.getPlayer(), taskid);
+			}
 		}
 	}
 	

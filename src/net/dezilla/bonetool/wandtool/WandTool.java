@@ -34,13 +34,13 @@ public abstract class WandTool {
 	
 	public void openGui(Player player, Block block) {}
 	
-	List<String> intLore = Arrays.asList(
+	protected List<String> intLore = Arrays.asList(
 			ChatColor.AQUA+"Left Click: "+ChatColor.WHITE+"-1",
 			ChatColor.AQUA+"Right Click: "+ChatColor.WHITE+"+1",
 			ChatColor.AQUA+"Shift + Left Click: "+ChatColor.WHITE+"Minimum (0)",
 			ChatColor.AQUA+"Shift + Right Click: "+ChatColor.WHITE+"Maximum");
 	
-	int getIntValue(int current, int max, ClickType click) {
+	protected int getIntValue(int current, int max, ClickType click) {
 		int lvl = current;
 		if(click == ClickType.LEFT)
 			lvl-=1;
@@ -54,7 +54,7 @@ public abstract class WandTool {
 		return lvl;
 	}
 	
-	boolean checkClass(String classPkg) {
+	protected boolean checkClass(String classPkg) {
 		try {
 			Class.forName(classPkg);
 			return true;

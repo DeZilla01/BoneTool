@@ -20,17 +20,26 @@ import net.dezilla.bonetool.Util;
 public class SneakToggleListener implements Listener{
 	private static Map<Player, Timestamp> ts = new HashMap<Player, Timestamp>();
 	private static Map<Player, Boolean> edit_fly_speed = new HashMap<Player, Boolean>();
+	private static Map<Player, Timestamp> triple_sneak = new HashMap<Player, Timestamp>();
 	
 	@EventHandler
 	public void onSneak(PlayerToggleSneakEvent event) {
 		if(event.isSneaking()) {
 			Timestamp now = new Timestamp(new Date().getTime());
+			ToolUser user = ToolUser.getUser(event.getPlayer());
+			
+			if(user.getEditFlySpeed() && triple_sneak.containsKey(event.getPlayer()) && triple_sneak.get(event.getPlayer()).getTime()+500>now.getTime()) {
+				event.getPlayer().setFlySpeed(.1f);
+				displayFlySpeed(event.getPlayer());
+				triple_sneak.remove(event.getPlayer());
+				return;
+			}
 			if(!ts.containsKey(event.getPlayer())) {
 				ts.put(event.getPlayer(), now);
 				return;
 			}
-			if(ts.get(event.getPlayer()).getTime()+600>now.getTime()) {
-				ToolUser user = ToolUser.getUser(event.getPlayer());
+			if(ts.get(event.getPlayer()).getTime()+500>now.getTime()) {
+				triple_sneak.put(event.getPlayer(), now);
 				if(user.getEditFlySpeed()) {
 					edit_fly_speed.put(event.getPlayer(), true);
 					displayFlySpeed(event.getPlayer());

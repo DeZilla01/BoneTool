@@ -156,6 +156,8 @@ public class BUtilSecretBlocksCommand extends Command implements CommandExecutor
 			list.add(new ItemStack(Material.SCULK_SENSOR));
 		if(ToolConfig.jigsaw)
 			list.add(new ItemStack(Material.JIGSAW));
+		if(ToolConfig.invisFrame)
+			list.add(Util.getInvisibleFrame());
 		return list;
 	}
 }

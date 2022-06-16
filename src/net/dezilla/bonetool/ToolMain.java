@@ -12,7 +12,7 @@ import org.bukkit.plugin.java.JavaPlugin;
 
 import net.dezilla.bonetool.command.*;
 import net.dezilla.bonetool.listener.*;
-import net.dezilla.bonetool.util.MetricsLite;
+import net.dezilla.bonetool.util.Metrics;
 import net.dezilla.bonetool.util.ToolConfig;
 import net.dezilla.bonetool.wandtool.*;
 
@@ -158,6 +158,12 @@ public class ToolMain extends JavaPlugin{
 			new TurtleEggHatchTool(),
 			new WallTool(),
 			new WaterloggedTool(),
+			//19
+			new SculkShriekerTool(),
+			new ShriekerWarningTool(),
+			new ShriekerSummonTool(),
+			new SculkBloomTool(),
+			new HangingTool(),
 			//Right Click
 			new DebugTool(),
 			new PlayerFaceTool()
@@ -171,7 +177,10 @@ public class ToolMain extends JavaPlugin{
 		/*-----[Misc]-----*/
 		if(this.getServer().getPluginManager().isPluginEnabled("PlotSquared"))
 			plotEnabled = true;
-		new MetricsLite(this, 9762);
+		ToolConfig.loadItems();
+		Metrics metrics = new Metrics(this, 9762);
+		metrics.addCustomChart(new Metrics.SimplePie("butils", () -> (getServer().getPluginManager().isPluginEnabled("Builders-Utilities") ? "true" : "false")));
+		metrics.addCustomChart(new Metrics.SimplePie("plots", () -> (plotEnabled ? "true" : "false")));
 	}
 	
 	@Override

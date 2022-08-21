@@ -8,7 +8,9 @@ import org.bukkit.block.data.Openable;
 import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.inventory.ItemStack;
 
+import net.dezilla.bonetool.ToolUser;
 import net.dezilla.bonetool.Util;
+import net.dezilla.bonetool.util.Locale;
 
 public class OpenableTool extends WandTool {
 
@@ -23,10 +25,10 @@ public class OpenableTool extends WandTool {
 	}
 
 	@Override
-	public ItemStack getIcon(Block block) {
-		String name = "Opened";
+	public ItemStack getIcon(Block block, ToolUser user) {
+		String name = Locale.parse(user, "opened");
 		if(block != null)
-			name = "Opened: "+(isOpen(block) ? ChatColor.GREEN+"True":ChatColor.RED+"False");
+			name += ": "+(isOpen(block) ? ChatColor.GREEN+Locale.parse(user, "true"):ChatColor.RED+Locale.parse(user, "false"));
 		return Util.setName(new ItemStack(Material.OAK_DOOR), name);
 	}
 	

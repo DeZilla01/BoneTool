@@ -14,7 +14,9 @@ import org.bukkit.event.inventory.ClickType;
 import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.inventory.ItemStack;
 
+import net.dezilla.bonetool.ToolUser;
 import net.dezilla.bonetool.Util;
+import net.dezilla.bonetool.util.Locale;
 
 public class LockTool extends WandTool{
 
@@ -29,16 +31,16 @@ public class LockTool extends WandTool{
 	}
 
 	@Override
-	public ItemStack getIcon(Block block) {
-		String name = "Lock";
+	public ItemStack getIcon(Block block, ToolUser user) {
+		String name = Locale.parse(user, "lock");
 		if(block != null) {
 			Lockable l = (Lockable) block.getState();
-			name+=": "+(l.isLocked()?ChatColor.YELLOW+l.getLock():""+ChatColor.YELLOW+ChatColor.ITALIC+"Unlocked");
+			name+=": "+(l.isLocked()?ChatColor.YELLOW+l.getLock():""+ChatColor.YELLOW+ChatColor.ITALIC+Locale.parse(user, "unlocked"));
 		}
-		List<String> lore = Arrays.asList(ChatColor.GRAY+"Set a password on the container.",
-				ChatColor.GRAY+"An item with the password as it's name ", ChatColor.GRAY+"will be required to open the container.",
-				ChatColor.GRAY+"To set a password, place an item with", ChatColor.GRAY+"the desired password here.",
-				ChatColor.AQUA+"Shift + Right-Click"+ChatColor.WHITE+": Remove password.");
+		List<String> lore = Arrays.asList(ChatColor.GRAY+Locale.parse(user, "lockInstructions1"),
+				ChatColor.GRAY+Locale.parse(user, "lockInstructions2"), ChatColor.GRAY+Locale.parse(user, "lockInstructions3"),
+				ChatColor.GRAY+Locale.parse(user, "lockInstructions4"), ChatColor.GRAY+Locale.parse(user, "lockInstructions5"),
+				ChatColor.AQUA+Locale.parse(user, "shift")+" + "+Locale.parse(user, "rightclick")+ChatColor.WHITE+": "+Locale.parse(user, "removepass"));
 		return Util.setLore(Util.setName(new ItemStack(Material.IRON_NUGGET), name), lore);
 	}
 	

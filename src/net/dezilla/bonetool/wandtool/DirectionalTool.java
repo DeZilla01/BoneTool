@@ -14,7 +14,9 @@ import org.bukkit.block.data.Directional;
 import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.inventory.ItemStack;
 
+import net.dezilla.bonetool.ToolUser;
 import net.dezilla.bonetool.Util;
+import net.dezilla.bonetool.util.Locale;
 
 public class DirectionalTool extends WandTool{
 
@@ -29,10 +31,10 @@ public class DirectionalTool extends WandTool{
 	}
 
 	@Override
-	public ItemStack getIcon(Block block) {
-		String name = "Direction";
+	public ItemStack getIcon(Block block, ToolUser user) {
+		String name = Locale.parse(user, "direction");
 		if(block != null)
-			name = "Direction: "+ChatColor.YELLOW+getFacing(block);
+			name = Locale.parse(user, "direction")+": "+ChatColor.YELLOW+getFacing(block);
 		return Util.setName(new ItemStack(Material.COMPASS), name);
 	}
 	

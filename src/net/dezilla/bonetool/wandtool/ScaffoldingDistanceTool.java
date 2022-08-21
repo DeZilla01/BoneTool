@@ -7,7 +7,9 @@ import org.bukkit.block.data.type.Scaffolding;
 import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.inventory.ItemStack;
 
+import net.dezilla.bonetool.ToolUser;
 import net.dezilla.bonetool.Util;
+import net.dezilla.bonetool.util.Locale;
 
 public class ScaffoldingDistanceTool extends WandTool {
 	
@@ -22,14 +24,14 @@ public class ScaffoldingDistanceTool extends WandTool {
 	}
 
 	@Override
-	public ItemStack getIcon(Block block) {
-		String name = "Scaffolding Distance";
+	public ItemStack getIcon(Block block, ToolUser user) {
+		String name = Locale.parse(user, "scaffoldingdistance");
 		if(block!=null) {
 			name += ": " + ChatColor.YELLOW + getDistance(block);
 		}
 		ItemStack icon = Util.setName(new ItemStack(Material.SCAFFOLDING), name);
 		if(block!=null)
-			Util.setLore(icon, intLore);
+			Util.setLore(icon, getIntLore(user));
 		return icon;
 	}
 	

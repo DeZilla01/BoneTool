@@ -5,7 +5,9 @@ import org.bukkit.Material;
 import org.bukkit.block.Block;
 import org.bukkit.inventory.ItemStack;
 
+import net.dezilla.bonetool.ToolUser;
 import net.dezilla.bonetool.Util;
+import net.dezilla.bonetool.util.Locale;
 
 public class NoneTool extends WandTool{
 
@@ -20,8 +22,8 @@ public class NoneTool extends WandTool{
 	}
 
 	@Override
-	public ItemStack getIcon(Block block) {
-		return Util.setLore(Util.setName(new ItemStack(Material.BARRIER), "None"), ChatColor.GRAY+"Select a tool to bind to right-click.");
+	public ItemStack getIcon(Block block, ToolUser user) {
+		return Util.setLore(Util.setName(new ItemStack(Material.BARRIER), Locale.parse(user, "none")), ChatColor.GRAY+Locale.parse(user, "selectrightclicktool"));
 	}
 	
 	@Override

@@ -7,7 +7,9 @@ import org.bukkit.block.data.type.Repeater;
 import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.inventory.ItemStack;
 
+import net.dezilla.bonetool.ToolUser;
 import net.dezilla.bonetool.Util;
+import net.dezilla.bonetool.util.Locale;
 
 public class RepeaterDelayTool extends WandTool {
 
@@ -22,8 +24,8 @@ public class RepeaterDelayTool extends WandTool {
 	}
 
 	@Override
-	public ItemStack getIcon(Block block) {
-		String name = "Repeater delay";
+	public ItemStack getIcon(Block block, ToolUser user) {
+		String name = Locale.parse(user, "repeaterdelay");
 		if(block != null) {
 			Repeater r = (Repeater) block.getBlockData();
 			name += ": "+ChatColor.YELLOW+r.getDelay();

@@ -7,8 +7,10 @@ import org.bukkit.entity.Player;
 import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.inventory.ItemStack;
 
+import net.dezilla.bonetool.ToolUser;
 import net.dezilla.bonetool.Util;
 import net.dezilla.bonetool.gui.SpawnerGui;
+import net.dezilla.bonetool.util.Locale;
 
 public class SpawnerTool extends WandTool{
 
@@ -23,8 +25,8 @@ public class SpawnerTool extends WandTool{
 	}
 
 	@Override
-	public ItemStack getIcon(Block block) {
-		String name = "Edit Spawner";
+	public ItemStack getIcon(Block block, ToolUser user) {
+		String name = Locale.parse(user, "spawnereditor");
 		ItemStack icon = new ItemStack(Material.SPAWNER);
 		return Util.setName(icon, name);
 	}

@@ -7,8 +7,9 @@ import org.bukkit.block.SculkShrieker;
 import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.inventory.ItemStack;
 
+import net.dezilla.bonetool.ToolUser;
 import net.dezilla.bonetool.Util;
-import net.dezilla.bonetool.wandtool.WandTool;
+import net.dezilla.bonetool.util.Locale;
 
 public class ShriekerWarningTool extends WandTool{
 
@@ -30,15 +31,15 @@ public class ShriekerWarningTool extends WandTool{
 	}
 
 	@Override
-	public ItemStack getIcon(Block block) {
-		String name = "Warning Level";
+	public ItemStack getIcon(Block block, ToolUser user) {
+		String name = Locale.parse(user, "shriekerwarning");
 		if(block != null) {
 			SculkShrieker shrieker = (SculkShrieker) block.getState();
-			name = "Warning Level: "+ChatColor.YELLOW+shrieker.getWarningLevel();
+			name += ": "+ChatColor.YELLOW+shrieker.getWarningLevel();
 		}
 		ItemStack icon = Util.setName(new ItemStack(Material.SCULK_SHRIEKER), name);
 		if(block!=null)
-			Util.setLore(icon, intLore);
+			Util.setLore(icon, getIntLore(user));
 		return icon;
 	}
 	

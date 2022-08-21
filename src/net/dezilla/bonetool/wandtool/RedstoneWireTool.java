@@ -11,8 +11,10 @@ import org.bukkit.entity.Player;
 import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.inventory.ItemStack;
 
+import net.dezilla.bonetool.ToolUser;
 import net.dezilla.bonetool.Util;
 import net.dezilla.bonetool.gui.RedstoneWireGui;
+import net.dezilla.bonetool.util.Locale;
 
 public class RedstoneWireTool extends WandTool {
 	
@@ -27,8 +29,8 @@ public class RedstoneWireTool extends WandTool {
 	}
 
 	@Override
-	public ItemStack getIcon(Block block) {
-		String name = "Redstone Connection";
+	public ItemStack getIcon(Block block, ToolUser user) {
+		String name = Locale.parse(user, "redstoneconnection");
 		return Util.setName(new ItemStack(Material.REDSTONE), name);
 	}
 	

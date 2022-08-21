@@ -5,13 +5,15 @@ import org.bukkit.Material;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 
+import net.dezilla.bonetool.ToolUser;
 import net.dezilla.bonetool.Util;
+import net.dezilla.bonetool.util.Locale;
 
 public class PaintingGui extends GuiPage{
 
 	public PaintingGui(Player player) {
 		super(6, player);
-		setName("Paintings");
+		setName(Locale.parse(ToolUser.getUser(player), "paintings"));
 		int row = 0;
 		int col = 0;
 		for(Art art : Art.values()) {

@@ -13,6 +13,7 @@ import net.dezilla.bonetool.ToolUser;
 import net.dezilla.bonetool.Util;
 import net.dezilla.bonetool.ToolUser.PlacingOption;
 import net.dezilla.bonetool.ToolUser.PlacingState;
+import net.dezilla.bonetool.util.Locale;
 
 public class NoBlockUpdateCommand extends Command{
 
@@ -26,19 +27,19 @@ public class NoBlockUpdateCommand extends Command{
 	@Override
 	public boolean execute(CommandSender sender, String commandLabel, String[] args) {
 		if(!(sender instanceof Player)) {
-			sender.sendMessage("You must be a player to use this command.");
+			sender.sendMessage(Locale.parse("senderNotPlayer"));
 			return true;
 		}
 		Player p = (Player) sender;
 		ToolUser user = ToolUser.getUser(p);
 		
 		if(!Util.permCheck(p, "bonetool.tool.nobupdate")) {
-			p.sendMessage(Util.MSG_START+ChatColor.RED+"You do not have access to this feature.");
+			p.sendMessage(Util.MSG_START+ChatColor.RED+Locale.parse(ToolUser.getUser(p),"accessDenied"));
 			return true;
 		}
 		
 		if(args.length>1) {
-			sender.sendMessage(Util.MSG_START+ChatColor.RED+"Too many arguments");
+			sender.sendMessage(Util.MSG_START+ChatColor.RED+Locale.parse(ToolUser.getUser(p), "manyArguments"));
 			sender.sendMessage(Util.MSG_START+getUsage());
 			return true;
 		}
@@ -46,16 +47,16 @@ public class NoBlockUpdateCommand extends Command{
 			try {
 				PlacingState state = PlacingState.valueOf(args[0].toUpperCase());
 				user.setNoBlockUpdate(state);
-				p.sendMessage(Util.MSG_START+PlacingOption.NOBLOCKUPDATE.getName()+": "+user.getBlockUpdateState().getColoredName());
+				p.sendMessage(Util.MSG_START+PlacingOption.NOBLOCKUPDATE.getName(user)+": "+user.getBlockUpdateState().getColoredName(user));
 			}catch(Exception e) {
-				sender.sendMessage(Util.MSG_START+ChatColor.RED+"Invalid option.");
+				sender.sendMessage(Util.MSG_START+ChatColor.RED+Locale.parse(ToolUser.getUser(p), "invalidArgument"));
 				sender.sendMessage(Util.MSG_START+getUsage());
 			}
 			return true;
 		}
 		else {
 			user.ToggleOption(PlacingOption.NOBLOCKUPDATE);
-			p.sendMessage(Util.MSG_START+PlacingOption.NOBLOCKUPDATE.getName()+": "+user.getBlockUpdateState().getColoredName());
+			p.sendMessage(Util.MSG_START+PlacingOption.NOBLOCKUPDATE.getName(user)+": "+user.getBlockUpdateState().getColoredName(user));
 			return true;
 		}
 	}

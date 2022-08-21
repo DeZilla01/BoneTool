@@ -3,6 +3,8 @@ toolMaterial: BONE
 #If using Builder's Utlities by Arcaniax, BoneTool will add new blocks to the Secret Blocks.
 #You can change that here.
 overlayBUtilSecretBlocks: true
+#If you want to disable Builder's Utilities' Secret Block command entirely and replace it with BoneTool's, change this to true
+disableBUtilSecretBlocks: false
 #This allows adding colors on signs using &
 allowColorOnSign: true
 #If you want to blacklist some specific tools, add them here
@@ -12,6 +14,10 @@ toolBlacklist: []
 LightAPI: false
 #If using PlotSquared, players will only be able to use the tool inside a plot. If you want players to be able to use the tool outside of plot worlds/areas, you can turn this on.
 allowOutsidePlotArea: false
+#Default language to be used by BoneTool
+#Failure to load the language file will fallback to english
+#Check out readme.txt in the locale folder for more info
+defaultLocale: en
 
 #Secret/Illegal Blocks
 #You can disable them here if a specific one causes problems for you server.

@@ -8,8 +8,10 @@ import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 
 import net.dezilla.bonetool.ToolMain;
+import net.dezilla.bonetool.ToolUser;
 import net.dezilla.bonetool.Util;
 import net.dezilla.bonetool.listener.BlockUpdateListener;
+import net.dezilla.bonetool.util.Locale;
 import net.dezilla.bonetool.wandtool.WandTool;
 
 public class BlockOptionGui extends GuiPage{
@@ -20,7 +22,7 @@ public class BlockOptionGui extends GuiPage{
 		super(6, player);
 		this.block = block;
 		tools = getTools();
-		setName("Block Option: "+block.getType());
+		setName(Locale.parse(ToolUser.getUser(player), "blockoption")+": "+block.getType());
 		int row = 0;
 		int col = 0;
 		List<GuiItem> options = new ArrayList<GuiItem>();
@@ -43,12 +45,12 @@ public class BlockOptionGui extends GuiPage{
 	private List<GuiItem> getToolItems(){
 		List<GuiItem> items = new ArrayList<GuiItem>();
 		for(WandTool t : tools) {
-			ItemStack icon = t.getIcon(block);
+			ItemStack icon = t.getIcon(block, ToolUser.getUser(getPlayer()));
 			GuiItem item = new GuiItem(icon);
 			item.setRun((event) -> {
 				BlockUpdateListener.protectBlock(block, 2);
 				t.onLeftClick(event, block);
-				item.setItem(t.getIcon(block));
+				item.setItem(t.getIcon(block, ToolUser.getUser(getPlayer())));
 				});
 			items.add(item);
 		}

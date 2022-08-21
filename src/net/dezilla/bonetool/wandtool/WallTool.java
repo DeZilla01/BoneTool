@@ -12,9 +12,11 @@ import org.bukkit.entity.Player;
 import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.inventory.ItemStack;
 
+import net.dezilla.bonetool.ToolUser;
 import net.dezilla.bonetool.Util;
 import net.dezilla.bonetool.gui.WallGui;
 import net.dezilla.bonetool.listener.BlockUpdateListener;
+import net.dezilla.bonetool.util.Locale;
 
 public class WallTool extends WandTool{
 	
@@ -29,8 +31,8 @@ public class WallTool extends WandTool{
 	}
 
 	@Override
-	public ItemStack getIcon(Block block) {
-		String name = "Wall Facing";
+	public ItemStack getIcon(Block block, ToolUser user) {
+		String name = Locale.parse(user, "wallfacing");
 		return Util.setName(new ItemStack(Material.COBBLESTONE_WALL), name);
 	}
 	

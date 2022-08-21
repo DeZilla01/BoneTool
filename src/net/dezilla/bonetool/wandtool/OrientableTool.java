@@ -14,7 +14,9 @@ import org.bukkit.block.data.Orientable;
 import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.inventory.ItemStack;
 
+import net.dezilla.bonetool.ToolUser;
 import net.dezilla.bonetool.Util;
+import net.dezilla.bonetool.util.Locale;
 
 public class OrientableTool extends WandTool {
 
@@ -29,10 +31,10 @@ public class OrientableTool extends WandTool {
 	}
 
 	@Override
-	public ItemStack getIcon(Block block) {
-		String name = "Orientation";
+	public ItemStack getIcon(Block block, ToolUser user) {
+		String name = Locale.parse(user, "orientation");
 		if(block != null)
-			name = "Orientation: "+ChatColor.YELLOW+getAxis(block);
+			name += ": "+ChatColor.YELLOW+getAxis(block);
 		return Util.setName(new ItemStack(Material.SUGAR), name);
 	}
 	

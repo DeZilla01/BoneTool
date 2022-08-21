@@ -11,6 +11,7 @@ import org.bukkit.entity.Player;
 
 import net.dezilla.bonetool.ToolUser;
 import net.dezilla.bonetool.Util;
+import net.dezilla.bonetool.util.Locale;
 
 public class EditSignCommand extends Command{
 	
@@ -21,13 +22,13 @@ public class EditSignCommand extends Command{
 	@Override
 	public boolean execute(CommandSender sender, String commandLabel, String[] args) {
 		if(!(sender instanceof Player)) {
-			sender.sendMessage("You must be a player to use this command.");
+			sender.sendMessage(Locale.parse("senderNotPlayer"));
 			return true;
 		}
 		Player p = (Player) sender;
 		ToolUser u = ToolUser.getUser(p);
 		if(!Util.permCheck(p, "bonetool.tool.signedit")) {
-			p.sendMessage(Util.MSG_START+ChatColor.RED+"You do not have access to this feature.");
+			p.sendMessage(Util.MSG_START+ChatColor.RED+Locale.parse(u,"accessDenied"));
 			return true;
 		}
 		if(args.length != 0 && args[0].equalsIgnoreCase("enable")) {
@@ -37,7 +38,7 @@ public class EditSignCommand extends Command{
 		} else {
 			u.setEditSign(!u.getEditSign());
 		}
-		sender.sendMessage(Util.MSG_START+"Edit Signs: "+(u.getEditSign() ? ChatColor.GREEN+"Enabled":ChatColor.RED+"Disabled"));
+		sender.sendMessage(Util.MSG_START+Locale.parse(u, "editSigns")+": "+(u.getEditSign() ? ChatColor.GREEN+Locale.parse(u, "enabled"):ChatColor.RED+Locale.parse(u, "disabled")));
 		return true;
 	}
 	

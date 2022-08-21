@@ -16,6 +16,7 @@ import org.bukkit.event.player.PlayerToggleSneakEvent;
 
 import net.dezilla.bonetool.ToolUser;
 import net.dezilla.bonetool.Util;
+import net.dezilla.bonetool.util.Locale;
 
 public class SneakToggleListener implements Listener{
 	private static Map<Player, Timestamp> ts = new HashMap<Player, Timestamp>();
@@ -85,7 +86,7 @@ public class SneakToggleListener implements Listener{
 	
 	private void displayFlySpeed(Player player) {
 		ChatColor c = (Math.round(player.getFlySpeed()*100) == 10 ? ChatColor.WHITE : (player.getFlySpeed() < .1 ? ChatColor.RED : ChatColor.GREEN));
-		String msg = ChatColor.GRAY+"Fly Speed: "+c+Math.round(player.getFlySpeed()*1000)+"%";
+		String msg = ChatColor.GRAY+Locale.parse(ToolUser.getUser(player), "flyspeed")+": "+c+Math.round(player.getFlySpeed()*1000)+"%";
 		Util.sendNotification(player, msg);
 	}
 	

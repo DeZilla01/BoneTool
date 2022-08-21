@@ -7,7 +7,9 @@ import org.bukkit.block.data.type.DaylightDetector;
 import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.inventory.ItemStack;
 
+import net.dezilla.bonetool.ToolUser;
 import net.dezilla.bonetool.Util;
+import net.dezilla.bonetool.util.Locale;
 
 public class DayDetectorTool extends WandTool {
 	
@@ -22,10 +24,10 @@ public class DayDetectorTool extends WandTool {
 	}
 
 	@Override
-	public ItemStack getIcon(Block block) {
-		String name = "Daylight Detector Inverted";
+	public ItemStack getIcon(Block block, ToolUser user) {
+		String name = Locale.parse(user, "daylightdetectorinverted");
 		if(block != null)
-			name += ": "+(isInverted(block) ? ChatColor.GREEN+"True":ChatColor.RED+"False");
+			name += ": "+(isInverted(block) ? ChatColor.GREEN+Locale.parse(user, "true"):ChatColor.RED+Locale.parse(user, "false"));
 		return Util.setName(new ItemStack(Material.DAYLIGHT_DETECTOR), name);
 	}
 	

@@ -7,7 +7,9 @@ import org.bukkit.block.data.type.SeaPickle;
 import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.inventory.ItemStack;
 
+import net.dezilla.bonetool.ToolUser;
 import net.dezilla.bonetool.Util;
+import net.dezilla.bonetool.util.Locale;
 
 public class SeaPickleTool extends WandTool {
 	
@@ -22,15 +24,15 @@ public class SeaPickleTool extends WandTool {
 	}
 
 	@Override
-	public ItemStack getIcon(Block block) {
-		String name = "Sea Pickles";
+	public ItemStack getIcon(Block block, ToolUser user) {
+		String name = Locale.parse(user, "seapickles");
 		if(block != null && block.getBlockData() instanceof SeaPickle) {
 			SeaPickle pickle = (SeaPickle) block.getBlockData();
 			name+=": "+ChatColor.YELLOW+pickle.getPickles();
 		}
 		ItemStack icon = Util.setName(new ItemStack(Material.SEA_PICKLE), name);
 		if(block!=null) {
-			Util.setLore(icon, intLore);
+			Util.setLore(icon, getIntLore(user));
 		}
 		return icon;
 	}

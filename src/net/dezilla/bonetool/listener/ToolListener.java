@@ -24,6 +24,7 @@ import net.dezilla.bonetool.Util;
 import net.dezilla.bonetool.gui.BlockOptionGui;
 import net.dezilla.bonetool.gui.GuiHolder;
 import net.dezilla.bonetool.gui.ToolGui;
+import net.dezilla.bonetool.util.Locale;
 import net.dezilla.bonetool.util.PlotSquaredUtil;
 import net.dezilla.bonetool.util.ToolConfig;
 
@@ -73,7 +74,7 @@ public class ToolListener implements Listener{
 			Block block = event.getClickedBlock();
 			BlockOptionGui optionGui = new BlockOptionGui(p, block);
 			if(optionGui.getToolList().size() == 0)
-				Util.sendNotification(p, "No tool for this block");
+				Util.sendNotification(p, Locale.parse(u, "notoolforblock"));
 			else if(optionGui.getToolList().size() == 1 && optionGui.getToolList().get(0).hasGui())
 				optionGui.getToolList().get(0).openGui(p, block);
 			else

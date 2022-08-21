@@ -20,6 +20,7 @@ import org.bukkit.entity.Player;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 
+import net.dezilla.bonetool.util.Locale;
 import net.dezilla.bonetool.util.ToolConfig;
 import net.dezilla.bonetool.wandtool.NoneTool;
 import net.dezilla.bonetool.wandtool.WandTool;
@@ -48,6 +49,7 @@ public class ToolUser {
 	private WandTool rightClickTool = new NoneTool();
 	private DyeColor toolColor = DyeColor.WHITE;
 	private Map<Material, WandTool> debugTool = new HashMap<Material, WandTool>();
+	private String locale = "default";
 	
 	private ToolUser(Player player) {
 		this.player = player;
@@ -173,7 +175,7 @@ public class ToolUser {
 				if(!placingToggle.containsKey(option))
 					placingToggle.put(option, false);
 				placingToggle.put(option, !placingToggle.get(option));
-				msg += ChatColor.GRAY+option.getName()+":"+(placingToggle.get(option) ? ChatColor.GREEN+" True ": ChatColor.RED+" False ");
+				msg += ChatColor.GRAY+option.getName(this)+":"+(placingToggle.get(option) ? ChatColor.GREEN+" True ": ChatColor.RED+" False ");
 			}
 		}
 		if(!msg.isEmpty())
@@ -253,6 +255,15 @@ public class ToolUser {
 		return toolColor;
 	}
 	
+	public String getLocale() {
+		return locale;
+	}
+	
+	public void setLocale(String locale) {
+		this.locale = locale;
+		saveUserData();
+	}
+	
 	public WandTool getRightClickToolFor(Block block) {
 		if(debugTool.containsKey(block.getType()))
 			return debugTool.get(block.getType());
@@ -307,6 +318,7 @@ public class ToolUser {
 		json.put("wandMaterial", wandMaterial.toString());
 		json.put("rightClickTool", rightClickTool.getClass().getSimpleName());
 		json.put("toolColor", toolColor.toString());
+		json.put("locale", locale);
 		//
 		File file = new File(folder, player.getUniqueId().toString()+".json");
 		try(FileWriter f = new FileWriter(file)){
@@ -341,6 +353,7 @@ public class ToolUser {
 				}
 			}}catch(Exception e) {}
 			try{toolColor = DyeColor.valueOf((String) json.get("toolColor"));}catch(Exception e) {}
+			try{locale = (String) json.get("locale");}catch(Exception e) {}
 		}catch(Exception e) {
 			e.printStackTrace();
 		}
@@ -354,37 +367,37 @@ public class ToolUser {
 	}
 	
 	public enum PlacingState{
-		DISABLED(ChatColor.RED, "Disabled"),
-		ENABLED(ChatColor.GREEN, "Enabled"),
-		ONSNEAK(ChatColor.AQUA, "On Sneak"),
-		SNEAKTOGGLE(ChatColor.YELLOW, "Sneak Toggle");
+		DISABLED(ChatColor.RED, "disabled"),
+		ENABLED(ChatColor.GREEN, "enabled"),
+		ONSNEAK(ChatColor.AQUA, "onsneak"),
+		SNEAKTOGGLE(ChatColor.YELLOW, "sneaktoggle");
 		ChatColor color;
-		String name;
-		PlacingState(ChatColor color, String name){
+		String key;
+		PlacingState(ChatColor color, String key){
 			this.color = color;
-			this.name = name;
+			this.key = key;
 		}
 		public ChatColor getColor() {
 			return color;
 		}
-		public String getName() {
-			return name;
+		public String getName(ToolUser user) {
+			return Locale.parse(user, key);
 		}
-		public String getColoredName() {
-			return color+name;
+		public String getColoredName(ToolUser user) {
+			return color+getName(user);
 		}
 	}
 	
 	public enum PlacingOption{
-		NOBLOCKUPDATE("No Block Update"),
-		FORCEPLACE("Force Placing"),
-		SNIPEPLACE("Snipe Placing");
-		String name;
-		PlacingOption(String name) {
-			this.name = name;
+		NOBLOCKUPDATE("noblockupdate"),
+		FORCEPLACE("forceplace"),
+		SNIPEPLACE("snipleplace");
+		String key;
+		PlacingOption(String key) {
+			this.key = key;
 		}
-		public String getName() {
-			return name;
+		public String getName(ToolUser user) {
+			return Locale.parse(user, key);
 		}
 	}
 	

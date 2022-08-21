@@ -7,7 +7,9 @@ import org.bukkit.block.data.type.Farmland;
 import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.inventory.ItemStack;
 
+import net.dezilla.bonetool.ToolUser;
 import net.dezilla.bonetool.Util;
+import net.dezilla.bonetool.util.Locale;
 
 public class FarmlandTool extends WandTool {
 	
@@ -22,14 +24,14 @@ public class FarmlandTool extends WandTool {
 	}
 
 	@Override
-	public ItemStack getIcon(Block block) {
-		String name = "Moist Level";
+	public ItemStack getIcon(Block block, ToolUser user) {
+		String name = Locale.parse(user, "moistlevel");
 		if(block!=null) {
 			name += ": " + ChatColor.YELLOW + getMoistLevel(block);
 		}
 		ItemStack icon = Util.setName(new ItemStack(Material.FARMLAND), name);
 		if(block!=null)
-			Util.setLore(icon, intLore);
+			Util.setLore(icon, getIntLore(user));
 		return icon;
 	}
 	

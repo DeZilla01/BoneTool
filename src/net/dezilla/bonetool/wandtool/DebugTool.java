@@ -13,6 +13,7 @@ import org.bukkit.inventory.ItemStack;
 import net.dezilla.bonetool.ToolUser;
 import net.dezilla.bonetool.Util;
 import net.dezilla.bonetool.listener.BlockUpdateListener;
+import net.dezilla.bonetool.util.Locale;
 
 public class DebugTool extends WandTool{
 
@@ -27,11 +28,11 @@ public class DebugTool extends WandTool{
 	}
 
 	@Override
-	public ItemStack getIcon(Block block) {
-		String name = "Debug Tool";
-		List<String> lore = Arrays.asList(ChatColor.GRAY+"A similar tool to the vanilla's debug stick",
-				ChatColor.GRAY+"Right Click to toggle property",
-				ChatColor.GRAY+"Shift + Right Click to switch property");
+	public ItemStack getIcon(Block block, ToolUser user) {
+		String name = Locale.parse(user, "debugtool");
+		List<String> lore = Arrays.asList(ChatColor.GRAY+Locale.parse(user, "debugtooldescription"),
+				ChatColor.GRAY+Locale.parse(user, "debugtoolinstructions1"),
+				ChatColor.GRAY+Locale.parse(user, "debugtoolinstructions2"));
 		return Util.setLore(Util.setName(new ItemStack(Material.DEBUG_STICK), name), lore);
 	}
 	
@@ -40,8 +41,6 @@ public class DebugTool extends WandTool{
 		return true;
 	}
 	
-	final static String noToolMsg = "Block cannot be toggled";
-	
 	@Override
 	public void onRightClick(PlayerInteractEvent event, Block block) {
 		Player p = event.getPlayer();
@@ -49,15 +48,15 @@ public class DebugTool extends WandTool{
 		String m = "";
 		if(p.isSneaking()) {
 			WandTool t = u.toggleRightClickToolFor(block);
-			if(t == null) m = noToolMsg;
-			else m = t.getIcon(block).getItemMeta().getDisplayName();
+			if(t == null) m = Locale.parse(u, "blockcannotbetoggled");
+			else m = t.getIcon(block, u).getItemMeta().getDisplayName();
 		} else {
 			WandTool t = u.getRightClickToolFor(block);
-			if(t == null) m = noToolMsg;
+			if(t == null) m = Locale.parse(u, "blockcannotbetoggled");
 			else {
 				BlockUpdateListener.protectBlock(block, 2);
 				t.toggle(block);
-				m = t.getIcon(block).getItemMeta().getDisplayName();
+				m = t.getIcon(block, u).getItemMeta().getDisplayName();
 			}
 		}
 		Util.sendNotification(u, m);

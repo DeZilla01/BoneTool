@@ -14,14 +14,16 @@ import org.bukkit.enchantments.Enchantment;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 
+import net.dezilla.bonetool.ToolUser;
 import net.dezilla.bonetool.Util;
+import net.dezilla.bonetool.util.Locale;
 
 public class NoteGui extends GuiPage {
 	private Block block = null;
 
 	public NoteGui(Player player, Block noteblock) {
 		super(6, player);
-		setName("Note Block Editor");
+		setName(Locale.parse(ToolUser.getUser(player), "noteblockeditor"));
 		this.block = noteblock;
 		if(!(noteblock.getBlockData() instanceof NoteBlock))
 			return;

@@ -10,7 +10,9 @@ import org.bukkit.block.data.type.Slab;
 import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.inventory.ItemStack;
 
+import net.dezilla.bonetool.ToolUser;
 import net.dezilla.bonetool.Util;
+import net.dezilla.bonetool.util.Locale;
 
 public class SlabTool extends WandTool {
 	
@@ -25,8 +27,8 @@ public class SlabTool extends WandTool {
 	}
 
 	@Override
-	public ItemStack getIcon(Block block) {
-		String name = "Slab type";
+	public ItemStack getIcon(Block block, ToolUser user) {
+		String name = Locale.parse(user, "slabtype");
 		if(block!=null) {
 			Slab s = (Slab) block.getBlockData();
 			name+=": "+ChatColor.YELLOW+s.getType().toString();

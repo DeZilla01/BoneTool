@@ -7,7 +7,9 @@ import org.bukkit.block.data.type.TurtleEgg;
 import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.inventory.ItemStack;
 
+import net.dezilla.bonetool.ToolUser;
 import net.dezilla.bonetool.Util;
+import net.dezilla.bonetool.util.Locale;
 
 public class TurtleEggAmountTool extends WandTool{
 
@@ -22,8 +24,8 @@ public class TurtleEggAmountTool extends WandTool{
 	}
 
 	@Override
-	public ItemStack getIcon(Block block) {
-		String name = "Turtle Egg Amount";
+	public ItemStack getIcon(Block block, ToolUser user) {
+		String name = Locale.parse(user, "turtleeggamount");
 		if(block!=null) {
 			TurtleEgg egg = (TurtleEgg) block.getBlockData();
 			name+=": "+ChatColor.YELLOW+egg.getEggs();

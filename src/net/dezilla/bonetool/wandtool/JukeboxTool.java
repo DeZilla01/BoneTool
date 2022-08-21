@@ -14,7 +14,9 @@ import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.inventory.ItemStack;
 
 import net.dezilla.bonetool.ToolMain;
+import net.dezilla.bonetool.ToolUser;
 import net.dezilla.bonetool.Util;
+import net.dezilla.bonetool.util.Locale;
 
 public class JukeboxTool extends WandTool{
 
@@ -29,8 +31,8 @@ public class JukeboxTool extends WandTool{
 	}
 
 	@Override
-	public ItemStack getIcon(Block block) {
-		String name = "Jukebox Item";
+	public ItemStack getIcon(Block block, ToolUser user) {
+		String name = Locale.parse(user, "jukeboxitem");
 		Material material = Material.JUKEBOX;
 		if(block != null) {
 			Jukebox juke = (Jukebox) block.getState();
@@ -40,9 +42,9 @@ public class JukeboxTool extends WandTool{
 			}
 		}
 		List<String> lore = Arrays.asList(
-				ChatColor.GRAY+"Place an item here to set",
-				ChatColor.GRAY+"On the record slot.",
-				ChatColor.AQUA+"Shift + Right-Click"+ChatColor.WHITE+": Stop the music.");
+				ChatColor.GRAY+Locale.parse(user, "jukeboxinstructions1"),
+				ChatColor.GRAY+Locale.parse(user, "jukeboxinstructions2"),
+				ChatColor.AQUA+Locale.parse(user, "shift")+" + "+Locale.parse(user, "rightclick")+ChatColor.WHITE+": "+Locale.parse(user, "stopmusic"));
 		return Util.setLore(Util.setName(new ItemStack(material), name), lore);
 	}
 	

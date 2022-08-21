@@ -7,7 +7,9 @@ import org.bukkit.block.data.type.Snow;
 import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.inventory.ItemStack;
 
+import net.dezilla.bonetool.ToolUser;
 import net.dezilla.bonetool.Util;
+import net.dezilla.bonetool.util.Locale;
 
 public class SnowTool extends WandTool{
 	
@@ -22,14 +24,14 @@ public class SnowTool extends WandTool{
 	}
 
 	@Override
-	public ItemStack getIcon(Block block) {
-		String name = "Snow layers";
+	public ItemStack getIcon(Block block, ToolUser user) {
+		String name = Locale.parse(user, "snowlayers");
 		if(block!=null) {
 			name += ": " + ChatColor.YELLOW + getSnowLayer(block);
 		}
 		ItemStack icon = Util.setName(new ItemStack(Material.SNOW_BLOCK), name);
 		if(block!=null)
-			Util.setLore(icon, intLore);
+			Util.setLore(icon, getIntLore(user));
 		return icon;
 	}
 	

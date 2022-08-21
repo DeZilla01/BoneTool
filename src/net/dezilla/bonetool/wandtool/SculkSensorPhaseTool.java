@@ -10,7 +10,9 @@ import org.bukkit.block.data.type.SculkSensor;
 import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.inventory.ItemStack;
 
+import net.dezilla.bonetool.ToolUser;
 import net.dezilla.bonetool.Util;
+import net.dezilla.bonetool.util.Locale;
 
 public class SculkSensorPhaseTool extends WandTool {
 	
@@ -25,8 +27,8 @@ public class SculkSensorPhaseTool extends WandTool {
 	}
 
 	@Override
-	public ItemStack getIcon(Block block) {
-		String name = "Sculk Sensor Phase";
+	public ItemStack getIcon(Block block, ToolUser user) {
+		String name = Locale.parse(user, "sculksensorphase");
 		if(block!=null) {
 			SculkSensor sensor = (SculkSensor) block.getBlockData();
 			name+=": "+ChatColor.YELLOW+sensor.getPhase().toString();

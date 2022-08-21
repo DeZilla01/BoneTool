@@ -7,7 +7,9 @@ import org.bukkit.block.data.type.Piston;
 import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.inventory.ItemStack;
 
+import net.dezilla.bonetool.ToolUser;
 import net.dezilla.bonetool.Util;
+import net.dezilla.bonetool.util.Locale;
 
 public class PistonTool extends WandTool{
 
@@ -27,11 +29,11 @@ public class PistonTool extends WandTool{
 	}
 
 	@Override
-	public ItemStack getIcon(Block block) {
-		String name = "Piston Extended";
+	public ItemStack getIcon(Block block, ToolUser user) {
+		String name = Locale.parse(user, "pistonextended");
 		if(block != null) {
 			Piston p = (Piston) block.getBlockData();
-			name+=": "+ChatColor.YELLOW+(p.isExtended()?ChatColor.GREEN+"True":ChatColor.RED+"False");
+			name+=": "+ChatColor.YELLOW+(p.isExtended()?ChatColor.GREEN+Locale.parse(user, "true"):ChatColor.RED+Locale.parse(user, "false"));
 		}
 		ItemStack icon = Util.setName(new ItemStack(Material.PISTON), name);
 		return icon;

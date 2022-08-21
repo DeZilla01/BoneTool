@@ -7,7 +7,9 @@ import org.bukkit.block.data.type.Beehive;
 import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.inventory.ItemStack;
 
+import net.dezilla.bonetool.ToolUser;
 import net.dezilla.bonetool.Util;
+import net.dezilla.bonetool.util.Locale;
 
 public class HoneyTool extends WandTool{
 
@@ -22,14 +24,14 @@ public class HoneyTool extends WandTool{
 	}
 
 	@Override
-	public ItemStack getIcon(Block block) {
-		String name = "Honey Storage";
+	public ItemStack getIcon(Block block, ToolUser user) {
+		String name = Locale.parse(user, "honeystorage");
 		if(block!=null) {
 			name += ": " + ChatColor.YELLOW + getHoneyLevel(block);
 		}
 		ItemStack icon = Util.setName(new ItemStack(Material.HONEYCOMB), name);
 		if(block!=null)
-			Util.setLore(icon, intLore);
+			Util.setLore(icon, getIntLore(user));
 		return icon;
 	}
 	

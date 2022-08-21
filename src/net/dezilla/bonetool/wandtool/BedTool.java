@@ -7,7 +7,9 @@ import org.bukkit.block.data.type.Bed;
 import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.inventory.ItemStack;
 
+import net.dezilla.bonetool.ToolUser;
 import net.dezilla.bonetool.Util;
+import net.dezilla.bonetool.util.Locale;
 
 public class BedTool extends WandTool{
 
@@ -22,10 +24,10 @@ public class BedTool extends WandTool{
 	}
 
 	@Override
-	public ItemStack getIcon(Block block) {
-		String name = "Bed Part";
+	public ItemStack getIcon(Block block, ToolUser user) {
+		String name = Locale.parse(user, "bedpart");
 		if(block != null)
-			name = "Bed Part: "+ChatColor.YELLOW+getBedPart(block);
+			name += ": "+ChatColor.YELLOW+getBedPart(block);
 		return Util.setName(new ItemStack(Material.RED_BED), name);
 	}
 	

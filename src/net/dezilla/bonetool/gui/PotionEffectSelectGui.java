@@ -6,7 +6,9 @@ import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.potion.PotionEffectType;
 
+import net.dezilla.bonetool.ToolUser;
 import net.dezilla.bonetool.Util;
+import net.dezilla.bonetool.util.Locale;
 import net.dezilla.bonetool.util.PotionTypeRunnable;
 
 public class PotionEffectSelectGui extends GuiPage{
@@ -15,10 +17,10 @@ public class PotionEffectSelectGui extends GuiPage{
 	public PotionEffectSelectGui(Player player, PotionTypeRunnable run) {
 		super(6, player);
 		this.run = run;
-		setName("Select Potion Type");
+		setName(Locale.parse(ToolUser.getUser(player), "selectpotion"));
 		int col = 0;
 		int row = 0;
-		ItemStack noneIcon = Util.setName(new ItemStack(Material.POTION), "None");
+		ItemStack noneIcon = Util.setName(new ItemStack(Material.POTION), Locale.parse(ToolUser.getUser(player), "none"));
 		GuiItem noneItem = new GuiItem(noneIcon);
 		noneItem.setRun((event) -> run.run(null));
 		setItem(row, col++, noneItem);

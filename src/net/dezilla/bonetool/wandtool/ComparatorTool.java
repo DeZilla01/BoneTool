@@ -10,7 +10,9 @@ import org.bukkit.block.data.type.Comparator;
 import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.inventory.ItemStack;
 
+import net.dezilla.bonetool.ToolUser;
 import net.dezilla.bonetool.Util;
+import net.dezilla.bonetool.util.Locale;
 
 public class ComparatorTool extends WandTool {
 	
@@ -25,8 +27,8 @@ public class ComparatorTool extends WandTool {
 	}
 
 	@Override
-	public ItemStack getIcon(Block block) {
-		String name = "Comparator Mode";
+	public ItemStack getIcon(Block block, ToolUser user) {
+		String name = Locale.parse(user, "comparatormode");
 		if(block!=null) {
 			Comparator comp = (Comparator) block.getBlockData();
 			name+=": "+ChatColor.YELLOW+comp.getMode().toString();

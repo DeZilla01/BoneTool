@@ -12,6 +12,7 @@ import org.bukkit.Art;
 import org.bukkit.ChatColor;
 import org.bukkit.DyeColor;
 import org.bukkit.Material;
+import org.bukkit.NamespacedKey;
 import org.bukkit.block.Block;
 import org.bukkit.block.BlockFace;
 import org.bukkit.block.Sign;
@@ -21,11 +22,13 @@ import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 import org.bukkit.inventory.meta.PotionMeta;
 import org.bukkit.inventory.meta.SkullMeta;
+import org.bukkit.persistence.PersistentDataType;
 import org.bukkit.potion.PotionEffectType;
 
 import com.mojang.authlib.GameProfile;
 import com.mojang.authlib.properties.Property;
 
+import net.dezilla.bonetool.util.Locale;
 import net.dezilla.bonetool.util.SignEdit1_17;
 import net.dezilla.bonetool.util.SignEdit1_18;
 import net.dezilla.bonetool.util.ToolConfig;
@@ -35,6 +38,7 @@ import net.md_5.bungee.api.chat.TextComponent;
 
 public class Util {
 	public static String MSG_START = ChatColor.DARK_GRAY+"» "+ChatColor.WHITE;
+	public static NamespacedKey specialBlockKey = new NamespacedKey(ToolMain.getInstance(), "blockType");
 	//I wanted a proper clockwise list of blockface.
 	public static BlockFace[] BLOCKFACE_LIST = {
 			BlockFace.NORTH,
@@ -293,6 +297,31 @@ public class Util {
 		return setName(new ItemStack(Material.STONE), type.toString());
 	}
 	
+	public static ItemStack getLocaleIcon(String key) {
+		switch(key.toLowerCase()) {
+			case "en": return createTexturedHead("eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvODc5ZDk5ZDljNDY0NzRlMjcxM2E3ZTg0YTk1ZTRjZTdlOGZmOGVhNGQxNjQ0MTNhNTkyZTQ0MzVkMmM2ZjlkYyJ9fX0=");//english
+			case "fr": return createTexturedHead("eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvNTEyNjlhMDY3ZWUzN2U2MzYzNWNhMWU3MjNiNjc2ZjEzOWRjMmRiZGRmZjk2YmJmZWY5OWQ4YjM1Yzk5NmJjIn19fQ==");//french
+			case "de": return createTexturedHead("eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvNWU3ODk5YjQ4MDY4NTg2OTdlMjgzZjA4NGQ5MTczZmU0ODc4ODY0NTM3NzQ2MjZiMjRiZDhjZmVjYzc3YjNmIn19fQ==");//german
+			case "es": return createTexturedHead("eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvMzJiZDQ1MjE5ODMzMDllMGFkNzZjMWVlMjk4NzQyODc5NTdlYzNkOTZmOGQ4ODkzMjRkYThjODg3ZTQ4NWVhOCJ9fX0=");//spanish
+			case "ar": return createTexturedHead("eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvZGQ5ZjI5NDRkNDhmYjk2N2RlN2FhNWQ0YjhjODQ4MzA3ZjQ2NzMyM2FlYTkzMzY1YjdlZDJjMTZhOGYxYTkzOSJ9fX0=");//arabic
+			case "bg": return createTexturedHead("eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvMTkwMzllMWZkODhjNzhkOWQ3YWRjNWFhZDVhYjE2ZTM1NmJlMTM0NjQ5MzRlZDllMmIwY2VmMjA1MWM1YjUzNCJ9fX0=");//bulgerian
+			case "zh": return createTexturedHead("eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvN2Y5YmMwMzVjZGM4MGYxYWI1ZTExOThmMjlmM2FkM2ZkZDJiNDJkOWE2OWFlYjY0ZGU5OTA2ODE4MDBiOThkYyJ9fX0=");//chinese
+			case "da": return createTexturedHead("eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvMTBjMjMwNTVjMzkyNjA2ZjdlNTMxZGFhMjY3NmViZTJlMzQ4OTg4ODEwYzE1ZjE1ZGM1YjM3MzM5OTgyMzIifX19");//danish
+			case "nl": return createTexturedHead("eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvYzIzY2YyMTBlZGVhMzk2ZjJmNWRmYmNlZDY5ODQ4NDM0ZjkzNDA0ZWVmZWFiZjU0YjIzYzA3M2IwOTBhZGYifX19");//dutch
+			case "el": return createTexturedHead("eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvMTUxNGRlNmRkMmI3NjgyYjFkM2ViY2QxMDI5MWFlMWYwMjFlMzAxMmI1YzhiZWZmZWI3NWIxODE5ZWI0MjU5ZCJ9fX0=");//greek
+			case "hu": return createTexturedHead("eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvNGE5YzNjNGI2YzUwMzEzMzJkZDJiZmVjZTVlMzFlOTk5ZjhkZWZmNTU0NzQwNjVjYzg2OTkzZDdiZGNkYmQwIn19fQ==");//hungarian
+			case "is": return createTexturedHead("eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvYjIwNTc3MWJlZDI1ODZjNGYwNWZkYzU5MzgzMzlhNzExZjRlYjNmNzc3OGQ5Mzc3MTc5NGMxYWQ0YmYwMDkxZSJ9fX0=");//icelandic
+			case "it": return createTexturedHead("eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvODVjZTg5MjIzZmE0MmZlMDZhZDY1ZDhkNDRjYTQxMmFlODk5YzgzMTMwOWQ2ODkyNGRmZTBkMTQyZmRiZWVhNCJ9fX0=");//italian
+			case "ja": case "jp": return createTexturedHead("eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvZDY0MGFlNDY2MTYyYTQ3ZDNlZTMzYzQwNzZkZjFjYWI5NmYxMTg2MGYwN2VkYjFmMDgzMmM1MjVhOWUzMzMyMyJ9fX0=");//japanese
+			case "pt": return createTexturedHead("eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvZWJkNTFmNDY5M2FmMTc0ZTZmZTE5NzkyMzNkMjNhNDBiYjk4NzM5OGUzODkxNjY1ZmFmZDJiYTU2N2I1YTUzYSJ9fX0=");//portugese
+			case "uk": return createTexturedHead("eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvMjhiOWY1MmUzNmFhNWM3Y2FhYTFlN2YyNmVhOTdlMjhmNjM1ZThlYWM5YWVmNzRjZWM5N2Y0NjVmNWE2YjUxIn19fQ==");//ukrainian
+			case "ru": return createTexturedHead("eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvMTZlYWZlZjk4MGQ2MTE3ZGFiZTg5ODJhYzRiNDUwOTg4N2UyYzQ2MjFmNmE4ZmU1YzliNzM1YTgzZDc3NWFkIn19fQ==");//russian
+			case "sv": return createTexturedHead("eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvN2Q4NjI0MmIwZDk3ZWNlOTk5NDY2MGYzOTc0ZDcyZGY3Yjg4N2Y2MzBhNDUzMGRhZGM1YjFhYjdjMjEzNGFlYyJ9fX0=");//swedish
+			//At this point I decided to stop. Sorry I didn't include your langage =/
+			default: return new ItemStack(Material.STONE);
+		}
+	}
+	
 	public static ItemStack getPotionIcon(PotionEffectType type) {
 		ItemStack icon = new ItemStack(Material.POTION);
 		PotionMeta meta = (PotionMeta) icon.getItemMeta();
@@ -354,33 +383,48 @@ public class Util {
 		return head;
 	}
 	
+	public static ItemStack setSpecialBlockType(ItemStack item, String type) {
+		ItemMeta meta = item.getItemMeta();
+		meta.getPersistentDataContainer().set(specialBlockKey, PersistentDataType.STRING, type);
+		item.setItemMeta(meta);
+		return item;
+	}
+	
 	public static ItemStack getDoubleLadderItem() {
 		ItemStack item = createTexturedHead("eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvYjVmMmEzMmFmYzFkZmZmYjY3N2YxOGU3ZGQxMDhkY2Q5MWRmYTgwMzA2YWIyOTM5YmEyNmJiZmI0MTUxZjMwYyJ9fX0=");
-		return setName(item, ChatColor.RESET+"Double Ladder Head");
+		setSpecialBlockType(item, "doubleLadder");
+		return setName(item, ChatColor.RESET+Locale.parse("doubleLadder"));
 	}
 	
 	public static ItemStack getPistonHeadItem() {
 		ItemStack item = createTexturedHead("eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvMWYyZWZiNDJjYWFlNTYxZmUyZDk3YmY3MTFjY2MwNjQ3ZGU2OTVmZDJkZTIxZDljZGNiMTI5YmEyOTMzY2VkZiJ9fX0=");
-		return setName(item, ChatColor.RESET+"Piston Head Block");
+		setSpecialBlockType(item, "pistonHead");
+		return setName(item, ChatColor.RESET+Locale.parse("pistonHead"));
 	}
 	
 	public static ItemStack GetEndPortalItem() {
 		ItemStack item = createTexturedHead("eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvZGFhOGZjOGRlNjQxN2I0OGQ0OGM4MGI0NDNjZjUzMjZlM2Q5ZGE0ZGJlOWIyNWZjZDQ5NTQ5ZDk2MTY4ZmMwIn19fQ==");
-		return setName(item, ChatColor.RESET+"End Portal Block");
+		setSpecialBlockType(item, "endPortal");
+		return setName(item, ChatColor.RESET+Locale.parse("endPortal"));
 	}
 	
 	public static ItemStack getNetherPortalItem() {
 		ItemStack item = createTexturedHead("eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvYjBiZmMyNTc3ZjZlMjZjNmM2ZjczNjVjMmM0MDc2YmNjZWU2NTMxMjQ5ODkzODJjZTkzYmNhNGZjOWUzOWIifX19");
-		return setName(item, ChatColor.RESET+"Nether Portal Block");
+		setSpecialBlockType(item, "netherPortal");
+		return setName(item, ChatColor.RESET+Locale.parse("netherPortal"));
 	}
 	
 	public static ItemStack getLitLampItem() {
 		ItemStack item = createTexturedHead("eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvYTkxOWRkNzJlMzhjZWMzNjljNjUwODY4Njg5NmNjYjg0MTAwZmQwMjdjNGY2MGE2ODFkMTZhNzY0MDMyOWNjIn19fQ==");
-		return setName(item, ChatColor.RESET+"Lit Redstone Lamp");
+		setSpecialBlockType(item, "litRedstoneLamp");
+		return setName(item, ChatColor.RESET+Locale.parse("litRedstoneLamp"));
 	}
 	
 	public static ItemStack getInvisibleFrame() {
-		return ToolConfig.invisFrameItem.clone();
+		ItemStack item = ToolConfig.invisFrameItem.clone();
+		setSpecialBlockType(item, "invisFrame");
+		setName(item, Locale.parse(null, "invisFrame"));
+		return item;
 	}
 	
 	public static void sendNotification(Player player, String msg) {

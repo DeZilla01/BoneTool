@@ -10,7 +10,9 @@ import org.bukkit.block.data.type.Switch;
 import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.inventory.ItemStack;
 
+import net.dezilla.bonetool.ToolUser;
 import net.dezilla.bonetool.Util;
+import net.dezilla.bonetool.util.Locale;
 
 public class SwitchTool extends WandTool{
 
@@ -31,8 +33,8 @@ public class SwitchTool extends WandTool{
 
 	@SuppressWarnings("deprecation")
 	@Override
-	public ItemStack getIcon(Block block) {
-		String name = "Switch Face";
+	public ItemStack getIcon(Block block, ToolUser user) {
+		String name = Locale.parse(user, "switchface");
 		if(block != null) {
 			Switch s = (Switch) block.getBlockData();
 			name+=": "+ChatColor.YELLOW+s.getFace().toString();

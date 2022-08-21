@@ -15,6 +15,7 @@ import org.bukkit.event.block.BlockGrowEvent;
 import org.bukkit.event.block.BlockIgniteEvent;
 import org.bukkit.event.block.BlockPhysicsEvent;
 import org.bukkit.event.block.BlockPlaceEvent;
+import org.bukkit.event.block.BlockRedstoneEvent;
 import org.bukkit.event.block.BlockSpreadEvent;
 import org.bukkit.event.entity.EntityChangeBlockEvent;
 import org.bukkit.event.player.PlayerInteractEvent;
@@ -42,6 +43,12 @@ public class BlockUpdateListener implements Listener{
 	
 	public static boolean isProtected(Block block) {
 		return protected_blocks.contains(block);
+	}
+	
+	@EventHandler(ignoreCancelled = true)
+	public void onRedstone(BlockRedstoneEvent e) {
+		if(isProtected(e.getBlock()))
+			e.setNewCurrent(e.getOldCurrent());
 	}
 	
 	@EventHandler(ignoreCancelled = true)

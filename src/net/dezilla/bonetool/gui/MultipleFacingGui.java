@@ -13,7 +13,9 @@ import org.bukkit.block.data.MultipleFacing;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 
+import net.dezilla.bonetool.ToolUser;
 import net.dezilla.bonetool.Util;
+import net.dezilla.bonetool.util.Locale;
 import net.dezilla.bonetool.wandtool.MultipleFacingTool;
 
 public class MultipleFacingGui extends GuiPage{
@@ -23,7 +25,7 @@ public class MultipleFacingGui extends GuiPage{
 	public MultipleFacingGui(Player player, Block block) {
 		super(3, player);
 		this.block = block;
-		setName("Multiple Facing Editor");
+		setName(Locale.parse(ToolUser.getUser(player), "multifaceseditor"));
 		addItems();
 	}
 	

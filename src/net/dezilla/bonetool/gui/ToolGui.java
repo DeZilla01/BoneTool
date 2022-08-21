@@ -13,6 +13,7 @@ import net.dezilla.bonetool.ToolMain;
 import net.dezilla.bonetool.ToolUser;
 import net.dezilla.bonetool.ToolUser.PlacingState;
 import net.dezilla.bonetool.Util;
+import net.dezilla.bonetool.util.Locale;
 import net.dezilla.bonetool.wandtool.NoneTool;
 import net.dezilla.bonetool.wandtool.WandTool;
 
@@ -35,7 +36,7 @@ public class ToolGui extends GuiPage{
 			setItem(1, 3, getSnipePlacingItem());
 			setItem(0, 3, getGlass(user.getSnipePlaceState()));
 		} else {
-			setItem(1, 3, noAccess("Snipe Placing"));
+			setItem(1, 3, noAccess(Locale.parse(user, "snipeplace")));
 			setItem(0, 3, getGlass(false));
 		}
 		//
@@ -43,7 +44,7 @@ public class ToolGui extends GuiPage{
 			setItem(1, 1, getNoBlockUpdateItem());
 			setItem(0, 1, getGlass(user.getBlockUpdateState()));
 		} else {
-			setItem(1, 1, noAccess("No Block Update"));
+			setItem(1, 1, noAccess(Locale.parse(user, "noblockupdate")));
 			setItem(0, 1, getGlass(false));
 		}
 		//
@@ -51,7 +52,7 @@ public class ToolGui extends GuiPage{
 			setItem(1, 2, getForcePlacingItem());
 			setItem(0, 2, getGlass(user.getForcePlacingState()));
 		} else {
-			setItem(1, 2, noAccess("Force Placing"));
+			setItem(1, 2, noAccess(Locale.parse(user, "forceplace")));
 			setItem(0, 2, getGlass(false));
 		}
 		//
@@ -59,7 +60,7 @@ public class ToolGui extends GuiPage{
 			setItem(1, 4, getFlySpeedItem());
 			setItem(0, 4, getGlass(user.getEditFlySpeed()));
 		} else {
-			setItem(1, 4, noAccess("Fly Speed"));
+			setItem(1, 4, noAccess(Locale.parse(user, "flyspeed")));
 			setItem(0, 4, getGlass(false));
 		}
 		//
@@ -67,7 +68,7 @@ public class ToolGui extends GuiPage{
 			setItem(1, 5, getSignItem());
 			setItem(0, 5, getGlass(user.getEditSign()));
 		} else {
-			setItem(1, 5, noAccess("Edit Sign"));
+			setItem(1, 5, noAccess(Locale.parse(user, "editSigns")));
 			setItem(0, 5, getGlass(false));
 		}
 		//
@@ -75,7 +76,7 @@ public class ToolGui extends GuiPage{
 			setItem(1, 6, getLitterItem());
 			setItem(0, 6, getGlass(user.getNoLitter()));
 		} else {
-			setItem(1, 6, noAccess("No Litter"));
+			setItem(1, 6, noAccess(Locale.parse(user, "noLitter")));
 			setItem(0, 6, getGlass(false));
 		}
 		//
@@ -91,7 +92,7 @@ public class ToolGui extends GuiPage{
 	
 	public GuiItem getRightClickItem() {
 		WandTool t = ToolUser.getUser(getPlayer()).getRightClickTool();
-		GuiItem item = new GuiItem(t.getIcon());
+		GuiItem item = new GuiItem(t.getIcon(null, ToolUser.getUser(getPlayer())));
 		item.setRun(event -> {
 			new RightClickSelectGui(getPlayer()).display();
 		});
@@ -100,11 +101,11 @@ public class ToolGui extends GuiPage{
 	
 	public GuiItem getFlySpeedItem() {
 		ToolUser user = ToolUser.getUser(getPlayer());
-		String name = ChatColor.WHITE+"Edit Fly Speed: "+(user.getEditFlySpeed() ? ChatColor.GREEN+"True":ChatColor.RED+"False");
+		String name = ChatColor.WHITE+Locale.parse(user, "editflyspeed")+": "+(user.getEditFlySpeed() ? ChatColor.GREEN+Locale.parse(user, "enabled"):ChatColor.RED+Locale.parse(user, "disabled"));
 		ItemStack icon = Util.setName(new ItemStack(Material.ELYTRA), name);
 		Util.setLore(icon, Arrays.asList(
-				ChatColor.GRAY+"Allow the user to edit fly speed",
-				ChatColor.GRAY+"by double sneaking and scrolling."));
+				ChatColor.GRAY+Locale.parse(user, "flySpeedInstructions1"),
+				ChatColor.GRAY+Locale.parse(user, "flySpeedInstructions2")));
 		GuiItem item = new GuiItem(icon);
 		item.setRun(event -> {
 			user.setEditFlySpeed(!user.getEditFlySpeed());
@@ -115,11 +116,11 @@ public class ToolGui extends GuiPage{
 	
 	public GuiItem getSignItem() {
 		ToolUser user = ToolUser.getUser(getPlayer());
-		String name = ChatColor.WHITE+"Edit Signs: "+(user.getEditSign() ? ChatColor.GREEN+"True":ChatColor.RED+"False");
+		String name = ChatColor.WHITE+Locale.parse(user, "editSigns")+": "+(user.getEditSign() ? ChatColor.GREEN+Locale.parse(user, "enabled"):ChatColor.RED+Locale.parse(user, "disabled"));
 		ItemStack icon = Util.setName(new ItemStack(Material.OAK_SIGN), name);
 		Util.setLore(icon, Arrays.asList(
-				ChatColor.GRAY+"Allow the user to edit signs by sneaking",
-				ChatColor.GRAY+"and right clicking with bare hands."));
+				ChatColor.GRAY+Locale.parse(user, "editSignsInstructions1"),
+				ChatColor.GRAY+Locale.parse(user, "editSignsInstructions2")));
 		GuiItem item = new GuiItem(icon);
 		item.setRun(event -> {
 			user.setEditSign(!user.getEditSign());
@@ -130,9 +131,9 @@ public class ToolGui extends GuiPage{
 	
 	public GuiItem getLitterItem() {
 		ToolUser user = ToolUser.getUser(getPlayer());
-		String name = ChatColor.WHITE+"No Litter: "+(user.getNoLitter() ? ChatColor.GREEN+"True": ChatColor.RED+"False");
+		String name = ChatColor.WHITE+Locale.parse(user, "noLitter")+": "+(user.getNoLitter() ? ChatColor.GREEN+Locale.parse(user, "enabled"): ChatColor.RED+Locale.parse(user, "disabled"));
 		ItemStack icon = Util.setName(new ItemStack(Material.BONE_MEAL), name);
-		Util.setLore(icon, ChatColor.GRAY+"Automatically delete item when dropped.");
+		Util.setLore(icon, ChatColor.GRAY+Locale.parse(user, "noLitterInstructions"));
 		GuiItem item = new GuiItem(icon);
 		item.setRun(event -> {
 			user.setNoLitter(!user.getNoLitter());
@@ -143,7 +144,7 @@ public class ToolGui extends GuiPage{
 	
 	private GuiItem getNotificationItem() {
 		ToolUser user = ToolUser.getUser(getPlayer());
-		String name = ChatColor.WHITE+"Notification: "+user.getNotificationLoc();
+		String name = ChatColor.WHITE+Locale.parse(user, "notification")+": "+user.getNotificationLoc();
 		ItemStack icon = Util.setName(new ItemStack(Material.WHITE_DYE), name);
 		GuiItem item = new GuiItem(icon);
 		item.setRun(event -> {
@@ -155,13 +156,13 @@ public class ToolGui extends GuiPage{
 	
 	private GuiItem getWandItem() {
 		ToolUser user = ToolUser.getUser(getPlayer());
-		ItemStack icon = Util.setName(new ItemStack(user.getWandMaterial()), "Wand Material");
-		icon = Util.setLore(icon, Arrays.asList(ChatColor.GRAY+"Drag an item here to set as your wand.", ChatColor.GRAY+"Shift + Right Click to spawn a wand in your inventory."));
+		ItemStack icon = Util.setName(new ItemStack(user.getWandMaterial()), Locale.parse(user, "wandmaterial"));
+		icon = Util.setLore(icon, Arrays.asList(ChatColor.GRAY+Locale.parse(user, "wandMaterialInstructions1"), ChatColor.GRAY+Locale.parse(user, "wandMaterialInstructions2")));
 		GuiItem item = new GuiItem(icon);
 		item.setRun(event -> {
 			if(event.getClick() == ClickType.SHIFT_RIGHT) {
 				ItemStack wand = Util.setName(new ItemStack(user.getWandMaterial()), "BoneTool");
-				getPlayer().getInventory().addItem(Util.setLore(wand, ChatColor.GRAY+"A tool to edit block properties and more."));
+				getPlayer().getInventory().addItem(Util.setLore(wand, ChatColor.GRAY+Locale.parse(user, "bonetoolDescription")));
 				return;
 			}
 			if(event.getCursor()==null||event.getCursor().getType()==null||event.getCursor().getType()==Material.AIR)
@@ -186,12 +187,12 @@ public class ToolGui extends GuiPage{
 	}
 	
 	private ItemStack blockupdateicon() {
-		String name = "No Block Update: ";
+		String name = Locale.parse(user, "noblockupdate")+": ";
 		switch(user.getBlockUpdateState()) {
-			case DISABLED: name+=ChatColor.RED+"Disabled";break;
-			case ENABLED: name+=ChatColor.GREEN+"Enabled";break;
-			case ONSNEAK: name+=ChatColor.AQUA+"On Sneak";break;
-			case SNEAKTOGGLE: name+=ChatColor.YELLOW+"Sneak Toggle";break;
+			case DISABLED: name+=ChatColor.RED+Locale.parse(user, "disabled");break;
+			case ENABLED: name+=ChatColor.GREEN+Locale.parse(user, "enabled");break;
+			case ONSNEAK: name+=ChatColor.AQUA+Locale.parse(user, "onsneak");break;
+			case SNEAKTOGGLE: name+=ChatColor.YELLOW+Locale.parse(user, "sneaktoggle");break;
 		}
 		return Util.setName(new ItemStack((user.getBlockUpdateState() == PlacingState.DISABLED ? Material.SAND : Material.SANDSTONE)), name);
 	}
@@ -223,23 +224,23 @@ public class ToolGui extends GuiPage{
 	}
 	
 	private ItemStack forceplaceitem() {
-		String name = "Force Placing: ";
+		String name = Locale.parse(user, "forceplace")+": ";
 		switch(user.getForcePlacingState()) {
-			case DISABLED: name+=ChatColor.RED+"Disabled";break;
-			case ENABLED: name+=ChatColor.GREEN+"Enabled";break;
-			case ONSNEAK: name+=ChatColor.AQUA+"On Sneak";break;
-			case SNEAKTOGGLE: name+=ChatColor.YELLOW+"Sneak Toggle";break;
+		case DISABLED: name+=ChatColor.RED+Locale.parse(user, "disabled");break;
+		case ENABLED: name+=ChatColor.GREEN+Locale.parse(user, "enabled");break;
+		case ONSNEAK: name+=ChatColor.AQUA+Locale.parse(user, "onsneak");break;
+		case SNEAKTOGGLE: name+=ChatColor.YELLOW+Locale.parse(user, "sneaktoggle");break;
 		}
 		return Util.setName(new ItemStack((user.getForcePlacingState() == PlacingState.DISABLED ? Material.WITHER_ROSE : Material.BLUE_ORCHID)), name);
 	}
 	
 	private ItemStack snipeplaceitem() {
-		String name = "Snipe Placing: ";
+		String name = Locale.parse(user, "snipeplace")+": ";
 		switch(user.getSnipePlaceState()) {
-			case DISABLED: name+=ChatColor.RED+"Disabled";break;
-			case ENABLED: name+=ChatColor.GREEN+"Enabled";break;
-			case ONSNEAK: name+=ChatColor.AQUA+"On Sneak";break;
-			case SNEAKTOGGLE: name+=ChatColor.YELLOW+"Sneak Toggle";break;
+		case DISABLED: name+=ChatColor.RED+Locale.parse(user, "disabled");break;
+		case ENABLED: name+=ChatColor.GREEN+Locale.parse(user, "enabled");break;
+		case ONSNEAK: name+=ChatColor.AQUA+Locale.parse(user, "onsneak");break;
+		case SNEAKTOGGLE: name+=ChatColor.YELLOW+Locale.parse(user, "sneaktoggle");break;
 		}
 		return Util.setName(new ItemStack((user.getSnipePlaceState() == PlacingState.DISABLED ? Material.WOODEN_PICKAXE : Material.DIAMOND_PICKAXE)), name);
 	}
@@ -263,7 +264,7 @@ public class ToolGui extends GuiPage{
 	}
 	
 	private GuiItem noAccess(String feature) {
-		ItemStack icon = Util.setName(new ItemStack(Material.BARRIER), ChatColor.RED+"You do not have access to this feature.");
+		ItemStack icon = Util.setName(new ItemStack(Material.BARRIER), ChatColor.RED+Locale.parse(user, "accessDenied"));
 		Util.setLore(icon, ChatColor.GRAY+feature);
 		return new GuiItem(icon);
 	}

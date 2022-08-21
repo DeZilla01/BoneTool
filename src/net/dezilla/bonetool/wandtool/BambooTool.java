@@ -10,7 +10,9 @@ import org.bukkit.block.data.type.Bamboo;
 import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.inventory.ItemStack;
 
+import net.dezilla.bonetool.ToolUser;
 import net.dezilla.bonetool.Util;
+import net.dezilla.bonetool.util.Locale;
 
 public class BambooTool extends WandTool{
 
@@ -30,8 +32,8 @@ public class BambooTool extends WandTool{
 	}
 
 	@Override
-	public ItemStack getIcon(Block block) {
-		String name = "Bamboo Leaves";
+	public ItemStack getIcon(Block block, ToolUser user) {
+		String name = Locale.parse(user, "bambooleaves");
 		if(block != null && block.getBlockData() instanceof Bamboo) {
 			Bamboo b = (Bamboo) block.getBlockData();
 			name+=": "+ChatColor.YELLOW+b.getLeaves();

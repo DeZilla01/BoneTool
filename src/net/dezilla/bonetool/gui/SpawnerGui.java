@@ -12,9 +12,11 @@ import org.bukkit.entity.Player;
 import org.bukkit.event.inventory.ClickType;
 import org.bukkit.inventory.ItemStack;
 
+import net.dezilla.bonetool.ToolUser;
 import net.dezilla.bonetool.Util;
 import net.dezilla.bonetool.util.IntegerRunnable;
 import net.dezilla.bonetool.util.InventoryRunnable;
+import net.dezilla.bonetool.util.Locale;
 import net.dezilla.bonetool.util.ToolConfig;
 
 public class SpawnerGui extends GuiPage{
@@ -29,7 +31,7 @@ public class SpawnerGui extends GuiPage{
 	public SpawnerGui(Player player, Block block) {
 		super(1, player);
 		this.block = block;
-		setName("Spawner Editor");
+		setName(Locale.parse(ToolUser.getUser(player), "spawnereditor"));
 		if(!(block.getState() instanceof CreatureSpawner))
 			return;
 		addItems();
@@ -37,8 +39,9 @@ public class SpawnerGui extends GuiPage{
 	
 	private void addItems() {
 		CreatureSpawner spawner = (CreatureSpawner) block.getState();
+		ToolUser u = ToolUser.getUser(getPlayer());
 		//Change Type
-		GuiItem typeItem = new GuiItem(Util.setLore(Util.setName(Util.getEntityIcon(spawner.getSpawnedType()), "Change Entity Type"), ChatColor.WHITE+"Current: "+spawner.getSpawnedType()));
+		GuiItem typeItem = new GuiItem(Util.setLore(Util.setName(Util.getEntityIcon(spawner.getSpawnedType()), Locale.parse(u, "changeentitytype")), ChatColor.WHITE+"Current: "+spawner.getSpawnedType()));
 		typeItem.setRun((event) -> {
 			List<EntityType> eList = new ArrayList<EntityType>(Arrays.asList(EntityType.values()));
 			eList.remove(EntityType.UNKNOWN);
@@ -56,7 +59,7 @@ public class SpawnerGui extends GuiPage{
 		
 		//Delay
 		ItemStack delayIcon = Util.createTexturedHead("eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvMDdjNzhmM2VlNzgzZmVlY2QyNjkyZWJhNTQ4NTFkYTVjNDMyMzA1NWViZDJmNjgzY2QzZTgzMDJmZWE3YyJ9fX0=");
-		Util.setName(delayIcon, ChatColor.GREEN+"Current Delay: "+ChatColor.WHITE+spawner.getDelay());
+		Util.setName(delayIcon, ChatColor.GREEN+Locale.parse(u, "currentdelay")+": "+ChatColor.WHITE+spawner.getDelay());
 		Util.setLore(delayIcon, LORE);
 		GuiItem delayItem = new GuiItem(delayIcon);
 		IntegerRunnable delayRun = (i) -> {
@@ -69,7 +72,7 @@ public class SpawnerGui extends GuiPage{
 		
 		//Max Nearby Entities
 		ItemStack maxNearbyIcon = Util.createTexturedHead("eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvNWZkZTNiZmNlMmQ4Y2I3MjRkZTg1NTZlNWVjMjFiN2YxNWY1ODQ2ODRhYjc4NTIxNGFkZDE2NGJlNzYyNGIifX19");
-		Util.setName(maxNearbyIcon, ChatColor.GREEN+"Maximum Nearby Entities: "+ChatColor.WHITE+spawner.getMaxNearbyEntities());
+		Util.setName(maxNearbyIcon, ChatColor.GREEN+Locale.parse(u, "maxnearbyentities")+": "+ChatColor.WHITE+spawner.getMaxNearbyEntities());
 		Util.setLore(maxNearbyIcon, LORE);
 		GuiItem maxNearbyItem = new GuiItem(maxNearbyIcon);
 		IntegerRunnable maxNearbyRun = (i) -> {
@@ -82,7 +85,7 @@ public class SpawnerGui extends GuiPage{
 		
 		//Min Spawn Delay
 		ItemStack minSpawnDelayIcon = Util.createTexturedHead("eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvM2VmMGM1NzczZGY1NjBjYzNmYzczYjU0YjVmMDhjZDY5ODU2NDE1YWI1NjlhMzdkNmQ0NGYyZjQyM2RmMjAifX19");
-		Util.setName(minSpawnDelayIcon, ChatColor.GREEN+"Minimum Spawn Delay: "+ChatColor.WHITE+spawner.getMinSpawnDelay());
+		Util.setName(minSpawnDelayIcon, ChatColor.GREEN+Locale.parse(u, "minspawndelay")+": "+ChatColor.WHITE+spawner.getMinSpawnDelay());
 		Util.setLore(minSpawnDelayIcon, LORE);
 		GuiItem minSpawnDelayItem = new GuiItem(minSpawnDelayIcon);
 		IntegerRunnable minSpawnDelayRun = (i) -> {
@@ -95,7 +98,7 @@ public class SpawnerGui extends GuiPage{
 		
 		//Max Spawn Delay
 		ItemStack maxSpawnDelayIcon = Util.createTexturedHead("eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvMmM0ODg2ZWYzNjJiMmM4MjNhNmFhNjUyNDFjNWM3ZGU3MWM5NGQ4ZWM1ODIyYzUxZTk2OTc2NjQxZjUzZWEzNSJ9fX0=");
-		Util.setName(maxSpawnDelayIcon, ChatColor.GREEN+"Maximum Spawn Delay: "+ChatColor.WHITE+spawner.getMaxSpawnDelay());
+		Util.setName(maxSpawnDelayIcon, ChatColor.GREEN+Locale.parse(u, "maxspawndelay")+": "+ChatColor.WHITE+spawner.getMaxSpawnDelay());
 		Util.setLore(maxSpawnDelayIcon, LORE);
 		GuiItem maxSpawnDelayItem = new GuiItem(maxSpawnDelayIcon);
 		IntegerRunnable maxSpawnDelayRun = (i) -> {
@@ -108,7 +111,7 @@ public class SpawnerGui extends GuiPage{
 		
 		//Required Player Range
 		ItemStack reqPlayerRangeIcon = Util.createTexturedHead("eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvNjllZWIzNTE5ZGRjMTRkMGE3ZmNlNDFiNWZhYmY5NDIxOTI5NmEyMzFkZGNlZDIwMmRmMDVhZWMxNTYyMjEifX19");
-		Util.setName(reqPlayerRangeIcon, ChatColor.GREEN+"Required Player Range: "+ChatColor.WHITE+spawner.getRequiredPlayerRange());
+		Util.setName(reqPlayerRangeIcon, ChatColor.GREEN+Locale.parse(u, "requiredplayerrange")+": "+ChatColor.WHITE+spawner.getRequiredPlayerRange());
 		Util.setLore(reqPlayerRangeIcon, LORE);
 		GuiItem reqPlayerRangeItem = new GuiItem(reqPlayerRangeIcon);
 		IntegerRunnable reqPlayerRangeRun = (i) -> {
@@ -121,7 +124,7 @@ public class SpawnerGui extends GuiPage{
 		
 		//Spawn count
 		ItemStack spawnCountIcon = Util.createTexturedHead("eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvMTQzYzc5Y2Q5YzJkMzE4N2VhMDMyNDVmZTIxMjhlMGQyYWJiZTc5NDUyMTRiYzU4MzRkZmE0MDNjMTM0ZTI3In19fQ==");
-		Util.setName(spawnCountIcon, ChatColor.GREEN+"Spawn Count: "+ChatColor.WHITE+spawner.getSpawnCount());
+		Util.setName(spawnCountIcon, ChatColor.GREEN+Locale.parse(u, "spawncount")+": "+ChatColor.WHITE+spawner.getSpawnCount());
 		Util.setLore(spawnCountIcon, LORE);
 		GuiItem spawnCountItem = new GuiItem(spawnCountIcon);
 		IntegerRunnable spawnCountRun = (i) -> {
@@ -134,7 +137,7 @@ public class SpawnerGui extends GuiPage{
 		
 		//spawn Range
 		ItemStack spawnRangeIcon = Util.createTexturedHead("eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvNzNjY2I0ZGIyYzE5NjkyODM0M2U2YzFjNzlhMjdkNzM3ZTY1NWQwYzlmOTE2OWI3YTg4ZDE3NDQ1NzE0MTcifX19");
-		Util.setName(spawnRangeIcon, ChatColor.GREEN+"Spawn Range: "+ChatColor.WHITE+spawner.getSpawnRange());
+		Util.setName(spawnRangeIcon, ChatColor.GREEN+Locale.parse(u, "spawnrange")+": "+ChatColor.WHITE+spawner.getSpawnRange());
 		Util.setLore(spawnRangeIcon, LORE);
 		GuiItem spawnRangeItem = new GuiItem(spawnRangeIcon);
 		IntegerRunnable spawnRangeRun = (i) -> {

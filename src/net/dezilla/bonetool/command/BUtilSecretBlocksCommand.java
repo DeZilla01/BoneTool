@@ -3,6 +3,7 @@ package net.dezilla.bonetool.command;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Optional;
 
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
@@ -86,7 +87,15 @@ public class BUtilSecretBlocksCommand extends Command implements CommandExecutor
 		
 		@Override
 		public void init(Player player, InventoryContents contents) {
+			List<Material> banned = bannedItems();
 			new SecretBlockMenuProvider().init(player, contents);
+			for(int i = 0; i < 9; i++) {
+				Optional<ClickableItem> item = contents.get(0, i);
+				if(item.isEmpty())
+					continue;
+				if(banned.contains(item.get().getItem().getType()))
+					contents.set(0, i, null);
+			}
 			if(!Util.permCheck(player, "bonetool.blocks.use"))
 				return;
 			int row = 0;
@@ -159,5 +168,28 @@ public class BUtilSecretBlocksCommand extends Command implements CommandExecutor
 		if(ToolConfig.invisFrame)
 			list.add(Util.getInvisibleFrame());
 		return list;
+	}
+	
+	static List<Material> bannedItems(){
+		List<Material> m = new ArrayList<Material>();
+		if(!ToolConfig.sculkSensor)
+			m.add(Material.SCULK_SENSOR);
+		if(!ToolConfig.jigsaw)
+			m.add(Material.JIGSAW);
+		if(!ToolConfig.debugStick)
+			m.add(Material.DEBUG_STICK);
+		if(!ToolConfig.spawner)
+			m.add(Material.SPAWNER);
+		if(!ToolConfig.barrier)
+			m.add(Material.BARRIER);
+		if(!ToolConfig.structureVoid)
+			m.add(Material.STRUCTURE_VOID);
+		if(!ToolConfig.dragonEgg)
+			m.add(Material.DRAGON_EGG);
+		if(!ToolConfig.structureBlock)
+			m.add(Material.STRUCTURE_BLOCK);
+		if(!ToolConfig.lightBlock)
+			m.add(Material.LIGHT);
+		return m;
 	}
 }

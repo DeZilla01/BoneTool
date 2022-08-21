@@ -7,8 +7,10 @@ import org.bukkit.entity.Player;
 import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.inventory.ItemStack;
 
+import net.dezilla.bonetool.ToolUser;
 import net.dezilla.bonetool.Util;
 import net.dezilla.bonetool.gui.BeaconGui;
+import net.dezilla.bonetool.util.Locale;
 
 public class BeaconTool extends WandTool{
 
@@ -23,8 +25,8 @@ public class BeaconTool extends WandTool{
 	}
 
 	@Override
-	public ItemStack getIcon(Block block) {
-		ItemStack icon = Util.setName(new ItemStack(Material.BEACON), "Beacon Potion Effect");
+	public ItemStack getIcon(Block block, ToolUser user) {
+		ItemStack icon = Util.setName(new ItemStack(Material.BEACON), Locale.parse(user, "beaconpotioneffects"));
 		return icon;
 	}
 	

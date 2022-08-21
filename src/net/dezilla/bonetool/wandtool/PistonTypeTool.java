@@ -10,7 +10,9 @@ import org.bukkit.block.data.type.TechnicalPiston;
 import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.inventory.ItemStack;
 
+import net.dezilla.bonetool.ToolUser;
 import net.dezilla.bonetool.Util;
+import net.dezilla.bonetool.util.Locale;
 
 public class PistonTypeTool extends WandTool{
 
@@ -30,8 +32,8 @@ public class PistonTypeTool extends WandTool{
 	}
 
 	@Override
-	public ItemStack getIcon(Block block) {
-		String name = "Piston Type";
+	public ItemStack getIcon(Block block, ToolUser user) {
+		String name = Locale.parse(user, "pistontype");
 		if(block != null) {
 			TechnicalPiston p = (TechnicalPiston) block.getBlockData();
 			name+=": "+ChatColor.YELLOW+p.getType();

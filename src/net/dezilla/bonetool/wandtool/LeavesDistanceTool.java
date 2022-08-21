@@ -7,7 +7,9 @@ import org.bukkit.block.data.type.Leaves;
 import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.inventory.ItemStack;
 
+import net.dezilla.bonetool.ToolUser;
 import net.dezilla.bonetool.Util;
+import net.dezilla.bonetool.util.Locale;
 
 public class LeavesDistanceTool extends WandTool {
 	
@@ -22,14 +24,14 @@ public class LeavesDistanceTool extends WandTool {
 	}
 
 	@Override
-	public ItemStack getIcon(Block block) {
-		String name = "Leaves Distance";
+	public ItemStack getIcon(Block block, ToolUser user) {
+		String name = Locale.parse(user, "leavesdistance");
 		if(block!=null) {
 			name += ": " + ChatColor.YELLOW + getDistance(block);
 		}
 		ItemStack icon = Util.setName(new ItemStack(Material.OAK_LEAVES), name);
 		if(block!=null)
-			Util.setLore(icon, intLore);
+			Util.setLore(icon, getIntLore(user));
 		return icon;
 	}
 	

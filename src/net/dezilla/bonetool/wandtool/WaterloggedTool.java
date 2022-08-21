@@ -8,7 +8,9 @@ import org.bukkit.block.data.Waterlogged;
 import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.inventory.ItemStack;
 
+import net.dezilla.bonetool.ToolUser;
 import net.dezilla.bonetool.Util;
+import net.dezilla.bonetool.util.Locale;
 
 public class WaterloggedTool extends WandTool{
 
@@ -23,10 +25,10 @@ public class WaterloggedTool extends WandTool{
 	}
 
 	@Override
-	public ItemStack getIcon(Block block) {
-		String name = "Waterlogged";
+	public ItemStack getIcon(Block block, ToolUser user) {
+		String name = Locale.parse(user, "waterlogged");
 		if(block != null)
-			name = "Waterlogged: "+(isWaterlogged(block) ? ChatColor.GREEN+"True":ChatColor.RED+"False");
+			name += ": "+(isWaterlogged(block) ? ChatColor.GREEN+Locale.parse(user, "true"):ChatColor.RED+Locale.parse(user, "false"));
 		return Util.setName(new ItemStack(Material.WATER_BUCKET), name);
 	}
 	

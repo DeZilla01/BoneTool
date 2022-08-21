@@ -11,11 +11,11 @@ import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.inventory.ItemStack;
 
 import net.dezilla.bonetool.ToolMain;
+import net.dezilla.bonetool.ToolUser;
 import net.dezilla.bonetool.Util;
+import net.dezilla.bonetool.util.Locale;
 
 public class AmethystTool extends WandTool {
-	
-	final static List<String> names = Arrays.asList("Small", "Medium", "Large", "Cluster");
 	
 	@Override
 	public boolean isServerCompatible() {
@@ -28,14 +28,22 @@ public class AmethystTool extends WandTool {
 	}
 
 	@Override
-	public ItemStack getIcon(Block block) {
-		String name = "Amthyst Size";
+	public ItemStack getIcon(Block block, ToolUser user) {
+		String name = Locale.parse(user, "amthystsize");
 		Material mat = Material.AMETHYST_CLUSTER;
 		if(block != null) {
-			name += ": "+ChatColor.YELLOW+names.get(amethystMaterial().indexOf(block.getType()));
+			name += ": "+ChatColor.YELLOW+getNames(user).get(amethystMaterial().indexOf(block.getType()));
 			mat = block.getType();
 		}
 		return Util.setName(new ItemStack(mat), name);
+	}
+	
+	private List<String> getNames(ToolUser user){
+		return Arrays.asList(
+				Locale.parse(user, "small"),
+				Locale.parse(user, "medium"),
+				Locale.parse(user, "large"),
+				Locale.parse(user, "cluster"));
 	}
 	
 	@Override

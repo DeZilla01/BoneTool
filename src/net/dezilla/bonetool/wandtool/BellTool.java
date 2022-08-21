@@ -10,7 +10,9 @@ import org.bukkit.block.data.type.Bell;
 import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.inventory.ItemStack;
 
+import net.dezilla.bonetool.ToolUser;
 import net.dezilla.bonetool.Util;
+import net.dezilla.bonetool.util.Locale;
 
 public class BellTool extends WandTool{
 
@@ -25,8 +27,8 @@ public class BellTool extends WandTool{
 	}
 
 	@Override
-	public ItemStack getIcon(Block block) {
-		String name = "Bell Attachment";
+	public ItemStack getIcon(Block block, ToolUser user) {
+		String name = Locale.parse(user, "bellattachment");
 		if(block!=null) {
 			Bell bell = (Bell) block.getBlockData();
 			name+=": "+ChatColor.YELLOW+bell.getAttachment().toString();

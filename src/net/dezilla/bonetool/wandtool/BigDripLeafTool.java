@@ -10,7 +10,9 @@ import org.bukkit.block.data.type.BigDripleaf;
 import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.inventory.ItemStack;
 
+import net.dezilla.bonetool.ToolUser;
 import net.dezilla.bonetool.Util;
+import net.dezilla.bonetool.util.Locale;
 
 public class BigDripLeafTool extends WandTool {
 	
@@ -25,8 +27,8 @@ public class BigDripLeafTool extends WandTool {
 	}
 
 	@Override
-	public ItemStack getIcon(Block block) {
-		String name = "Big Dripleaf Tilt";
+	public ItemStack getIcon(Block block, ToolUser user) {
+		String name = Locale.parse(user, "dripleadtilt");
 		if(block!=null) {
 			BigDripleaf leaf = (BigDripleaf) block.getBlockData();
 			name+=": "+ChatColor.YELLOW+leaf.getTilt().toString();

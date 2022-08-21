@@ -10,7 +10,9 @@ import org.bukkit.block.data.type.StructureBlock;
 import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.inventory.ItemStack;
 
+import net.dezilla.bonetool.ToolUser;
 import net.dezilla.bonetool.Util;
+import net.dezilla.bonetool.util.Locale;
 
 public class StructureTool extends WandTool {
 	
@@ -25,8 +27,8 @@ public class StructureTool extends WandTool {
 	}
 
 	@Override
-	public ItemStack getIcon(Block block) {
-		String name = "Structure Mode";
+	public ItemStack getIcon(Block block, ToolUser user) {
+		String name = Locale.parse(user, "structuremode");
 		if(block != null && block.getBlockData() instanceof StructureBlock) {
 			StructureBlock struc = (StructureBlock) block.getBlockData();
 			name+=": "+ChatColor.YELLOW+struc.getMode().toString();

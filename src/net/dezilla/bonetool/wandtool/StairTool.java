@@ -10,7 +10,9 @@ import org.bukkit.block.data.type.Stairs;
 import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.inventory.ItemStack;
 
+import net.dezilla.bonetool.ToolUser;
 import net.dezilla.bonetool.Util;
+import net.dezilla.bonetool.util.Locale;
 
 public class StairTool extends WandTool {
 	
@@ -25,8 +27,8 @@ public class StairTool extends WandTool {
 	}
 
 	@Override
-	public ItemStack getIcon(Block block) {
-		String name = "Stair Shape";
+	public ItemStack getIcon(Block block, ToolUser user) {
+		String name = Locale.parse(user, "stairshape");
 		if(block != null && block.getBlockData() instanceof Stairs) {
 			Stairs stair = (Stairs) block.getBlockData();
 			name+=": "+ChatColor.YELLOW+stair.getShape().toString();

@@ -7,7 +7,9 @@ import org.bukkit.block.SculkSensor;
 import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.inventory.ItemStack;
 
+import net.dezilla.bonetool.ToolUser;
 import net.dezilla.bonetool.Util;
+import net.dezilla.bonetool.util.Locale;
 
 public class SculkSensorTool extends WandTool{
 
@@ -22,15 +24,15 @@ public class SculkSensorTool extends WandTool{
 	}
 
 	@Override
-	public ItemStack getIcon(Block block) {
-		String name = ChatColor.RESET+"Sculk Sensor Vibration Frequency";
+	public ItemStack getIcon(Block block, ToolUser user) {
+		String name = ChatColor.RESET+Locale.parse(user, "sculksensorvibration");
 		if(block != null) {
 			SculkSensor sensor = (SculkSensor) block.getState();
 			name +=": "+ChatColor.YELLOW+sensor.getLastVibrationFrequency();
 		}
 		ItemStack icon = Util.setName(new ItemStack(Material.SCULK_SENSOR), name);
 		if(block!=null)
-			Util.setLore(icon, intLore);
+			Util.setLore(icon, getIntLore(user));
 		return icon;
 	}
 	

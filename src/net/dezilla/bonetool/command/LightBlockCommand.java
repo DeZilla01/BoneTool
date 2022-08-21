@@ -5,8 +5,10 @@ import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
+import net.dezilla.bonetool.ToolUser;
 import net.dezilla.bonetool.Util;
 import net.dezilla.bonetool.gui.LightBlockGui;
+import net.dezilla.bonetool.util.Locale;
 
 public class LightBlockCommand extends Command{
 
@@ -17,12 +19,12 @@ public class LightBlockCommand extends Command{
 	@Override
 	public boolean execute(CommandSender sender, String commandLabel, String[] args) {
 		if(!(sender instanceof Player)) {
-			sender.sendMessage("You must be a player to use this command.");
+			sender.sendMessage(Locale.parse("senderNotPlayer"));
 			return true;
 		}
 		Player p = (Player) sender;
 		if(!Util.permCheck(p, "bonetool.blocks.lightblock")) {
-			p.sendMessage(Util.MSG_START+ChatColor.RED+"You do not have access to this feature.");
+			p.sendMessage(Util.MSG_START+ChatColor.RED+Locale.parse(ToolUser.getUser(p),"accessDenied"));
 			return true;
 		}
 		new LightBlockGui(p).display();

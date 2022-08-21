@@ -13,7 +13,9 @@ import org.bukkit.block.data.type.Wall.Height;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 
+import net.dezilla.bonetool.ToolUser;
 import net.dezilla.bonetool.Util;
+import net.dezilla.bonetool.util.Locale;
 import net.dezilla.bonetool.wandtool.WallTool;
 
 public class WallGui extends GuiPage{
@@ -24,6 +26,7 @@ public class WallGui extends GuiPage{
 	public WallGui(Player player, Block block) {
 		super(3, player);
 		this.block = block;
+		setName(Locale.parse(ToolUser.getUser(player), "wallconnection"));
 		if(block.getBlockData() instanceof Wall) {
 			addItems();
 		}

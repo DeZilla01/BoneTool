@@ -8,14 +8,16 @@ import org.bukkit.block.BlockFace;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 
+import net.dezilla.bonetool.ToolUser;
 import net.dezilla.bonetool.Util;
 import net.dezilla.bonetool.util.BlockFaceRunnable;
+import net.dezilla.bonetool.util.Locale;
 
 public class BlockFaceSelectGui extends GuiPage{
 
 	public BlockFaceSelectGui(Player player, List<BlockFace> values, BlockFaceRunnable run) {
 		super(5, player);
-		setName("Select Rotation");
+		setName(Locale.parse(ToolUser.getUser(player), "selectrotation"));
 		addItems(values, run);
 	}
 	

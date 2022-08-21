@@ -1,0 +1,206 @@
+name: Francais
+credits: Traduction par DeZilla
+revision: 1
+
+oldVersionWarning1: AVERTISSEMENT - Vous utilisez une version antérieur de Minecraft que BoneTool ne supporte pas.
+oldVersionWarning2: Aucun support ne sera offert si le plugin plante.
+newVersionWarning1: AVERTISSEMENT - Vouse utiliser une version supérieur de Minecraft que BoneTool supporte officiellement.
+newVersionWarning2: Veuillez mettre le plugin à jour si une nouvelle version est disponible.
+senderNotPlayer: Vous devez être un joueur pour pouvoir utiliser cette commande.
+accessDenied: Vous n'avez pas accès à cette fonction.
+accessDisabled: Cette fonction est désactivée.
+configReload: BoneTool configuration has been reloaded.
+configReload: La configuration de BoneTool a été rechargée.
+editSigns: Modification de signes
+enabled: Activé
+disabled: Désactivé
+onsneak: Sur Accroupissement
+sneaktoggle: Double Accroupissement
+manyArguments: Trop d'arguments
+invalidArgument: Argument invalide
+flyondoublecrouch: Modification de vitesse de vol sur double accroupissement
+noLitter: Pas de litière
+noblockupdate: Pas de Block Update
+forceplace: Placer blocs par force
+snipeplace: Placer blocs à Distance
+flyspeed: Vitesse de vol
+notoolforblock: Pas d'outil pour ce bloc
+#beacon
+beaconpotioneffects: Effect de Balise
+setfirsteffect: Changer l'effect primaire
+setsecondeffect: Changer l'effect secondaire
+currenteffect: Effect actuel
+selectpotion: Choisir l'effect de potion
+#gui
+selectrotation: Selectionez une Rotation
+blockoption: Option de Bloc
+selectcolor: Selectionez Une Couleur
+selectedcolor: Couleur selectionée
+selectentity: Selectionez une entité
+page: Page
+next: Suivant
+previous: Prédédent
+brewstandpotions: Potions de l'alambic
+potion: Potion
+btSecretBlocks: Blocs secret de BoneTool
+paintings: Paintures
+lightblock: Bloc de lumière
+selectlanguage: Choisissez une langue
+multifaceseditor: Éditeur de faces multiples
+noteblockeditor: Éditeur de bloc de notes (de musique)
+none: Aucun
+selectflower: Choisissez le contenu du pot de fleur
+redstoneconnection: Connection de redstone
+rightclickaction: Action de clique droit
+wallconnection: Connection de mur
+default: Par défaut
+#spawner
+spawnereditor: Éditeur de Spawneur
+changeentitytype: Changer de type d'entité
+currentdelay: Délai actuel
+maxnearbyentities: Maximum d'entité proche
+minspawndelay: Délai de génération minimum
+maxspawndelay: Délai de génération maximum
+requiredplayerrange: Portée de joueur requit
+spawncount: Quantité de génération
+spawnrange: Portée de génération
+#toolgui
+editflyspeed: Modification de la vitesse de vol
+flySpeedInstructions1: Permet à l'utilisateur de changer sa vitesse de vol
+flySpeedInstructions2: en fesant un double accroupissement et en roulant la souris.
+editSignsInstructions1: Permet à l'utilisateur de modifier les signes en accroupissent
+editSignsInstructions2: et clic droit avec les mains vides.
+noLitterInstructions: Supprime les objets automatiquement quand ils sont jetés.
+notification: Notification
+wandmaterial: Matériel de baguette
+wandMaterialInstructions1: Glisser un objet ici pour changer de baguette.
+wandMaterialInstructions2: Maj + Clic droit pour pouvoir avoir une nouvelle baguette dans votre inventaire.
+bonetoolDescription: Un outil pour modifier les propriétés de bloc et bien plus.
+#special blocks
+netherPortal: Portail du Nether
+pistonHead: Tête de piston
+endPortal: Portail de l'End
+doubleLadder: Échelle double
+litRedstoneLamp: Lampe de redstone allumée
+invisFrame: Cadre invisible
+#wandtools
+true: Vrai
+false: Faux
+leftclick: Clic Gauche
+rightclick: Clic Droit
+shift: Maj
+comparatormode: Mode de comparateur
+daylightdetectorinverted: Inversion de détecteur solaire
+doorhinge: Charnière de porte
+dispensertriggered: Distributeur déclenché
+direction: Direction
+debugtool: Outil de débogage
+debugtooldescription: Un outil similaire au bâton de débogage
+debugtoolinstructions1: Clic droit pour modifier une propriétée
+debugtoolinstructions2: Maj + Click droit pour changer de propriétée
+blockcannotbetoggled: Ce bloc ne peut pas être modifié
+commandconditional: Commande conditionelle
+color: Couleur
+choosecolor: Choisissez une Couleur
+togglecolor: Changer de Couleur
+colorinstructions1: Changer la couleur du bloc.
+colorinstructions2: Accroupissement + Clic Droit pour pouvoir choisir la couleur.
+chesttype: Type de coffre
+candleamount: Quantité de chandelle
+signalfire: Signaux de fumée
+bubblecolumndrag: Collone de bulle
+cakebites: Bouchées de gâteau
+bisected: Coupe de deux
+dripleadtilt: Penchement de feuille de goutte
+bellattachment: Attachement de cloche
+bedpart: Parti du lit
+bambooleaves: Feuilles de bamboo
+attached: Attaché
+power: Courrant
+amthystsize: Taille d'améthyste
+small: Petit
+medium: Moyen
+large: Grand
+cluster: Agglomérat
+age: Âge
+addlight: Ajout de lumière
+lightinstructions1: Ajoute de la lumière à un block.
+lightinstructions2: Cela va mettre la valeur de luminosité à 15 (max)
+lightlevel: Niveau de lumière
+orientation: Orientation
+opened: Ouvert
+editnote: Changer de note
+instrument: Instrument
+selectrightclicktool: Choisissez un outil à lier au clic droit.
+multiplefacing: Face multiple
+multifacesinstructions: Change les faces des murs, clôtures et autres.
+lock: Serrure
+unlocked: Débloqué
+lockInstructions1: Place un mot de passe sur un récipient.
+lockInstructions2: Un objet avec le mot de passe comme nom
+lockInstructions3: va être nécéssaire pour ouvrir le récipient.
+lockInstructions4: Pour pouvoir mettre un mot de passe, placez un object
+lockInstructions5: avec le mot de passe désiré ici.
+removepass: Enlever le mot de passe.
+lit: Allumé
+lid: Couvert
+openlid: Ouvrir le couvert.
+closelid: Fermer le couvert.
+visualBugWarning: Cet outil peut causer des bogues visuels.
+level: Niveau
+leavespersistant: Persistance des feuilles
+leavesdistance: Distance des feuilles
+lanternhanging: Suspension de lanterne
+jukeboxitem: Objet dans le jukebox
+jukeboxinstructions1: Placez un objet ici pour le
+jukeboxinstructions2: mettre dans le jukebox.
+stopmusic: Arrêter la musique.
+jigsaworientation: Orientation du bloc casse-tête
+hopperenabled: Entonnoir activé
+honeystorage: Stockage de miel
+hangable: Suspension
+hasberry: Contient des baies
+inwall: Dans le mur
+attachable: Attachable
+flowerpot: Pot de fleur
+empty: Vide
+notapot: Pas un pot
+playerfacing: Face vers le joueur
+playerfacingdesc: Changer la rotation du bloc vers le joueur
+playerfacingex: ex. signes, têtes, bannières
+pistontype: Type de piston
+pistonextended: Piston Étendu
+pistonheadshort: Tête de piston court
+moistlevel: Niveau d'humidité
+endportaleye: Oeuil de cadre de portail
+dripstonethickness: Épaisseur de spéléothème
+dripstonedirection: Direction de spéléothème
+waterlogged: Détrempé
+repeaterlock: Serrure de répéteur
+repeaterdelay: Délai de répéteur
+rail: Rail
+powered: Alimenté
+seapickles: Cornichons de mer
+tntunstable: TNT Instable
+snowy: Enneigé
+snowlayers: Couches de neige
+stairshape: Forme d'escalier
+structuremode: Mode de structure
+switchface: Face d'interupteur
+slabtype: Type de dalle
+scaffoldingdistance: Distance d'échafaudage
+scaffoldingbottom: Bas d'échafaudage
+bloom: Floraison
+sculksensorphase: Phase de capteur sculk
+sculksensorvibration: Fréquence de vibration de capteur sculk
+shrieking: Hurlement
+shriekersummon: Peu invoquer
+shriekerwarning: Niveau d'avertissement
+respawnanchorcharge: Charge d'ancre de respawn
+rotation: Rotation
+chooserotation: Choosisser une rotation
+togglerotation: Changer de Rotation
+wallfacing: Faces de mur
+tripwiredisarmed: Crochet désarmé
+turtleeggamount: Quantité d'oeufs de tortue
+turtleegghatch: Éclore de l'oeuf de tortue

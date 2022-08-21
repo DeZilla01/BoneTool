@@ -7,7 +7,9 @@ import org.bukkit.block.data.type.Tripwire;
 import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.inventory.ItemStack;
 
+import net.dezilla.bonetool.ToolUser;
 import net.dezilla.bonetool.Util;
+import net.dezilla.bonetool.util.Locale;
 
 public class TripwireTool extends WandTool{
 
@@ -22,11 +24,11 @@ public class TripwireTool extends WandTool{
 	}
 
 	@Override
-	public ItemStack getIcon(Block block) {
-		String name = "Tripwire Disarmed";
+	public ItemStack getIcon(Block block, ToolUser user) {
+		String name = Locale.parse(user, "tripwiredisarmed");
 		if(block!=null) {
 			Tripwire t = (Tripwire) block.getBlockData();
-			name+=": "+(t.isDisarmed()?ChatColor.GREEN+"True":ChatColor.RED+"False");
+			name+=": "+(t.isDisarmed()?ChatColor.GREEN+Locale.parse(user, "true"):ChatColor.RED+Locale.parse(user, "false"));
 		}
 		return Util.setName(new ItemStack(Material.STRING), name);
 	}

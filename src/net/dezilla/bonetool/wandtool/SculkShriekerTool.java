@@ -7,7 +7,9 @@ import org.bukkit.block.data.type.SculkShrieker;
 import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.inventory.ItemStack;
 
+import net.dezilla.bonetool.ToolUser;
 import net.dezilla.bonetool.Util;
+import net.dezilla.bonetool.util.Locale;
 
 public class SculkShriekerTool extends WandTool{
 	
@@ -22,11 +24,11 @@ public class SculkShriekerTool extends WandTool{
 	}
 
 	@Override
-	public ItemStack getIcon(Block block) {
-		String name = "Shrieking";
+	public ItemStack getIcon(Block block, ToolUser user) {
+		String name = Locale.parse(user, "shrieking");
 		if(block!=null) {
 			SculkShrieker s  = (SculkShrieker) block.getBlockData();
-			name+=": "+(s.isShrieking()?ChatColor.GREEN+"True":ChatColor.RED+"False");
+			name+=": "+(s.isShrieking()?ChatColor.GREEN+Locale.parse(user, "true"):ChatColor.RED+Locale.parse(user, "false"));
 		}
 		return Util.setName(new ItemStack(Material.SCULK_SHRIEKER), name);
 	}

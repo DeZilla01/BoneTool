@@ -6,7 +6,9 @@ import org.bukkit.block.data.type.PistonHead;
 import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.inventory.ItemStack;
 
+import net.dezilla.bonetool.ToolUser;
 import net.dezilla.bonetool.Util;
+import net.dezilla.bonetool.util.Locale;
 
 public class PistonHeadTool extends WandTool{
 
@@ -26,11 +28,11 @@ public class PistonHeadTool extends WandTool{
 	}
 
 	@Override
-	public ItemStack getIcon(Block block) {
-		String name = "Piston Head Short";
+	public ItemStack getIcon(Block block, ToolUser user) {
+		String name = Locale.parse(user, "pistonheadshort");
 		if(block != null) {
 			PistonHead p = (PistonHead) block.getBlockData();
-			name+=": "+ChatColor.YELLOW+(p.isShort()?ChatColor.GREEN+"True":ChatColor.RED+"False");
+			name+=": "+ChatColor.YELLOW+(p.isShort()?ChatColor.GREEN+Locale.parse(user, "true"):ChatColor.RED+Locale.parse(user, "false"));
 		}
 		ItemStack icon = Util.setName(Util.getPistonHeadItem(), name);
 		return icon;

@@ -7,7 +7,9 @@ import org.bukkit.block.data.type.EndPortalFrame;
 import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.inventory.ItemStack;
 
+import net.dezilla.bonetool.ToolUser;
 import net.dezilla.bonetool.Util;
+import net.dezilla.bonetool.util.Locale;
 
 public class EndPortalFrameTool extends WandTool{
 	
@@ -22,10 +24,10 @@ public class EndPortalFrameTool extends WandTool{
 	}
 
 	@Override
-	public ItemStack getIcon(Block block) {
-		String name = "End Portal Frame Eye";
+	public ItemStack getIcon(Block block, ToolUser user) {
+		String name = Locale.parse(user, "endportaleye");
 		if(block != null)
-			name += ": "+(hasEye(block) ? ChatColor.GREEN+"True":ChatColor.RED+"False");
+			name += ": "+(hasEye(block) ? ChatColor.GREEN+Locale.parse(user, "true"):ChatColor.RED+Locale.parse(user, "false"));
 		return Util.setName(new ItemStack(Material.ENDER_EYE), name);
 	}
 	

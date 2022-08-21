@@ -8,6 +8,7 @@ import org.bukkit.entity.Player;
 import net.dezilla.bonetool.ToolMain;
 import net.dezilla.bonetool.ToolUser;
 import net.dezilla.bonetool.Util;
+import net.dezilla.bonetool.util.Locale;
 import net.dezilla.bonetool.wandtool.WandTool;
 
 public class RightClickSelectGui extends GuiPage{
@@ -22,7 +23,7 @@ public class RightClickSelectGui extends GuiPage{
 				col=0;
 			}
 		}
-		setName("Right Click Action");
+		setName(Locale.parse(ToolUser.getUser(player), "rightclickaction"));
 		this.removeEmptyRows();
 	}
 	
@@ -33,9 +34,9 @@ public class RightClickSelectGui extends GuiPage{
 				if(Util.isToolBlacklisted(t) && !Util.permCheck(getPlayer(), "bonetool.admin.bypass")) {
 					continue;
 				}
-				GuiItem item = new GuiItem(t.getIcon());
+				ToolUser u = ToolUser.getUser(getPlayer());
+				GuiItem item = new GuiItem(t.getIcon(null, u));
 				item.setRun(event -> {
-					ToolUser u = ToolUser.getUser(getPlayer());
 					u.setRightClickTool(t);
 					new ToolGui(getPlayer()).display();
 				});

@@ -1,7 +1,12 @@
 package net.dezilla.bonetool.util;
 
 import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.io.OutputStream;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -21,10 +26,12 @@ public class ToolConfig {
 	//Misc
 	public static Material toolMaterial = Material.BONE;
 	public static boolean overlayBUtilSecretBlocks = true;
+	public static boolean disableBUtilSecretBlocks = false;
 	public static boolean allowColorOnSign = true;
 	public static List<String> toolBlacklist = new ArrayList<String>();
 	public static boolean LightAPI = false;
 	public static boolean allowOutsidePlotArea = false;
+	public static String defaultLocale = "en";
 	
 	//Illegal Blocks
 	public static boolean netherPortal = true;
@@ -74,10 +81,12 @@ public class ToolConfig {
 			toolMaterial = Material.valueOf(config.getString("toolMaterial").toUpperCase());
 		} catch(Exception e) {}
 		try{overlayBUtilSecretBlocks = config.getBoolean("overlayBUtilSecretBlocks");}catch(Exception e) {}
+		try{disableBUtilSecretBlocks = config.getBoolean("disableBUtilSecretBlocks");}catch(Exception e) {}
 		try{allowColorOnSign = config.getBoolean("allowColorOnSign");}catch(Exception e) {}
 		try{toolBlacklist = config.getStringList("toolBlacklist");}catch(Exception e) {}
 		try{LightAPI = config.getBoolean("LightAPI");}catch(Exception e) {}
 		try{allowOutsidePlotArea = config.getBoolean("allowOutsidePlotArea");}catch(Exception e) {}
+		try{defaultLocale = config.getString("defaultLocale");}catch(Exception e) {}
 		//Illegal Blocks
 		try{netherPortal = config.getBoolean("netherPortal");}catch(Exception e) {}
 		try{endPortal = config.getBoolean("endPortal");}catch(Exception e) {}
@@ -121,6 +130,46 @@ public class ToolConfig {
 		if(ToolMain.getVersionNumber()>=19) {
 			sculkSensor = false; // Not needed since it appears in creative menu for 1.19
 		}
+		
+		//locale
+		//yea I need to improve this. I was lazy and tired when I coded this bit
+		File localeFolder = Locale.getLocaleFolder();
+		List<String> localeToLoad = new ArrayList<String>();
+		final int enRev = 1;
+		final int frRev = 1;
+		File enLocale = new File(localeFolder.getPath(), "en.yml");
+		File frLocale = new File(localeFolder.getPath(), "fr.yml");
+		if(enLocale.exists()) {
+			try {
+				YamlConfiguration yaml = YamlConfiguration.loadConfiguration(new InputStreamReader(new FileInputStream(enLocale)));
+				int value = yaml.getInt("revision");
+				if(value < enRev)
+					localeToLoad.add("en");
+			} catch(Exception e) {}
+		} else localeToLoad.add("en");
+		if(frLocale.exists()) {
+			try {
+				YamlConfiguration yaml = YamlConfiguration.loadConfiguration(new InputStreamReader(new FileInputStream(frLocale)));
+				int value = yaml.getInt("revision");
+				if(value < frRev)
+					localeToLoad.add("fr");
+			}catch(Exception e) {}
+		} else localeToLoad.add("fr");
+		for(String key : localeToLoad) {
+			try {
+				loadFile("locale"+File.separator+key+".yml", localeFolder.getAbsolutePath()+File.separator+key+".yml");
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+		}
+		File localeReadMe = new File(localeFolder.getPath(), "readme.txt");
+		if(!localeReadMe.exists()) {
+			try {
+				loadFile("locale"+File.separator+"readme.txt", localeFolder.getAbsolutePath()+File.separator+"readme.txt");
+			} catch(IOException e) {
+				e.printStackTrace();
+			}
+		}
 	}
 	
 	public static void generateConfig() {
@@ -148,6 +197,16 @@ public class ToolConfig {
 		Inventory inv = Bukkit.getServer().createInventory(new GuiHolder(), 9, "ItemLoading");
 		inv.addItem(invisFrameItem);
 	}
+	
+	private static void loadFile(String source, String target) throws IOException {
+        try (InputStream in = ToolMain.getInstance().getResource(source); OutputStream out = new FileOutputStream(target)) {
+            byte[] buf = new byte[1024];
+            int length;
+            while ((length = in.read(buf)) > 0) {
+                out.write(buf, 0, length);
+            }
+        }
+    }
 	
 	/*
 	 * Permission List

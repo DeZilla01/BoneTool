@@ -11,7 +11,9 @@ import org.bukkit.event.inventory.ClickType;
 import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.inventory.ItemStack;
 
+import net.dezilla.bonetool.ToolUser;
 import net.dezilla.bonetool.Util;
+import net.dezilla.bonetool.util.Locale;
 
 public class LidTool extends WandTool{
 
@@ -26,12 +28,12 @@ public class LidTool extends WandTool{
 	}
 
 	@Override
-	public ItemStack getIcon(Block block) {
-		String name = "Lid";
+	public ItemStack getIcon(Block block, ToolUser user) {
+		String name = Locale.parse(user, "lid");
 		List<String> lore = Arrays.asList(
-				ChatColor.AQUA+"Left Click"+ChatColor.WHITE+": Open the lid.",
-				ChatColor.AQUA+"Right Click"+ChatColor.WHITE+": Close the lid.",
-				ChatColor.GRAY+"This tool can cause visual bugs.");
+				ChatColor.AQUA+Locale.parse(user, "leftclick")+ChatColor.WHITE+": "+Locale.parse(user, "openlid"),
+				ChatColor.AQUA+Locale.parse(user, "rightclick")+ChatColor.WHITE+": "+Locale.parse(user, "closelid"),
+				ChatColor.GRAY+Locale.parse(user, "visualBugWarning"));
 		return Util.setLore(Util.setName(new ItemStack(Material.CHEST), name), lore);
 	}
 	

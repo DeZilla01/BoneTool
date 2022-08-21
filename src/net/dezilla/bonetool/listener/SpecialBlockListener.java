@@ -26,8 +26,8 @@ import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.event.player.PlayerItemHeldEvent;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
+import org.bukkit.persistence.PersistentDataType;
 
-import net.dezilla.bonetool.listener.BlockUpdateListener;
 import net.dezilla.bonetool.ToolMain;
 import net.dezilla.bonetool.Util;
 import net.dezilla.bonetool.wandtool.DirectionalTool;
@@ -59,8 +59,11 @@ public class SpecialBlockListener implements Listener{
 			}
 		}
 		
-		String itemName = e.getItem().getItemMeta().getDisplayName();
-		if(itemName.contains("Nether Portal Block") && ToolConfig.netherPortal) {
+		ItemMeta meta = e.getItem().getItemMeta();
+		if(!meta.getPersistentDataContainer().has(Util.specialBlockKey, PersistentDataType.STRING))
+			return;
+		String blockType = meta.getPersistentDataContainer().get(Util.specialBlockKey, PersistentDataType.STRING);
+		if(blockType.equals("netherPortal") && ToolConfig.netherPortal) {
 			e.setCancelled(true);
 			block.setType(Material.NETHER_PORTAL);
 			BlockFace face = Util.getBlockFacing(e.getPlayer(), new HashSet<BlockFace>(Arrays.asList(BlockFace.NORTH, BlockFace.SOUTH, BlockFace.EAST, BlockFace.WEST)));
@@ -71,15 +74,15 @@ public class SpecialBlockListener implements Listener{
 					OrientableTool.setAxis(block, Axis.Z);break;
 				default:{}
 			}
-		}else if(itemName.contains("End Portal Block") && ToolConfig.endPortal) {
+		}else if(blockType.equals("endPortal") && ToolConfig.endPortal) {
 			e.setCancelled(true);
 			block.setType(Material.END_PORTAL);
-		}else if(itemName.contains("Piston Head Block") && ToolConfig.pistonHead) {
+		}else if(blockType.equals("pistonHead") && ToolConfig.pistonHead) {
 			e.setCancelled(true);
 			block.setType(Material.PISTON_HEAD);
 			DirectionalTool.setFacing(block, Util.getBlockFacing(e.getPlayer(), DirectionalTool.getFaces(block)));
 			PistonHeadTool.setPistonHeadShot(block, true);
-		}else if(itemName.contains("Double Ladder Head") && ToolConfig.doubleLadder) {
+		}else if(blockType.equals("doubleLadder") && ToolConfig.doubleLadder) {
 			e.setCancelled(true);
 			BlockUpdateListener.protectBlock(block, 1);
 			block.setType(Material.LADDER);
@@ -90,7 +93,7 @@ public class SpecialBlockListener implements Listener{
 				block2.setType(Material.LADDER);
 				DirectionalTool.setFacing(block2, Util.getBlockFacing(e.getPlayer(), DirectionalTool.getFaces(block2)).getOppositeFace());
 			}
-		}else if(itemName.contains("Lit Redstone Lamp") && ToolConfig.litRedstoneLamp) {
+		}else if(blockType.equals("litRedstoneLamp") && ToolConfig.litRedstoneLamp) {
 			e.setCancelled(true);
 			BlockUpdateListener.protectBlock(block, 1);
 			block.setType(Material.REDSTONE_LAMP);
@@ -105,7 +108,7 @@ public class SpecialBlockListener implements Listener{
 		ItemStack item = event.getPlayer().getInventory().getItem(event.getNewSlot());
 		if(item != null && item.getType() == Material.ITEM_FRAME) {
 			ItemMeta meta = item.getItemMeta();
-			if(meta.hasDisplayName() && meta.getDisplayName().contains("Invisible Item Frame")) {
+			if(meta.getPersistentDataContainer().has(Util.specialBlockKey, PersistentDataType.STRING) && meta.getPersistentDataContainer().get(Util.specialBlockKey, PersistentDataType.STRING).equals("invisFrame")) {
 				int taskid = Bukkit.getScheduler().scheduleSyncRepeatingTask(ToolMain.getInstance(), () -> {
 					ItemStack current = event.getPlayer().getInventory().getItemInMainHand();
 					if(!event.getPlayer().isOnline() || current == null || !current.equals(item)) {

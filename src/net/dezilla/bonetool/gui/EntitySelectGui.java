@@ -7,8 +7,10 @@ import org.bukkit.entity.EntityType;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 
+import net.dezilla.bonetool.ToolUser;
 import net.dezilla.bonetool.Util;
 import net.dezilla.bonetool.util.EntityTypeRunnable;
+import net.dezilla.bonetool.util.Locale;
 
 public class EntitySelectGui extends GuiPage{
 	List<EntitySelectGui> pages = new ArrayList<EntitySelectGui>();
@@ -19,13 +21,13 @@ public class EntitySelectGui extends GuiPage{
 		super(6, player);
 		this.run = run;
 		this.options = options;
-		setName("Select Entity");
+		setName(Locale.parse(ToolUser.getUser(player), "selectentity"));
 		addItems();
 	}
 	
 	private EntitySelectGui(Player player, int page) {
 		super(6, player);
-		setName("Select Entity - Page "+page);
+		setName(Locale.parse(ToolUser.getUser(player), "selectentity")+" - "+Locale.parse(ToolUser.getUser(player), "page")+" "+page);
 	}
 	
 	private void addItems() {
@@ -43,7 +45,7 @@ public class EntitySelectGui extends GuiPage{
 				col=0;
 			}
 			if(row>5) {
-				pages.get(0).setName("Select Entity - Page 1");
+				pages.get(0).setName(Locale.parse(ToolUser.getUser(getPlayer()), "selectentity")+" - "+Locale.parse(ToolUser.getUser(getPlayer()), "page")+" 1");
 				currentPage = new EntitySelectGui(getPlayer(), pages.size()+1);
 				pages.add(currentPage);
 				row = 1;
@@ -52,7 +54,7 @@ public class EntitySelectGui extends GuiPage{
 		}
 		for(EntitySelectGui page : pages) {
 			if(pages.indexOf(page) != 0) {
-				GuiItem previous = new GuiItem(getPrevious());
+				GuiItem previous = new GuiItem(getPrevious(ToolUser.getUser(getPlayer())));
 				previous.setRun((event) -> {
 					pages.get(pages.indexOf(page)-1).multiPageFix();
 					pages.get(pages.indexOf(page)-1).display();
@@ -60,7 +62,7 @@ public class EntitySelectGui extends GuiPage{
 				page.setItem(0,0,previous);
 			}
 			if(pages.indexOf(page)+1 != pages.size()) {
-				GuiItem next = new GuiItem(getNext());
+				GuiItem next = new GuiItem(getNext(ToolUser.getUser(getPlayer())));
 				next.setRun((event) -> {
 					pages.get(pages.indexOf(page)+1).multiPageFix();
 					pages.get(pages.indexOf(page)+1).display();
@@ -70,14 +72,14 @@ public class EntitySelectGui extends GuiPage{
 		}
 	}
 	
-	private static ItemStack getNext() {
+	private static ItemStack getNext(ToolUser user) {
 		ItemStack icon = Util.createTexturedHead("eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvZDllY2NjNWMxYzc5YWE3ODI2YTE1YTdmNWYxMmZiNDAzMjgxNTdjNTI0MjE2NGJhMmFlZjQ3ZTVkZTlhNWNmYyJ9fX0=");
-		return Util.setName(icon, "Next");
+		return Util.setName(icon, Locale.parse(user, "next"));
 	}
 	
-	private static ItemStack getPrevious() {
+	private static ItemStack getPrevious(ToolUser user) {
 		ItemStack icon = Util.createTexturedHead("eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvODY0Zjc3OWE4ZTNmZmEyMzExNDNmYTY5Yjk2YjE0ZWUzNWMxNmQ2NjllMTljNzVmZDFhN2RhNGJmMzA2YyJ9fX0=");
-		return Util.setName(icon, "Previous");
+		return Util.setName(icon, Locale.parse(user, "previous"));
 	}
 
 }

@@ -7,8 +7,10 @@ import org.bukkit.entity.Player;
 import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.inventory.ItemStack;
 
+import net.dezilla.bonetool.ToolUser;
 import net.dezilla.bonetool.Util;
 import net.dezilla.bonetool.gui.BrewingStandGui;
+import net.dezilla.bonetool.util.Locale;
 
 public class BrewingStandTool extends WandTool{
 
@@ -23,8 +25,8 @@ public class BrewingStandTool extends WandTool{
 	}
 
 	@Override
-	public ItemStack getIcon(Block block) {
-		String name = "Brewing Stand Potions";
+	public ItemStack getIcon(Block block, ToolUser user) {
+		String name = Locale.parse(user, "brewstandpotions");
 		return Util.setName(new ItemStack(Material.BREWING_STAND), name);
 	}
 	

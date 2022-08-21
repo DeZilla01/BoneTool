@@ -23,6 +23,7 @@ import org.bukkit.inventory.ItemStack;
 import net.dezilla.bonetool.ToolUser;
 import net.dezilla.bonetool.Util;
 import net.dezilla.bonetool.gui.ColorSelectGui;
+import net.dezilla.bonetool.util.Locale;
 
 public class ColorTool extends WandTool{
 
@@ -37,23 +38,23 @@ public class ColorTool extends WandTool{
 	}
 	
 	@Override
-	public ItemStack getIcon(Block block) {
-		String name = "Color";
+	public ItemStack getIcon(Block block, ToolUser user) {
+		String name = Locale.parse(user, "color");
 		Material material = Material.ORANGE_DYE;
 		if(block != null) {
-			name = "Color: "+getDyeColor(block);
+			name = Locale.parse(user, "color")+": "+getDyeColor(block);
 			material = getColorMaterial(getDyeColor(block));
 		}
 		ItemStack icon = Util.setName(new ItemStack(material), name);
 		if(block != null) {
 			List<String> lore = Arrays.asList(
-					ChatColor.AQUA+"Left Click: "+ChatColor.WHITE+"Choose Color",
-					ChatColor.AQUA+"Right Click: "+ChatColor.WHITE+"Toggle Color");
+					ChatColor.AQUA+Locale.parse(user, "leftclick")+": "+ChatColor.WHITE+Locale.parse(user, "choosecolor"),
+					ChatColor.AQUA+Locale.parse(user, "rightclick")+": "+ChatColor.WHITE+Locale.parse(user, "togglecolor"));
 			icon = Util.setLore(icon, lore);
 		} else {
 			List<String> lore = Arrays.asList(
-					ChatColor.GRAY+"Change the color of the block.",
-					ChatColor.GRAY+"Sneak and right click on ground to select the color."
+					ChatColor.GRAY+Locale.parse(user, "colorinstructions1"),
+					ChatColor.GRAY+Locale.parse(user, "colorinstructions2")
 					);
 			icon = Util.setLore(icon, lore);
 		}

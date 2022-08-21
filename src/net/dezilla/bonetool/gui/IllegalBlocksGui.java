@@ -8,15 +8,17 @@ import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 
 import net.dezilla.bonetool.ToolMain;
+import net.dezilla.bonetool.ToolUser;
 import net.dezilla.bonetool.Util;
 import net.dezilla.bonetool.util.InventoryRunnable;
+import net.dezilla.bonetool.util.Locale;
 import net.dezilla.bonetool.util.ToolConfig;
 
 public class IllegalBlocksGui extends GuiPage{
 
 	public IllegalBlocksGui(Player player) {
 		super(6, player);
-		setName("BoneTool Secret Blocks");
+		setName(Locale.parse(ToolUser.getUser(player), "btSecretBlocks"));
 		int row = 0;
 		int col = 0;
 		for(ItemStack item : getBlocks()) {
@@ -27,12 +29,12 @@ public class IllegalBlocksGui extends GuiPage{
 			}
 		}
 		if(ToolConfig.paintingByName && Util.permCheck(player, "bonetool.blocks.paintings")) {
-			GuiItem paintings = new GuiItem(Util.setName(new ItemStack(Material.PAINTING), "Paintings"));
+			GuiItem paintings = new GuiItem(Util.setName(new ItemStack(Material.PAINTING), Locale.parse(ToolUser.getUser(player), "paintings")));
 			paintings.setRun((event) -> new PaintingGui(player).display());
 			setItem(0, 8, paintings);
 		}
 		if(ToolConfig.lightBlock && Util.permCheck(player, "bonetool.blocks.lightblock") && ToolMain.getVersionNumber()>=17) {
-			GuiItem lightBlocks = new GuiItem(Util.setName(new ItemStack(Material.LIGHT), "Light Block"));
+			GuiItem lightBlocks = new GuiItem(Util.setName(new ItemStack(Material.LIGHT), Locale.parse(ToolUser.getUser(player), "lightblock")));
 			lightBlocks.setRun((event) -> new LightBlockGui(player).display());
 			setItem(1, 8, lightBlocks);
 		}

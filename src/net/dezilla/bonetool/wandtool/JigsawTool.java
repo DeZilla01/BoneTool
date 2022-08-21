@@ -10,7 +10,9 @@ import org.bukkit.block.data.type.Jigsaw;
 import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.inventory.ItemStack;
 
+import net.dezilla.bonetool.ToolUser;
 import net.dezilla.bonetool.Util;
+import net.dezilla.bonetool.util.Locale;
 
 public class JigsawTool extends WandTool {
 	
@@ -30,8 +32,8 @@ public class JigsawTool extends WandTool {
 	}
 
 	@Override
-	public ItemStack getIcon(Block block) {
-		String name = "Jigsaw Orientation";
+	public ItemStack getIcon(Block block, ToolUser user) {
+		String name = Locale.parse(user, "jigsaworientation");
 		if(block != null) {
 			Jigsaw j = (Jigsaw) block.getBlockData();
 			name+=": "+ChatColor.YELLOW+j.getOrientation().toString();

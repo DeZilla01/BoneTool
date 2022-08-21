@@ -7,7 +7,9 @@ import org.bukkit.block.data.type.RespawnAnchor;
 import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.inventory.ItemStack;
 
+import net.dezilla.bonetool.ToolUser;
 import net.dezilla.bonetool.Util;
+import net.dezilla.bonetool.util.Locale;
 
 public class RespawnAnchorTool extends WandTool{
 
@@ -22,14 +24,14 @@ public class RespawnAnchorTool extends WandTool{
 	}
 
 	@Override
-	public ItemStack getIcon(Block block) {
-		String name = "Respawn Anchor Charge";
+	public ItemStack getIcon(Block block, ToolUser user) {
+		String name = Locale.parse(user, "respawnanchorcharge");
 		if(block != null) {	
 			RespawnAnchor anchor = (RespawnAnchor) block.getBlockData();
 			name+=": "+ChatColor.YELLOW+anchor.getCharges();
 		}
 		ItemStack icon = Util.setName(new ItemStack(Material.RESPAWN_ANCHOR), name);
-		Util.setLore(icon, intLore);
+		Util.setLore(icon, getIntLore(user));
 		return icon;
 	}
 	

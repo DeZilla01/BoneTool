@@ -7,7 +7,9 @@ import org.bukkit.entity.Player;
 import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.inventory.ItemStack;
 
+import net.dezilla.bonetool.ToolUser;
 import net.dezilla.bonetool.Util;
+import net.dezilla.bonetool.util.Locale;
 
 public class SignTool extends WandTool{
 
@@ -22,8 +24,8 @@ public class SignTool extends WandTool{
 	}
 
 	@Override
-	public ItemStack getIcon(Block block) {
-		String name = "Edit Sign";
+	public ItemStack getIcon(Block block, ToolUser user) {
+		String name = Locale.parse(user, "editSigns");
 		return Util.setName(new ItemStack(Material.OAK_SIGN), name);
 	}
 	

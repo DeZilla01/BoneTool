@@ -8,7 +8,9 @@ import org.bukkit.block.data.BlockData;
 import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.inventory.ItemStack;
 
+import net.dezilla.bonetool.ToolUser;
 import net.dezilla.bonetool.Util;
+import net.dezilla.bonetool.util.Locale;
 
 public class BisectedTool extends WandTool{
 
@@ -23,10 +25,10 @@ public class BisectedTool extends WandTool{
 	}
 
 	@Override
-	public ItemStack getIcon(Block block) {
-		String name = "Bisected";
+	public ItemStack getIcon(Block block, ToolUser user) {
+		String name = Locale.parse(user, "bisected");
 		if(block != null)
-			name = "Bisected: "+ChatColor.YELLOW+getHalf(block);
+			name = Locale.parse(user, "bisected")+": "+ChatColor.YELLOW+getHalf(block);
 		return Util.setName(new ItemStack(Material.IRON_DOOR), name);
 	}
 	

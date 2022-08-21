@@ -12,9 +12,11 @@ import org.bukkit.plugin.java.JavaPlugin;
 
 import net.dezilla.bonetool.command.*;
 import net.dezilla.bonetool.listener.*;
+import net.dezilla.bonetool.util.Locale;
 import net.dezilla.bonetool.util.Metrics;
 import net.dezilla.bonetool.util.ToolConfig;
 import net.dezilla.bonetool.wandtool.*;
+import net.md_5.bungee.api.ChatColor;
 
 public class ToolMain extends JavaPlugin{
 	
@@ -32,6 +34,17 @@ public class ToolMain extends JavaPlugin{
 		System.out.println("[BoneTool] Loading Configs.");
 		/*-----[Configs]-----*/
 		ToolConfig.loadConfig();
+		
+		/*-----[Version Warning]-----*/
+		if(getVersionNumber() < 16) {
+			System.out.println("[BoneTool] "+ChatColor.RED+Locale.parse("oldVersionWarning1"));
+			System.out.println("[BoneTool] "+ChatColor.RED+Locale.parse("oldVersionWarning2"));
+		}
+		
+		if(getVersionNumber() > 19) {
+			System.out.println("[BoneTool] "+ChatColor.RED+Locale.parse("newVersionWarning1"));
+			System.out.println("[BoneTool] "+ChatColor.RED+Locale.parse("newVersionWarning2"));
+		}
 		
 		System.out.println("[BoneTool] Enabling Listeners.");
 		/*-----[Listeners]-----*/
@@ -65,10 +78,16 @@ public class ToolMain extends JavaPlugin{
 			if(getVersionNumber()>=17)
 				commandMap.register("bonetool", new LightBlockCommand());
 			//Builder's Utilities Commands
-			if(getServer().getPluginManager().isPluginEnabled("Builders-Utilities") && ToolConfig.overlayBUtilSecretBlocks) {
-				BUtilSecretBlocksCommand secretBlockCommand = new BUtilSecretBlocksCommand();
-				getServer().getPluginCommand("blocks").setExecutor(secretBlockCommand);
-				commandMap.register("builders-utilities", secretBlockCommand);
+			if(getServer().getPluginManager().isPluginEnabled("Builders-Utilities")) {
+				if(ToolConfig.disableBUtilSecretBlocks) {
+					BlockCommand secretBlockCommand = new BlockCommand();
+					getServer().getPluginCommand("blocks").setExecutor(secretBlockCommand);
+					commandMap.register("bonetool", secretBlockCommand);
+				} else if(ToolConfig.overlayBUtilSecretBlocks) {
+					BUtilSecretBlocksCommand secretBlockCommand = new BUtilSecretBlocksCommand();
+					getServer().getPluginCommand("blocks").setExecutor(secretBlockCommand);
+					commandMap.register("builders-utilities", secretBlockCommand);
+				}
 			}
 			else
 				commandMap.register("bonetool", new BlockCommand());
@@ -181,6 +200,7 @@ public class ToolMain extends JavaPlugin{
 		Metrics metrics = new Metrics(this, 9762);
 		metrics.addCustomChart(new Metrics.SimplePie("butils", () -> (getServer().getPluginManager().isPluginEnabled("Builders-Utilities") ? "true" : "false")));
 		metrics.addCustomChart(new Metrics.SimplePie("plots", () -> (plotEnabled ? "true" : "false")));
+		metrics.addCustomChart(new Metrics.SimplePie("locale", () -> ToolConfig.defaultLocale));
 	}
 	
 	@Override

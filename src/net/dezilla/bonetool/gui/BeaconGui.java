@@ -9,7 +9,9 @@ import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.potion.PotionEffectType;
 
+import net.dezilla.bonetool.ToolUser;
 import net.dezilla.bonetool.Util;
+import net.dezilla.bonetool.util.Locale;
 
 public class BeaconGui extends GuiPage{
 	Beacon beacon = null;
@@ -19,7 +21,7 @@ public class BeaconGui extends GuiPage{
 		if(beacon.getState() instanceof Beacon)
 			this.beacon = (Beacon) beacon.getState();
 		addItems();
-		setName("Beacon Potion Effects");
+		setName(Locale.parse(ToolUser.getUser(player), "beaconpotioneffects"));
 	}
 	
 	public void addItems() {
@@ -27,12 +29,12 @@ public class BeaconGui extends GuiPage{
 			return;
 		ItemStack first = (beacon.getPrimaryEffect() == null ? new ItemStack(Material.POTION) : Util.getPotionIcon(beacon.getPrimaryEffect().getType()));
 		ItemStack second = (beacon.getSecondaryEffect() == null ? new ItemStack(Material.POTION) : Util.getPotionIcon(beacon.getSecondaryEffect().getType()));
-		Util.setName(first, "Set Primary Effect");
-		Util.setName(second, "Set Secondary Effect");
+		Util.setName(first, Locale.parse(ToolUser.getUser(getPlayer()), "setfirsteffect"));
+		Util.setName(second, Locale.parse(ToolUser.getUser(getPlayer()), "setsecondeffect"));
 		if(beacon.getPrimaryEffect() != null)
-			Util.setLore(first, ChatColor.GRAY+"Current Effect: "+ChatColor.YELLOW+name(beacon.getPrimaryEffect().getType()));
+			Util.setLore(first, ChatColor.GRAY+Locale.parse(ToolUser.getUser(getPlayer()), "currenteffect")+": "+ChatColor.YELLOW+name(beacon.getPrimaryEffect().getType()));
 		if(beacon.getSecondaryEffect() != null)
-			Util.setLore(second, ChatColor.GRAY+"Current Effect: "+ChatColor.YELLOW+name(beacon.getSecondaryEffect().getType()));
+			Util.setLore(second, ChatColor.GRAY+Locale.parse(ToolUser.getUser(getPlayer()), "currenteffect")+": "+ChatColor.YELLOW+name(beacon.getSecondaryEffect().getType()));
 		GuiItem firstItem = new GuiItem(first);
 		GuiItem secondItem = new GuiItem(second);
 		firstItem.setRun((event) -> {

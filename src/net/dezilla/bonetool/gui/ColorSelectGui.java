@@ -7,6 +7,7 @@ import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 
 import net.dezilla.bonetool.listener.BlockUpdateListener;
+import net.dezilla.bonetool.util.Locale;
 import net.dezilla.bonetool.ToolUser;
 import net.dezilla.bonetool.Util;
 import net.dezilla.bonetool.wandtool.ColorTool;
@@ -26,7 +27,7 @@ public class ColorSelectGui extends GuiPage{
 	private void addItems(Block block) {
 		int row = 0;
 		int col = 0;
-		setName("Select a color");
+		setName(Locale.parse(ToolUser.getUser(getPlayer()), "selectcolor"));
 		for(DyeColor dye : DyeColor.values()) {
 			ItemStack icon = Util.setName(new ItemStack(ColorTool.getColorMaterial(dye)), dye+"");
 			GuiItem item = new GuiItem(icon).setRun((e) -> {
@@ -36,7 +37,7 @@ public class ColorSelectGui extends GuiPage{
 					new BlockOptionGui(getPlayer(), block).display();
 				} else {
 					ToolUser.getUser(getPlayer()).setToolColor(dye);
-					Util.sendNotification(getPlayer(), "Color selected: "+Util.DyetoChat(dye)+StringUtils.capitalize(dye.toString().replace("_", " ").toLowerCase()));
+					Util.sendNotification(getPlayer(), Locale.parse(ToolUser.getUser(getPlayer()), "selectedcolor")+": "+Util.DyetoChat(dye)+StringUtils.capitalize(dye.toString().replace("_", " ").toLowerCase()));
 					getPlayer().closeInventory();
 				}
 			});

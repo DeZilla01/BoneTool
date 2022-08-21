@@ -8,17 +8,19 @@ import org.bukkit.block.Block;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 
+import net.dezilla.bonetool.ToolUser;
+import net.dezilla.bonetool.util.Locale;
 import net.dezilla.bonetool.wandtool.PotTool;
 
 public class PotSelectGui extends GuiPage{
 
 	public PotSelectGui(Player player, Block block) {
 		super(6, player);
-		setName("Select Flower Pot Content");
+		setName(Locale.parse(ToolUser.getUser(player), "selectflower"));
 		int row = 0;
 		int col = 0;
 		for(Material m : getMaterials()) {
-			ItemStack icon = PotTool.getItemIcon(m);
+			ItemStack icon = PotTool.getItemIcon(m, ToolUser.getUser(player));
 			GuiItem item = new GuiItem(icon);
 			item.setRun((event) -> {
 				block.setType(m);

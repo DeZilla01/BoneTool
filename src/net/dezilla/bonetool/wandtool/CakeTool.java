@@ -7,7 +7,9 @@ import org.bukkit.block.data.type.Cake;
 import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.inventory.ItemStack;
 
+import net.dezilla.bonetool.ToolUser;
 import net.dezilla.bonetool.Util;
+import net.dezilla.bonetool.util.Locale;
 
 public class CakeTool extends WandTool{
 
@@ -22,15 +24,15 @@ public class CakeTool extends WandTool{
 	}
 
 	@Override
-	public ItemStack getIcon(Block block) {
-		String name = "Cake Bites";
+	public ItemStack getIcon(Block block, ToolUser user) {
+		String name = Locale.parse(user, "cakebites");
 		if(block != null && block.getBlockData() instanceof Cake) {
 			Cake cake = (Cake) block.getBlockData();
 			name+=": "+ChatColor.YELLOW+cake.getBites();
 		}
 		ItemStack icon = Util.setName(new ItemStack(Material.CAKE), name);
 		if(block!=null) {
-			Util.setLore(icon, intLore);
+			Util.setLore(icon, getIntLore(user));
 		}
 		return icon;
 	}

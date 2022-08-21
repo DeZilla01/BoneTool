@@ -7,7 +7,9 @@ import org.bukkit.block.data.type.Hopper;
 import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.inventory.ItemStack;
 
+import net.dezilla.bonetool.ToolUser;
 import net.dezilla.bonetool.Util;
+import net.dezilla.bonetool.util.Locale;
 
 public class HopperTool extends WandTool {
 	
@@ -22,11 +24,11 @@ public class HopperTool extends WandTool {
 	}
 
 	@Override
-	public ItemStack getIcon(Block block) {
-		String name = "Hopper Enabled";
+	public ItemStack getIcon(Block block, ToolUser user) {
+		String name = Locale.parse(user, "hopperenabled");
 		if(block!=null) {
 			Hopper h = (Hopper) block.getBlockData();
-			name+=": "+(h.isEnabled()?ChatColor.GREEN+"True":ChatColor.RED+"False");
+			name+=": "+(h.isEnabled()?ChatColor.GREEN+Locale.parse(user, "true"):ChatColor.RED+Locale.parse(user, "false"));
 		}
 		return Util.setName(new ItemStack(Material.HOPPER), name);
 	}

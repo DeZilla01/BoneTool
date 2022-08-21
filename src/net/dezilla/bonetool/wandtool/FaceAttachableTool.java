@@ -8,7 +8,9 @@ import org.bukkit.block.data.FaceAttachable;
 import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.inventory.ItemStack;
 
+import net.dezilla.bonetool.ToolUser;
 import net.dezilla.bonetool.Util;
+import net.dezilla.bonetool.util.Locale;
 
 public class FaceAttachableTool extends WandTool{
 
@@ -23,10 +25,10 @@ public class FaceAttachableTool extends WandTool{
 	}
 
 	@Override
-	public ItemStack getIcon(Block block) {
-		String name = "Attachable";
+	public ItemStack getIcon(Block block, ToolUser user) {
+		String name = Locale.parse(user, "attachable");
 		if(block != null)
-			name = "Attachable: "+ChatColor.YELLOW+getAttachedFace(block);
+			name += ": "+ChatColor.YELLOW+getAttachedFace(block);
 		return Util.setName(new ItemStack(Material.COBWEB), name);
 	}
 	

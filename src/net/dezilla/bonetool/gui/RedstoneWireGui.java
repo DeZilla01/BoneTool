@@ -13,7 +13,9 @@ import org.bukkit.block.data.type.RedstoneWire.Connection;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 
+import net.dezilla.bonetool.ToolUser;
 import net.dezilla.bonetool.Util;
+import net.dezilla.bonetool.util.Locale;
 import net.dezilla.bonetool.wandtool.RedstoneWireTool;
 
 public class RedstoneWireGui extends GuiPage {
@@ -23,6 +25,7 @@ public class RedstoneWireGui extends GuiPage {
 	public RedstoneWireGui(Player player, Block block) {
 		super(3, player);
 		this.block = block;
+		setName(Locale.parse(ToolUser.getUser(player), "redstoneconnection"));
 		if(block.getBlockData() instanceof RedstoneWire)
 			addItems();
 	}

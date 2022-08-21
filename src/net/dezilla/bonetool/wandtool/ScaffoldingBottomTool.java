@@ -7,7 +7,9 @@ import org.bukkit.block.data.type.Scaffolding;
 import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.inventory.ItemStack;
 
+import net.dezilla.bonetool.ToolUser;
 import net.dezilla.bonetool.Util;
+import net.dezilla.bonetool.util.Locale;
 
 public class ScaffoldingBottomTool extends WandTool {
 	
@@ -22,10 +24,10 @@ public class ScaffoldingBottomTool extends WandTool {
 	}
 
 	@Override
-	public ItemStack getIcon(Block block) {
-		String name = "Scaffolding Bottom";
+	public ItemStack getIcon(Block block, ToolUser user) {
+		String name = Locale.parse(user, "scaffoldingbottom");
 		if(block!=null) {
-			name += ": " + (isBottom(block) ? ChatColor.GREEN+"True":ChatColor.RED+"False");
+			name += ": " + (isBottom(block) ? ChatColor.GREEN+Locale.parse(user, "true"):ChatColor.RED+Locale.parse(user, "false"));
 		}
 		return Util.setName(new ItemStack(Material.SCAFFOLDING), name);
 	}

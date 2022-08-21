@@ -7,7 +7,9 @@ import org.bukkit.block.data.type.CommandBlock;
 import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.inventory.ItemStack;
 
+import net.dezilla.bonetool.ToolUser;
 import net.dezilla.bonetool.Util;
+import net.dezilla.bonetool.util.Locale;
 
 public class CommandConditionalTool extends WandTool {
 	
@@ -22,10 +24,10 @@ public class CommandConditionalTool extends WandTool {
 	}
 
 	@Override
-	public ItemStack getIcon(Block block) {
-		String name = ChatColor.WHITE+"Command Conditional";
+	public ItemStack getIcon(Block block, ToolUser user) {
+		String name = ChatColor.WHITE+Locale.parse(user, "commandconditional");
 		if(block != null)
-			name += ": "+(isConditional(block) ? ChatColor.GREEN+"True":ChatColor.RED+"False");
+			name += ": "+(isConditional(block) ? ChatColor.GREEN+Locale.parse(user, "true"):ChatColor.RED+Locale.parse(user, "false"));
 		return Util.setName(new ItemStack(Material.COMMAND_BLOCK), name);
 	}
 	

@@ -8,7 +8,9 @@ import org.bukkit.block.data.type.CaveVinesPlant;
 import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.inventory.ItemStack;
 
+import net.dezilla.bonetool.ToolUser;
 import net.dezilla.bonetool.Util;
+import net.dezilla.bonetool.util.Locale;
 
 public class GlowBerryTool extends WandTool {
 	
@@ -23,10 +25,10 @@ public class GlowBerryTool extends WandTool {
 	}
 
 	@Override
-	public ItemStack getIcon(Block block) {
-		String name = "Has Berry";
+	public ItemStack getIcon(Block block, ToolUser user) {
+		String name = Locale.parse(user, "hasberry");
 		if(block != null)
-			name += ": "+(hasBerry(block) ? ChatColor.GREEN+"True":ChatColor.RED+"False");
+			name += ": "+(hasBerry(block) ? ChatColor.GREEN+Locale.parse(user, "true"):ChatColor.RED+Locale.parse(user, "false"));
 		return Util.setName(new ItemStack(Material.GLOW_BERRIES), name);
 	}
 	

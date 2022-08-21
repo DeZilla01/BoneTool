@@ -15,9 +15,11 @@ import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.inventory.ItemStack;
 
+import net.dezilla.bonetool.ToolUser;
 import net.dezilla.bonetool.Util;
 import net.dezilla.bonetool.gui.MultipleFacingGui;
 import net.dezilla.bonetool.listener.BlockUpdateListener;
+import net.dezilla.bonetool.util.Locale;
 
 public class MultipleFacingTool extends WandTool{
 
@@ -32,11 +34,11 @@ public class MultipleFacingTool extends WandTool{
 	}
 
 	@Override
-	public ItemStack getIcon(Block block) {
-		String name = "Multiple Facing";
+	public ItemStack getIcon(Block block, ToolUser user) {
+		String name = Locale.parse(user, "multiplefacing");
 		ItemStack icon = Util.setName(new ItemStack(Material.OAK_FENCE), name);
 		if(block == null)
-			Util.setLore(icon, ChatColor.GRAY+"Change the facing of walls, fences and more.");
+			Util.setLore(icon, ChatColor.GRAY+Locale.parse(user, "multifacesinstructions"));
 		return icon;
 	}
 	

@@ -8,11 +8,14 @@ import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.BlockDataMeta;
 import org.bukkit.inventory.meta.ItemMeta;
 
+import net.dezilla.bonetool.ToolUser;
+import net.dezilla.bonetool.util.Locale;
+
 public class LightBlockGui extends GuiPage{
 	
 	public LightBlockGui(Player player) {
 		super(2, player);
-		setName("Light Blocks");
+		setName(Locale.parse(ToolUser.getUser(player), "lightblock"));
 		int row = 0;
 		int col = 0;
 		for(int i = 0; i < 16 ; i++) {

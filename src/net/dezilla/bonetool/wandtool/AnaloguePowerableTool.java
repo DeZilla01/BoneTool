@@ -8,7 +8,9 @@ import org.bukkit.block.data.BlockData;
 import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.inventory.ItemStack;
 
+import net.dezilla.bonetool.ToolUser;
 import net.dezilla.bonetool.Util;
+import net.dezilla.bonetool.util.Locale;
 
 public class AnaloguePowerableTool extends WandTool{
 
@@ -23,13 +25,13 @@ public class AnaloguePowerableTool extends WandTool{
 	}
 
 	@Override
-	public ItemStack getIcon(Block block) {
-		String name = "Power";
+	public ItemStack getIcon(Block block, ToolUser user) {
+		String name = Locale.parse(user, "power");
 		if(block != null)
-			name = "Power: "+ChatColor.YELLOW+getPower(block);
+			name += ": "+ChatColor.YELLOW+getPower(block);
 		ItemStack icon = Util.setName(new ItemStack(Material.REDSTONE), name);
 		if(block!=null)
-			Util.setLore(icon, intLore);
+			Util.setLore(icon, getIntLore(user));
 		return icon;
 	}
 	

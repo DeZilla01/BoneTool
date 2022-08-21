@@ -7,7 +7,9 @@ import org.bukkit.block.data.type.Repeater;
 import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.inventory.ItemStack;
 
+import net.dezilla.bonetool.ToolUser;
 import net.dezilla.bonetool.Util;
+import net.dezilla.bonetool.util.Locale;
 
 public class RepeaterLockTool extends WandTool {
 	
@@ -22,11 +24,11 @@ public class RepeaterLockTool extends WandTool {
 	}
 
 	@Override
-	public ItemStack getIcon(Block block) {
-		String name = "Repeater lock";
+	public ItemStack getIcon(Block block, ToolUser user) {
+		String name = Locale.parse(user, "repeaterlock");
 		if(block != null) {
 			Repeater r = (Repeater) block.getBlockData();
-			name += ": "+(r.isLocked() ? ChatColor.GREEN+"True":ChatColor.RED+"False");
+			name += ": "+(r.isLocked() ? ChatColor.GREEN+Locale.parse(user, "true"):ChatColor.RED+Locale.parse(user, "false"));
 		}
 		return Util.setName(new ItemStack(Material.REPEATER), name);
 	}

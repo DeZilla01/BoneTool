@@ -13,8 +13,10 @@ import org.bukkit.entity.Player;
 import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.inventory.ItemStack;
 
+import net.dezilla.bonetool.ToolUser;
 import net.dezilla.bonetool.Util;
 import net.dezilla.bonetool.gui.NoteGui;
+import net.dezilla.bonetool.util.Locale;
 
 public class NoteBlockTool extends WandTool{
 
@@ -29,11 +31,11 @@ public class NoteBlockTool extends WandTool{
 	}
 
 	@Override
-	public ItemStack getIcon(Block block) {
-		String name = "Edit Note";
+	public ItemStack getIcon(Block block, ToolUser user) {
+		String name = Locale.parse(user, "editnote");
 		if(block != null) {
 			NoteBlock note = (NoteBlock) block.getBlockData();
-			name+=" - Instrument: "+ChatColor.YELLOW+note.getInstrument().toString()+" - "+note.getNote().toString();
+			name+=" - "+Locale.parse(user, "instrument")+": "+ChatColor.YELLOW+note.getInstrument().toString()+" - "+note.getNote().toString();
 		}
 		ItemStack icon = new ItemStack(Material.NOTE_BLOCK);
 		return Util.setName(icon, name);

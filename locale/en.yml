@@ -1,0 +1,205 @@
+name: English
+credits: Default language of BoneTool
+revision: 1
+
+oldVersionWarning1: WARNING - You're running on an older version of Minecraft than BoneTool currently support.
+oldVersionWarning2: No support will be provided if the plugin/server crashes.
+newVersionWarning1: WARNING - You're running on a newer version of Minecraft than officially supported by BoneTool.
+newVersionWarning2: Please update the plugin if a newer version is available.
+senderNotPlayer: You must be a player to use this command.
+accessDenied: You do not have access to this feature.
+accessDisabled: This feature is disabled.
+configReload: BoneTool configuration has been reloaded.
+editSigns: Edit Signs
+enabled: Enabled
+disabled: Disabled
+onsneak: On Sneak
+sneaktoggle: Sneak Toggle
+manyArguments: Too many arguments
+invalidArgument: Invalid argument
+flyondoublecrouch: Fly speed on double crouch
+noLitter: No litter
+noblockupdate: No Block Update
+forceplace: Force Placing
+snipeplace: Snipe Placing
+flyspeed: Fly Speed
+notoolforblock: No tool for this block
+#beacon
+beaconpotioneffects: Beacon Potion Effects
+setfirsteffect: Set Primary Effect
+setsecondeffect: Set Secondary Effect
+currenteffect: Current Effect
+selectpotion: Select Potion Type
+#gui
+selectrotation: Select Rotation
+blockoption: Block Option
+selectcolor: Select a color
+selectedcolor: Color selected
+selectentity: Select Entity
+page: Page
+next: Next
+previous: Previous
+brewstandpotions: Brewing Stand Potions
+potion: Potion
+btSecretBlocks: BoneTool Secret Blocks
+paintings: Paintings
+lightblock: Light Block
+selectlanguage: Select a language
+multifaceseditor: Multiple Facing Editor
+noteblockeditor: Note Block Editor
+none: None
+selectflower: Select Flower Pot Content
+redstoneconnection: Redstone Connection
+rightclickaction: Right Click Action
+wallconnection: Wall Connection
+default: Default
+#spawner
+spawnereditor: Spawner Editor
+changeentitytype: Change Entity Type
+currentdelay: Current Delay
+maxnearbyentities: Maximum Nearby Entities
+minspawndelay: Minimum Spawn Delay
+maxspawndelay: Maximum Spawn Delay
+requiredplayerrange: Required Player Range
+spawncount: Spawn Count
+spawnrange: Spawn Range
+#toolgui
+editflyspeed: Edit Fly Speed
+flySpeedInstructions1: Allow the user to edit fly speed
+flySpeedInstructions2: by double sneaking and scrolling.
+editSignsInstructions1: Allow the user to edit signs by sneaking
+editSignsInstructions2: and right clicking with bare hands.
+noLitterInstructions: Automatically delete item when dropped.
+notification: Notification
+wandmaterial: Wand Material
+wandMaterialInstructions1: Drag an item here to set as your wand.
+wandMaterialInstructions2: Shift + Right Click to spawn a wand in your inventory.
+bonetoolDescription: A tool to edit block properties and more.
+#special blocks
+netherPortal: Nether Portal
+pistonHead: Piston Head
+endPortal: End Portal
+doubleLadder: Double Ladder
+litRedstoneLamp: Lit Redstone Lamp
+invisFrame: Invisible Item Frame
+#wandtools
+true: True
+false: False
+leftclick: Left Click
+rightclick: Right Click
+shift: Shift
+comparatormode: Comparator Mode
+daylightdetectorinverted: Daylight Detector Inverted
+doorhinge: Door Hinge
+dispensertriggered: Dispenser Triggered
+direction: Direction
+debugtool: Debug Tool
+debugtooldescription: A similar tool to the vanilla's debug stick
+debugtoolinstructions1: Right Click to toggle property
+debugtoolinstructions2: Shift + Right Click to switch property
+blockcannotbetoggled: Block cannot be toggled
+commandconditional: Command Conditional
+color: Color
+choosecolor: Choose Color
+togglecolor: Toggle Color
+colorinstructions1: Change the color of the block.
+colorinstructions2: Sneak and right click on ground to select the color.
+chesttype: Chest Type
+candleamount: Candle Amount
+signalfire: Signal Fire
+bubblecolumndrag: Bubble Column Drag
+cakebites: Cake Bites
+bisected: Bisected
+dripleadtilt: Big Dripleaf Tilt
+bellattachment: Bell Attachment
+bedpart: Bed Part
+bambooleaves: Bamboo Leaves
+attached: Attached
+power: Power
+amthystsize: Amthyst Size
+small: Small
+medium: Medium
+large: Large
+cluster: Cluster
+age: Age
+addlight: Add Light
+lightinstructions1: Make the block become a light source
+lightinstructions2: This will set the light level of the block at 15 (max)
+lightlevel: Light Level
+orientation: Orientation
+opened: Opened
+editnote: Edit Note
+instrument: Instrument
+selectrightclicktool: Select a tool to bind to right-click.
+multiplefacing: Multiple Facing
+multifacesinstructions: Change the facing of walls, fences and more.
+lock: Lock
+unlocked: Unlocked
+lockInstructions1: Set a password on the container.
+lockInstructions2: An item with the password as it's name
+lockInstructions3: will be required to open the container.
+lockInstructions4: To set a password, place an item with
+lockInstructions5: the desired password here.
+removepass: Remove password.
+lit: Lit
+lid: Lid
+openlid: Open the lid.
+closelid: Close the lid.
+visualBugWarning: This tool can cause visual bugs.
+level: Level
+leavespersistant: Leaves Persistant
+leavesdistance: Leaves Distance
+lanternhanging: Lantern Hanging
+jukeboxitem: Jukebox Item
+jukeboxinstructions1: Place an item here to set
+jukeboxinstructions2: On the record slot.
+stopmusic: Stop the music.
+jigsaworientation: Jigsaw Orientation
+hopperenabled: Hopper Enabled
+honeystorage: Honey Storage
+hangable: Hangable
+hasberry: Has Berry
+inwall: In Wall
+attachable: Attachable
+flowerpot: Flower Pot
+empty: Empty
+notapot: Not a pot
+playerfacing: Player's Facing
+playerfacingdesc: Make the block face the player
+playerfacingex: ex. signs, skulls, banners
+pistontype: Piston Type
+pistonextended: Piston Extended
+pistonheadshort: Piston Head Short
+moistlevel: Moist Level
+endportaleye: End Portal Frame Eye
+dripstonethickness: Dripstone Thickness
+dripstonedirection: Dripstone Direction
+waterlogged: Waterlogged
+repeaterlock: Repeater lock
+repeaterdelay: Repeater delay
+rail: Rail
+powered: Powered
+seapickles: Sea Pickles
+tntunstable: TNT Unstable
+snowy: Snowy
+snowlayers: Snow layers
+stairshape: Stair Shape
+structuremode: Structure Mode
+switchface: Switch Face
+slabtype: Slab Type
+scaffoldingdistance: Scaffolding Distance
+scaffoldingbottom: Scaffolding Bottom
+bloom: Bloom
+sculksensorphase: Sculk Sensor Phase
+sculksensorvibration: Sculk Sensor Vibration Frequency
+shrieking: Shrieking
+shriekersummon: Can Summon
+shriekerwarning: Warning Level
+respawnanchorcharge: Respawn Anchor Charge
+rotation: Rotation
+chooserotation: Choose Rotation
+togglerotation: Toggle Rotation
+wallfacing: Wall Facing
+tripwiredisarmed: Tripwire Disarmed
+turtleeggamount: Turtle Egg Amount
+turtleegghatch: Turtle Egg Hatch

@@ -8,7 +8,9 @@ import org.bukkit.block.data.Levelled;
 import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.inventory.ItemStack;
 
+import net.dezilla.bonetool.ToolUser;
 import net.dezilla.bonetool.Util;
+import net.dezilla.bonetool.util.Locale;
 
 public class LevelledTool extends WandTool{
 
@@ -23,13 +25,13 @@ public class LevelledTool extends WandTool{
 	}
 
 	@Override
-	public ItemStack getIcon(Block block) {
-		String name = "Level";
+	public ItemStack getIcon(Block block, ToolUser user) {
+		String name = Locale.parse(user, "level");
 		if(block != null)
-			name = "Level: "+ChatColor.YELLOW+getLevel(block);
+			name += ": "+ChatColor.YELLOW+getLevel(block);
 		ItemStack icon = Util.setName(new ItemStack(Material.BUCKET), name);
 		if(block != null)
-			icon = Util.setLore(icon, intLore);
+			icon = Util.setLore(icon, getIntLore(user));
 		return icon;
 	}
 	

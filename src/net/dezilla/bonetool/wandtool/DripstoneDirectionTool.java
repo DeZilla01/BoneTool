@@ -11,7 +11,9 @@ import org.bukkit.block.data.type.PointedDripstone;
 import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.inventory.ItemStack;
 
+import net.dezilla.bonetool.ToolUser;
 import net.dezilla.bonetool.Util;
+import net.dezilla.bonetool.util.Locale;
 
 public class DripstoneDirectionTool extends WandTool {
 	
@@ -26,8 +28,8 @@ public class DripstoneDirectionTool extends WandTool {
 	}
 
 	@Override
-	public ItemStack getIcon(Block block) {
-		String name = "Dripstone Direction";
+	public ItemStack getIcon(Block block, ToolUser user) {
+		String name = Locale.parse(user, "dripstonedirection");
 		if(block!=null) {
 			PointedDripstone dp = (PointedDripstone) block.getBlockData();
 			name+=": "+ChatColor.YELLOW+dp.getVerticalDirection().toString();

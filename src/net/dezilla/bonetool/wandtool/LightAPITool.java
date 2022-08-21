@@ -10,7 +10,9 @@ import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.inventory.ItemStack;
 
+import net.dezilla.bonetool.ToolUser;
 import net.dezilla.bonetool.Util;
+import net.dezilla.bonetool.util.Locale;
 import net.dezilla.bonetool.util.ToolConfig;
 import ru.beykerykt.minecraft.lightapi.common.LightAPI;
 
@@ -22,7 +24,12 @@ public class LightAPITool extends WandTool{
 		if(!ToolConfig.LightAPI)
 			return false;
 		if(Bukkit.getServer().getPluginManager().isPluginEnabled("LightAPI")) {
-			return Bukkit.getServer().getPluginManager().getPlugin("LightAPI").getDescription().getVersion().startsWith("bukkit-5");
+			try {
+				return Bukkit.getServer().getPluginManager().getPlugin("LightAPI").getDescription().getVersion().startsWith("bukkit-5");
+			}
+			catch(Exception e) {
+				return false;
+			}
 		}
 		return false;
 	}
@@ -33,19 +40,19 @@ public class LightAPITool extends WandTool{
 	}
 
 	@Override
-	public ItemStack getIcon(Block block) {
+	public ItemStack getIcon(Block block, ToolUser user) {
 		if(block == null) {
-			ItemStack icon = Util.setLore(Util.setName(new ItemStack(Material.NETHER_STAR), "Add Light"), Arrays.asList(
-					ChatColor.GRAY+"Make the block become a light source",
-					ChatColor.GRAY+"This will set the light level of the block at 15 (max)"
+			ItemStack icon = Util.setLore(Util.setName(new ItemStack(Material.NETHER_STAR), Locale.parse(user, "addlight")), Arrays.asList(
+					ChatColor.GRAY+Locale.parse(user, "lightinstructions1"),
+					ChatColor.GRAY+Locale.parse(user, "lightinstructions2")
 					));
 			return icon;
 		}
 		int lightlvl = LightAPI.get().getLightLevel(block.getWorld().getName(), block.getX(), block.getY(), block.getZ());
-		String name = ChatColor.WHITE+"Light Level: "+ChatColor.YELLOW+lightlvl;
+		String name = ChatColor.WHITE+Locale.parse(user, "lightlevel")+": "+ChatColor.YELLOW+lightlvl;
 		ItemStack icon = Util.setName(new ItemStack(Material.NETHER_STAR), name);
 		if(block!=null)
-			Util.setLore(icon, intLore);
+			Util.setLore(icon, getIntLore(user));
 		return icon;
 	}
 	

@@ -10,8 +10,10 @@ import org.bukkit.entity.Player;
 import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.inventory.ItemStack;
 
+import net.dezilla.bonetool.ToolUser;
 import net.dezilla.bonetool.Util;
 import net.dezilla.bonetool.gui.PotSelectGui;
+import net.dezilla.bonetool.util.Locale;
 
 public class PotTool extends WandTool {
 
@@ -26,10 +28,10 @@ public class PotTool extends WandTool {
 	}
 
 	@Override
-	public ItemStack getIcon(Block block) {
-		ItemStack icon = Util.setName(new ItemStack(Material.FLOWER_POT), "Flower Pot");
+	public ItemStack getIcon(Block block, ToolUser user) {
+		ItemStack icon = Util.setName(new ItemStack(Material.FLOWER_POT), Locale.parse(user, "flowerpot"));
 		if(block != null) {
-			icon = Util.setName(getItemIcon(block.getType()), "Flower Pot: "+ChatColor.YELLOW+getItemIcon(block.getType()).getItemMeta().getDisplayName());
+			icon = Util.setName(getItemIcon(block.getType(), user), Locale.parse(user, "flowerpot")+": "+ChatColor.YELLOW+getItemIcon(block.getType(), user).getItemMeta().getDisplayName());
 		}
 		return icon;
 	}
@@ -63,11 +65,11 @@ public class PotTool extends WandTool {
 		return material.toString().startsWith("POTTED_") || material == Material.FLOWER_POT;
 	}
 	
-	public static ItemStack getItemIcon(Material material) {
+	public static ItemStack getItemIcon(Material material, ToolUser user) {
 		if(!isPot(material))
-			return Util.setName(new ItemStack(Material.BARRIER), "Not a pot");
+			return Util.setName(new ItemStack(Material.BARRIER), Locale.parse(user, "notapot"));
 		else if(material == Material.FLOWER_POT)
-			return Util.setName(new ItemStack(Material.FLOWER_POT), "Empty");
+			return Util.setName(new ItemStack(Material.FLOWER_POT), Locale.parse(user, "empty"));
 		try {
 			Material m = Material.STONE;
 			if(material.toString().equalsIgnoreCase("POTTED_AZALEA_BUSH"))

@@ -7,7 +7,9 @@ import org.bukkit.block.data.type.Candle;
 import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.inventory.ItemStack;
 
+import net.dezilla.bonetool.ToolUser;
 import net.dezilla.bonetool.Util;
+import net.dezilla.bonetool.util.Locale;
 
 public class CandleTool extends WandTool{
 
@@ -22,14 +24,14 @@ public class CandleTool extends WandTool{
 	}
 
 	@Override
-	public ItemStack getIcon(Block block) {
-		String name = "Candle Amount";
+	public ItemStack getIcon(Block block, ToolUser user) {
+		String name = Locale.parse(user, "candleamount");
 		if(block!=null) {
 			name += ": " + ChatColor.YELLOW + getCandleAmount(block);
 		}
 		ItemStack icon = Util.setName(new ItemStack(Material.CANDLE), name);
 		if(block!=null)
-			Util.setLore(icon, intLore);
+			Util.setLore(icon, getIntLore(user));
 		return icon;
 	}
 	

@@ -10,7 +10,9 @@ import org.bukkit.block.data.type.Chest;
 import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.inventory.ItemStack;
 
+import net.dezilla.bonetool.ToolUser;
 import net.dezilla.bonetool.Util;
+import net.dezilla.bonetool.util.Locale;
 
 public class ChestTool extends WandTool{
 	
@@ -25,8 +27,8 @@ public class ChestTool extends WandTool{
 	}
 
 	@Override
-	public ItemStack getIcon(Block block) {
-		String name = "Chest Type";
+	public ItemStack getIcon(Block block, ToolUser user) {
+		String name = Locale.parse(user, "chesttype");
 		if(block!=null) {
 			Chest chest = (Chest) block.getBlockData();
 			name+=": "+ChatColor.YELLOW+chest.getType().toString();

@@ -7,7 +7,9 @@ import org.bukkit.block.data.type.Campfire;
 import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.inventory.ItemStack;
 
+import net.dezilla.bonetool.ToolUser;
 import net.dezilla.bonetool.Util;
+import net.dezilla.bonetool.util.Locale;
 
 public class CampfireTool extends WandTool{
 
@@ -22,11 +24,11 @@ public class CampfireTool extends WandTool{
 	}
 
 	@Override
-	public ItemStack getIcon(Block block) {
-		String name = "Signal Fire";
+	public ItemStack getIcon(Block block, ToolUser user) {
+		String name = Locale.parse(user, "signalfire");
 		if(block!=null) {
 			Campfire c = (Campfire) block.getBlockData();
-			name+=": "+(c.isSignalFire()?ChatColor.GREEN+"True":ChatColor.RED+"False");
+			name+=": "+(c.isSignalFire()?ChatColor.GREEN+Locale.parse(user, "true"):ChatColor.RED+Locale.parse(user, "false"));
 		}
 		return Util.setName(new ItemStack(Material.CAMPFIRE), name);
 	}

@@ -14,8 +14,10 @@ import org.bukkit.entity.Player;
 import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.inventory.ItemStack;
 
+import net.dezilla.bonetool.ToolUser;
 import net.dezilla.bonetool.Util;
 import net.dezilla.bonetool.listener.BlockUpdateListener;
+import net.dezilla.bonetool.util.Locale;
 
 public class PlayerFaceTool extends WandTool{
 	List<WandTool> tools = new ArrayList<WandTool>();
@@ -38,9 +40,9 @@ public class PlayerFaceTool extends WandTool{
 	}
 
 	@Override
-	public ItemStack getIcon(Block block) {
-		ItemStack icon =  Util.setName(new ItemStack(Material.PLAYER_HEAD), "Player's Facing");
-		return Util.setLore(icon, Arrays.asList(ChatColor.GRAY+"Make the block face the player", ChatColor.GRAY+"ex. signs, skulls, banners"));
+	public ItemStack getIcon(Block block, ToolUser user) {
+		ItemStack icon =  Util.setName(new ItemStack(Material.PLAYER_HEAD), Locale.parse(user, "playerfacing"));
+		return Util.setLore(icon, Arrays.asList(ChatColor.GRAY+Locale.parse(user, "playerfacingdesc"), ChatColor.GRAY+Locale.parse(user, "playerfacingex")));
 	}
 	
 	@Override

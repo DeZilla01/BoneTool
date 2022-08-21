@@ -8,7 +8,9 @@ import org.bukkit.block.data.BlockData;
 import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.inventory.ItemStack;
 
+import net.dezilla.bonetool.ToolUser;
 import net.dezilla.bonetool.Util;
+import net.dezilla.bonetool.util.Locale;
 
 public class AgeableTool extends WandTool{
 
@@ -28,13 +30,13 @@ public class AgeableTool extends WandTool{
 	}
 
 	@Override
-	public ItemStack getIcon(Block block) {
-		String name = "Age";
+	public ItemStack getIcon(Block block, ToolUser user) {
+		String name = Locale.parse(user, "age");
 		if(block != null)
-			name = "Age: "+ChatColor.YELLOW+getAge(block);
+			name += ": "+ChatColor.YELLOW+getAge(block);
 		ItemStack icon = Util.setName(new ItemStack(Material.CLOCK), name);
 		if(block!=null)
-			Util.setLore(icon, intLore);
+			Util.setLore(icon, getIntLore(user));
 		return icon;
 	}
 	

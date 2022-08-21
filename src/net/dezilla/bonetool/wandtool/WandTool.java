@@ -11,14 +11,17 @@ import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.inventory.ItemStack;
 
+import net.dezilla.bonetool.ToolUser;
+import net.dezilla.bonetool.util.Locale;
+
 public abstract class WandTool {
 	
 	public abstract boolean isServerCompatible();
 	
 	public abstract boolean isBlockCompatible(Block block);
 	
-	public ItemStack getIcon() {return getIcon(null);}
-	public abstract ItemStack getIcon(Block block);
+	public ItemStack getIcon() {return getIcon(null, null);}
+	public abstract ItemStack getIcon(Block block, ToolUser user);
 	
 	public void onLeftClick(InventoryClickEvent event, Block block) {};
 	
@@ -34,11 +37,19 @@ public abstract class WandTool {
 	
 	public void openGui(Player player, Block block) {}
 	
-	protected List<String> intLore = Arrays.asList(
-			ChatColor.AQUA+"Left Click: "+ChatColor.WHITE+"-1",
-			ChatColor.AQUA+"Right Click: "+ChatColor.WHITE+"+1",
-			ChatColor.AQUA+"Shift + Left Click: "+ChatColor.WHITE+"Minimum (0)",
-			ChatColor.AQUA+"Shift + Right Click: "+ChatColor.WHITE+"Maximum");
+	protected List<String> getIntLore(ToolUser user){
+		return Arrays.asList(
+				ChatColor.AQUA+Locale.parse(user, "leftclick")+": "+ChatColor.WHITE+"-1",
+				ChatColor.AQUA+Locale.parse(user, "rightclick")+": "+ChatColor.WHITE+"+1",
+				ChatColor.AQUA+Locale.parse(user, "shift")+" + "+Locale.parse(user, "leftclick")+": "+ChatColor.WHITE+"Minimum (0)",
+				ChatColor.AQUA+Locale.parse(user, "shift")+" + "+Locale.parse(user, "rightclick")+": "+ChatColor.WHITE+"Maximum");
+	}
+	
+	/*protected List<String> intLore = Arrays.asList(
+			ChatColor.AQUA+Locale.parse("leftclick")+": "+ChatColor.WHITE+"-1",
+			ChatColor.AQUA+Locale.parse("rightclick")+": "+ChatColor.WHITE+"+1",
+			ChatColor.AQUA+Locale.parse("shift")+" + "+Locale.parse("leftclick")+": "+ChatColor.WHITE+"Minimum (0)",
+			ChatColor.AQUA+Locale.parse("shift")+" + "+Locale.parse("rightclick")+": "+ChatColor.WHITE+"Maximum");*/
 	
 	protected int getIntValue(int current, int max, ClickType click) {
 		int lvl = current;

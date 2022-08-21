@@ -16,9 +16,11 @@ import org.bukkit.event.inventory.ClickType;
 import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.inventory.ItemStack;
 
+import net.dezilla.bonetool.ToolUser;
 import net.dezilla.bonetool.Util;
 import net.dezilla.bonetool.gui.BlockFaceSelectGui;
 import net.dezilla.bonetool.gui.ToolGui;
+import net.dezilla.bonetool.util.Locale;
 
 public class RotatableTool extends WandTool{
 
@@ -33,17 +35,17 @@ public class RotatableTool extends WandTool{
 	}
 
 	@Override
-	public ItemStack getIcon(Block block) {
-		String name = "Rotation";
+	public ItemStack getIcon(Block block, ToolUser user) {
+		String name = Locale.parse(user, "rotation");
 		if(block != null)
-			name = "Rotation: "+ChatColor.YELLOW+getRotation(block);
+			name += ": "+ChatColor.YELLOW+getRotation(block);
 		ItemStack icon = Util.setName(new ItemStack(Material.REPEATER), name);
 		
 		if(block != null) {
 			List<String> lore = Arrays.asList(
-					ChatColor.AQUA+"Left Click: "+ChatColor.WHITE+"Choose Rotation",
-					ChatColor.AQUA+"Right Click: "+ChatColor.WHITE+"Toggle Rotation",
-					ChatColor.AQUA+"Shift + Right Click: "+ChatColor.WHITE+"Player's Facing");
+					ChatColor.AQUA+Locale.parse(user, "leftclick")+": "+ChatColor.WHITE+Locale.parse(user, "chooserotation"),
+					ChatColor.AQUA+Locale.parse(user, "rightclick")+": "+ChatColor.WHITE+Locale.parse(user, "togglerotation"),
+					ChatColor.AQUA+Locale.parse(user, "shift")+" + "+Locale.parse(user, "rightclick")+": "+ChatColor.WHITE+Locale.parse(user, "playerfacing"));
 			icon = Util.setLore(icon, lore);
 		}
 		return icon;

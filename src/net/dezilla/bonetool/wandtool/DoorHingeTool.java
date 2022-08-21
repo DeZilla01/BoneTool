@@ -11,7 +11,9 @@ import org.bukkit.block.data.type.Door.Hinge;
 import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.inventory.ItemStack;
 
+import net.dezilla.bonetool.ToolUser;
 import net.dezilla.bonetool.Util;
+import net.dezilla.bonetool.util.Locale;
 
 public class DoorHingeTool extends WandTool {
 	
@@ -31,8 +33,8 @@ public class DoorHingeTool extends WandTool {
 	}
 
 	@Override
-	public ItemStack getIcon(Block block) {
-		String name = "Door Hinge";
+	public ItemStack getIcon(Block block, ToolUser user) {
+		String name = Locale.parse(user, "doorhinge");
 		if(block != null) {
 			Door d = (Door) block.getBlockData();
 			name+=": "+ChatColor.YELLOW+d.getHinge().toString();

@@ -10,8 +10,10 @@ import org.bukkit.inventory.meta.PotionMeta;
 import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
 
+import net.dezilla.bonetool.ToolUser;
 import net.dezilla.bonetool.Util;
 import net.dezilla.bonetool.listener.BlockUpdateListener;
+import net.dezilla.bonetool.util.Locale;
 
 public class BrewingStandGui extends GuiPage {
 	Block block;
@@ -20,7 +22,7 @@ public class BrewingStandGui extends GuiPage {
 	public BrewingStandGui(Player player, Block block) {
 		super(1, player);
 		this.block = block;
-		setName("Brewing Stand Potions");
+		setName(Locale.parse(ToolUser.getUser(player), "brewstandpotions"));
 		if(!(block.getBlockData() instanceof BrewingStand))
 			return;
 		stand = (BrewingStand) block.getBlockData();
@@ -40,10 +42,10 @@ public class BrewingStandGui extends GuiPage {
 			ItemStack icon = new ItemStack(Material.POTION);
 			PotionMeta meta = (PotionMeta) icon.getItemMeta();
 			meta.addCustomEffect(new PotionEffect(PotionEffectType.HEAL, 1, 1), true);
-			meta.setDisplayName(ChatColor.RESET+"Potion #"+i);
+			meta.setDisplayName(ChatColor.RESET+Locale.parse(ToolUser.getUser(getPlayer()), "potion")+" #"+i);
 			icon.setItemMeta(meta);
 			if(!stand.hasBottle(i))
-				icon = Util.setName(new ItemStack(Material.GLASS_BOTTLE), ChatColor.RESET+"Potion #"+i);
+				icon = Util.setName(new ItemStack(Material.GLASS_BOTTLE), ChatColor.RESET+Locale.parse(ToolUser.getUser(getPlayer()), "potion")+" #"+i);
 			GuiItem item = new GuiItem(icon);
 			final int I = i;
 			item.setRun((event) -> {

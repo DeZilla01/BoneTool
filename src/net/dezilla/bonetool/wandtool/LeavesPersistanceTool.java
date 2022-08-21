@@ -7,7 +7,9 @@ import org.bukkit.block.data.type.Leaves;
 import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.inventory.ItemStack;
 
+import net.dezilla.bonetool.ToolUser;
 import net.dezilla.bonetool.Util;
+import net.dezilla.bonetool.util.Locale;
 
 public class LeavesPersistanceTool extends WandTool {
 	
@@ -22,10 +24,10 @@ public class LeavesPersistanceTool extends WandTool {
 	}
 
 	@Override
-	public ItemStack getIcon(Block block) {
-		String name = "Leaves Persistant";
+	public ItemStack getIcon(Block block, ToolUser user) {
+		String name = Locale.parse(user, "leavespersistant");
 		if(block!=null) {
-			name += ": " + (isPersistant(block) ? ChatColor.GREEN+"True":ChatColor.RED+"False");
+			name += ": " + (isPersistant(block) ? ChatColor.GREEN+Locale.parse(user, "true"):ChatColor.RED+Locale.parse(user, "false"));
 		}
 		return Util.setName(new ItemStack(Material.OAK_LEAVES), name);
 	}

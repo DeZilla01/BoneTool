@@ -11,6 +11,7 @@ import org.bukkit.entity.Player;
 
 import net.dezilla.bonetool.ToolUser;
 import net.dezilla.bonetool.Util;
+import net.dezilla.bonetool.util.Locale;
 
 public class FlySpeedCommand extends Command{
 
@@ -24,19 +25,19 @@ public class FlySpeedCommand extends Command{
 	@Override
 	public boolean execute(CommandSender sender, String commandLabel, String[] args) {
 		if(!(sender instanceof Player)) {
-			sender.sendMessage("You must be a player to use this command.");
+			sender.sendMessage(Locale.parse("senderNotPlayer"));
 			return true;
 		}
 		Player p = (Player) sender;
 		ToolUser user = ToolUser.getUser(p);
 		
 		if(!Util.permCheck(p, "bonetool.tool.flyspeed")) {
-			p.sendMessage(Util.MSG_START+ChatColor.RED+"You do not have access to this feature.");
+			p.sendMessage(Util.MSG_START+ChatColor.RED+Locale.parse(user,"accessDenied"));
 			return true;
 		}
 		
 		if(args.length>1) {
-			sender.sendMessage(Util.MSG_START+ChatColor.RED+"Too many arguments");
+			sender.sendMessage(Util.MSG_START+ChatColor.RED+Locale.parse(user, "manyArgument"));
 			sender.sendMessage(Util.MSG_START+getUsage());
 			return true;
 		}
@@ -57,7 +58,7 @@ public class FlySpeedCommand extends Command{
 					user.getPlayer().setFlySpeed(i);
 					displayFlySpeed(user.getPlayer());
 				}catch(Exception e) {
-					sender.sendMessage(Util.MSG_START+ChatColor.RED+"Invalid argument");
+					sender.sendMessage(Util.MSG_START+ChatColor.RED+Locale.parse(user, "invalidArguments"));
 					sender.sendMessage(Util.MSG_START+getUsage());
 				}
 			}
@@ -70,8 +71,8 @@ public class FlySpeedCommand extends Command{
 	}
 	
 	private void displayFlySpeed(ToolUser user) {
-		user.getPlayer().sendMessage(Util.MSG_START+"Fly speed on double crouch: "
-				+(user.getEditFlySpeed() ? ChatColor.GREEN+"True" : ChatColor.RED+"False"));
+		user.getPlayer().sendMessage(Util.MSG_START+Locale.parse(user, "flyondoublecrouch")+": "
+				+(user.getEditFlySpeed() ? ChatColor.GREEN+Locale.parse(user, "enabled") : ChatColor.RED+Locale.parse(user, "disabled")));
 	}
 	
 	private void displayFlySpeed(Player player) {

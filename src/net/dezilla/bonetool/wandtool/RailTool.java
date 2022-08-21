@@ -14,7 +14,9 @@ import org.bukkit.block.data.Rail.Shape;
 import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.inventory.ItemStack;
 
+import net.dezilla.bonetool.ToolUser;
 import net.dezilla.bonetool.Util;
+import net.dezilla.bonetool.util.Locale;
 
 public class RailTool extends WandTool {
 
@@ -29,10 +31,10 @@ public class RailTool extends WandTool {
 	}
 
 	@Override
-	public ItemStack getIcon(Block block) {
-		String name = "Rail";
+	public ItemStack getIcon(Block block, ToolUser user) {
+		String name = Locale.parse(user, "rail");
 		if(block != null)
-			name = "Rail: "+ChatColor.YELLOW+getRailShape(block);
+			name += ": "+ChatColor.YELLOW+getRailShape(block);
 		return Util.setName(new ItemStack(Material.RAIL), name);
 	}
 	

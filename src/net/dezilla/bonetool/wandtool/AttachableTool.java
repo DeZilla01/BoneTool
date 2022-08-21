@@ -8,7 +8,9 @@ import org.bukkit.block.data.BlockData;
 import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.inventory.ItemStack;
 
+import net.dezilla.bonetool.ToolUser;
 import net.dezilla.bonetool.Util;
+import net.dezilla.bonetool.util.Locale;
 
 public class AttachableTool extends WandTool{
 
@@ -28,10 +30,10 @@ public class AttachableTool extends WandTool{
 	}
 
 	@Override
-	public ItemStack getIcon(Block block) {
-		String name = "Attached";
+	public ItemStack getIcon(Block block, ToolUser user) {
+		String name = Locale.parse(user, "attached");
 		if(block != null)
-			name = "Attached: "+(isAttached(block) ? ChatColor.GREEN+"True":ChatColor.RED+"False");
+			name += ": "+(isAttached(block) ? ChatColor.GREEN+"True":ChatColor.RED+"False");
 		return Util.setName(new ItemStack(Material.STRING), name);
 	}
 	

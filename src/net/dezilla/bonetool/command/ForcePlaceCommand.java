@@ -13,6 +13,7 @@ import net.dezilla.bonetool.ToolUser;
 import net.dezilla.bonetool.Util;
 import net.dezilla.bonetool.ToolUser.PlacingOption;
 import net.dezilla.bonetool.ToolUser.PlacingState;
+import net.dezilla.bonetool.util.Locale;
 
 public class ForcePlaceCommand extends Command{
 
@@ -26,19 +27,19 @@ public class ForcePlaceCommand extends Command{
 	@Override
 	public boolean execute(CommandSender sender, String commandLabel, String[] args) {
 		if(!(sender instanceof Player)) {
-			sender.sendMessage("You must be a player to use this command.");
+			sender.sendMessage(Locale.parse("senderNotPlayer"));
 			return true;
 		}
 		Player p = (Player) sender;
 		ToolUser user = ToolUser.getUser(p);
 		
 		if(!Util.permCheck(p, "bonetool.tool.forceplace")) {
-			p.sendMessage(Util.MSG_START+ChatColor.RED+"You do not have access to this feature.");
+			p.sendMessage(Util.MSG_START+ChatColor.RED+Locale.parse(ToolUser.getUser(p),"accessDenied"));
 			return true;
 		}
 		
 		if(args.length>1) {
-			sender.sendMessage(Util.MSG_START+ChatColor.RED+"Too many arguments");
+			sender.sendMessage(Util.MSG_START+ChatColor.RED+Locale.parse(ToolUser.getUser(p), "manyArguments"));
 			sender.sendMessage(Util.MSG_START+getUsage());
 			return true;
 		}
@@ -46,16 +47,16 @@ public class ForcePlaceCommand extends Command{
 			try {
 				PlacingState state = PlacingState.valueOf(args[0].toUpperCase());
 				user.setForcePlace(state);
-				p.sendMessage(Util.MSG_START+PlacingOption.FORCEPLACE.getName()+": "+user.getForcePlacingState().getColoredName());
+				p.sendMessage(Util.MSG_START+PlacingOption.FORCEPLACE.getName(user)+": "+user.getForcePlacingState().getColoredName(user));
 			}catch(Exception e) {
-				sender.sendMessage(Util.MSG_START+ChatColor.RED+"Invalid option.");
+				sender.sendMessage(Util.MSG_START+ChatColor.RED+Locale.parse(ToolUser.getUser(p), "invalidArgument"));
 				sender.sendMessage(Util.MSG_START+getUsage());
 			}
 			return true;
 		}
 		else {
 			user.ToggleOption(PlacingOption.FORCEPLACE);
-			p.sendMessage(Util.MSG_START+PlacingOption.FORCEPLACE.getName()+": "+user.getForcePlacingState().getColoredName());
+			p.sendMessage(Util.MSG_START+PlacingOption.FORCEPLACE.getName(user)+": "+user.getForcePlacingState().getColoredName(user));
 			return true;
 		}
 	}

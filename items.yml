@@ -1,0 +1,9 @@
+'invisFrame':
+  ==: org.bukkit.inventory.ItemStack
+  v: 2586
+  type: ITEM_FRAME
+  meta:
+    ==: ItemMeta
+    meta-type: ENTITY_TAG
+    display-name: §fInvisible Item Frame
+    internal: H4sIAAAAAAAAAONiYOBi4HTNK8ksqQxJTGdm4PTMK8sszkzKSWVgYGBkYAAAatraGSEAAAA=

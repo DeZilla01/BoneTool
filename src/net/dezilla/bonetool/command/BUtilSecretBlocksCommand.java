@@ -172,7 +172,7 @@ public class BUtilSecretBlocksCommand extends Command implements CommandExecutor
 	
 	static List<Material> bannedItems(){
 		List<Material> m = new ArrayList<Material>();
-		if(!ToolConfig.sculkSensor)
+		if(!ToolConfig.sculkSensor && ToolMain.getVersionNumber()>=17)
 			m.add(Material.SCULK_SENSOR);
 		if(!ToolConfig.jigsaw)
 			m.add(Material.JIGSAW);
@@ -188,7 +188,7 @@ public class BUtilSecretBlocksCommand extends Command implements CommandExecutor
 			m.add(Material.DRAGON_EGG);
 		if(!ToolConfig.structureBlock)
 			m.add(Material.STRUCTURE_BLOCK);
-		if(!ToolConfig.lightBlock)
+		if(!ToolConfig.lightBlock && ToolMain.getVersionNumber()>=17)
 			m.add(Material.LIGHT);
 		return m;
 	}

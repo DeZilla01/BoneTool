@@ -64,22 +64,29 @@ public class ToolGui extends GuiPage{
 			setItem(0, 4, getGlass(false));
 		}
 		//
-		if(Util.permCheck(getPlayer(), "bonetool.tool.signedit")) {
-			setItem(1, 5, getSignItem());
-			setItem(0, 5, getGlass(user.getEditSign()));
-		} else {
-			setItem(1, 5, noAccess(Locale.parse(user, "editSigns")));
-			setItem(0, 5, getGlass(false));
+		if(ToolMain.getVersionNumber() < 20) {
+			if(Util.permCheck(getPlayer(), "bonetool.tool.signedit")) {
+				setItem(1, 6, getSignItem());
+				setItem(0, 6, getGlass(user.getEditSign()));
+			} else {
+				setItem(1, 6, noAccess(Locale.parse(user, "editSigns")));
+				setItem(0, 6, getGlass(false));
+			}
 		}
 		//
 		if(Util.permCheck(getPlayer(), "bonetool.tool.nolitter")) {
-			setItem(1, 6, getLitterItem());
-			setItem(0, 6, getGlass(user.getNoLitter()));
+			setItem(1, 5, getLitterItem());
+			setItem(0, 5, getGlass(user.getNoLitter()));
 		} else {
-			setItem(1, 6, noAccess(Locale.parse(user, "noLitter")));
-			setItem(0, 6, getGlass(false));
+			setItem(1, 5, noAccess(Locale.parse(user, "noLitter")));
+			setItem(0, 5, getGlass(false));
 		}
 		//
+		if(Util.permCheck(user.getPlayer(), "bonetool.blocks.gui")) {
+			GuiItem blockItem = new GuiItem(Util.setName(new ItemStack(Material.SPAWNER), Locale.parse(user, "btSecretBlocks")));
+			blockItem.setRun((event) -> new IllegalBlocksGui(user.getPlayer()).display());
+			setItem(0,7,blockItem);
+		}
 		setItem(1, 8, getWandItem());
 		setItem(0, 8, getNotificationItem());
 	}

@@ -12,6 +12,7 @@ import com.plotsquared.core.player.PlotPlayer;
 import com.plotsquared.core.plot.Plot;
 import com.sk89q.worldedit.math.BlockVector3;
 
+import net.dezilla.bonetool.ToolMain;
 import net.dezilla.bonetool.Util;
 
 public class PlotSquaredUtil {
@@ -23,7 +24,7 @@ public class PlotSquaredUtil {
 			try {
 				return canEditPS5(player, block);
 			}catch(Exception e) {
-				System.out.println("[BoneTool] Please report this error to the plugin author.");
+				ToolMain.getInstance().getLogger().info("[BoneTool] Please report this error to the plugin author.");
 				e.printStackTrace();
 				return false;
 			}

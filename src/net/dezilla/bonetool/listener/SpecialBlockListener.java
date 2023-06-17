@@ -10,8 +10,10 @@ import org.bukkit.Axis;
 import org.bukkit.Bukkit;
 import org.bukkit.Color;
 import org.bukkit.GameMode;
+import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.Particle;
+import org.bukkit.Sound;
 import org.bukkit.block.Block;
 import org.bukkit.block.BlockFace;
 import org.bukkit.entity.Entity;
@@ -29,10 +31,13 @@ import org.bukkit.inventory.meta.ItemMeta;
 import org.bukkit.persistence.PersistentDataType;
 
 import net.dezilla.bonetool.ToolMain;
+import net.dezilla.bonetool.ToolUser;
 import net.dezilla.bonetool.Util;
 import net.dezilla.bonetool.wandtool.DirectionalTool;
 import net.dezilla.bonetool.wandtool.OrientableTool;
 import net.dezilla.bonetool.wandtool.PistonHeadTool;
+import net.md_5.bungee.api.ChatColor;
+import net.dezilla.bonetool.util.Locale;
 import net.dezilla.bonetool.util.PlotSquaredUtil;
 import net.dezilla.bonetool.util.ToolConfig;
 import net.dezilla.bonetool.wandtool.LightableTool;
@@ -40,7 +45,7 @@ import net.dezilla.bonetool.wandtool.LightableTool;
 public class SpecialBlockListener implements Listener{
 	
 	@EventHandler(ignoreCancelled=true)
-	public void onItemUser(PlayerInteractEvent e) {
+	public void onItemUse(PlayerInteractEvent e) {
 		if(e.getClickedBlock() == null || e.getItem() == null || e.getItem().getType() != Material.PLAYER_HEAD 
 				|| e.getAction() != Action.RIGHT_CLICK_BLOCK || e.getPlayer().getGameMode() != GameMode.CREATIVE)
 			return;
@@ -77,6 +82,9 @@ public class SpecialBlockListener implements Listener{
 		}else if(blockType.equals("endPortal") && ToolConfig.endPortal) {
 			e.setCancelled(true);
 			block.setType(Material.END_PORTAL);
+		}else if(blockType.equals("endGateway") && ToolConfig.endGateway) {
+			e.setCancelled(true);
+			block.setType(Material.END_GATEWAY);
 		}else if(blockType.equals("pistonHead") && ToolConfig.pistonHead) {
 			e.setCancelled(true);
 			block.setType(Material.PISTON_HEAD);
@@ -132,9 +140,36 @@ public class SpecialBlockListener implements Listener{
 		}
 	}
 	
+	@EventHandler
+	public void locationLogger(PlayerInteractEvent event) {
+		if(event.getItem() == null)
+			return;
+		ItemMeta meta = event.getItem().getItemMeta();
+		if(!meta.getPersistentDataContainer().has(Util.specialBlockKey, PersistentDataType.STRING))
+			return;
+		String tag = meta.getPersistentDataContainer().get(Util.specialBlockKey, PersistentDataType.STRING);
+		if(tag.equals("locationLogger"))
+			event.setCancelled(true);
+		if(tag.equals("locationLogger") && !meta.getPersistentDataContainer().has(Util.locationKey, PersistentDataType.STRING)) {
+			String s = "";
+			Location l = event.getPlayer().getLocation();
+			s+=l.getX()+":";
+			s+=l.getY()+":";
+			s+=l.getZ()+":";
+			s+=l.getYaw()+":";
+			s+=l.getPitch();
+			meta.getPersistentDataContainer().set(Util.locationKey, PersistentDataType.STRING, s);
+			event.getItem().setItemMeta(meta);
+			ToolUser user = ToolUser.getUser(event.getPlayer());
+			Util.sendNotification(user, Locale.parse(user, "locationlogged"));
+			event.getPlayer().playSound(event.getPlayer().getLocation(), Sound.BLOCK_NOTE_BLOCK_PLING, 1f, 1f);
+			Util.setLore(event.getItem(), Arrays.asList(ChatColor.GRAY+"Location logged", ""+ChatColor.AQUA+l.getBlockX()+" "+l.getBlockY()+" "+l.getBlockZ()));
+		}
+	}
+	
 	@EventHandler(ignoreCancelled = true)
 	public void onPaintingPlace(HangingPlaceEvent event) {
-		if(!(event.getEntity() instanceof Painting) || !ToolConfig.paintingByName)
+		if(!(event.getEntity() instanceof Painting) || !ToolConfig.paintingByName || ToolMain.getVersionNumber()>=20)
 			return;
 		
 		ItemStack item = event.getPlayer().getInventory().getItemInMainHand();

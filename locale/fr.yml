@@ -1,6 +1,6 @@
 name: Francais
 credits: Traduction par DeZilla
-revision: 1
+revision: 2
 
 oldVersionWarning1: AVERTISSEMENT - Vous utilisez une version antérieur de Minecraft que BoneTool ne supporte pas.
 oldVersionWarning2: Aucun support ne sera offert si le plugin plante.
@@ -204,3 +204,27 @@ wallfacing: Faces de mur
 tripwiredisarmed: Crochet désarmé
 turtleeggamount: Quantité d'oeufs de tortue
 turtleegghatch: Éclore de l'oeuf de tortue
+#BoneTool 1.2
+brushable: Dépoussiéré
+brushableitem: Objet brossable
+bookshelfoccupied: Étagère occupé
+bookshelfcontents: Contenu de l'étagère
+slot: Fente
+switchtofirstrow: Changer à la première rangée
+switchtosecondrow: Changer à la deuxième rangée
+pinkpetals: Pétales rose
+noteblockmobselect: Choisisser un bruit de monstre
+mobnoise: Bruit de monstre
+endgateway: Passrelle d'End
+locationlogged: Position enregistrée
+ageinticks: Âge en ticks
+getlocationlogger: Obtenir un enregistreur de position
+exactteleport: Position Exacte
+setexitlocation: Définir position de sortie
+nolocationset: Pas de position définie
+exitlocinstructions1: Placer un enregistreur de position
+exitlocinstructions2: ici pour définir une sortie.
+exitlocinstructions3: Maj. + Clic Droit pour enlever.
+locationlogger: Enregistreur de position
+locloggerinstructions1: Faites un clic droit sur cet
+locloggerinstructions2: objet pour enregistrer une position.

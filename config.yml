@@ -1,10 +1,7 @@
 #The default BoneTool wand material
 toolMaterial: BONE
-#If using Builder's Utlities by Arcaniax, BoneTool will add new blocks to the Secret Blocks.
-#You can change that here.
-overlayBUtilSecretBlocks: true
-#If you want to disable Builder's Utilities' Secret Block command entirely and replace it with BoneTool's, change this to true
-disableBUtilSecretBlocks: false
+#If you have Builder's Utilities installed, BoneTool will take over it's /blocks menu and put it's own. If you are not comfortable with this, you can disable it here.
+takeOverBUtilSecretBlocks: true
 #This allows adding colors on signs using &
 allowColorOnSign: true
 #If you want to blacklist some specific tools, add them here
@@ -19,6 +16,12 @@ allowOutsidePlotArea: false
 #Check out readme.txt in the locale folder for more info
 defaultLocale: en
 
+#Fly Speed
+#If you want to limit fly speeds on the server for whatever reason, you can do it here
+#0.1 is normal speed, 1 is the maximum regardless of what you set. 0 is also the minimum (literally can't move at 0)
+minFlySpeed: 0
+maxFlySpeed: 1
+
 #Secret/Illegal Blocks
 #You can disable them here if a specific one causes problems for you server.
 
@@ -28,6 +31,7 @@ endPortal: true
 pistonHead: true
 doubleLadder: true
 litRedstoneLamp: true
+endGateway: true
 paintingByName: true
 #Unobtainable items:
 commandBlocks: true
@@ -48,7 +52,7 @@ invisFrame: true
 #You can also blacklist some entities.
 #Use the EntityType name to disable a mob
 #https://hub.spigotmc.org/javadocs/bukkit/org/bukkit/entity/EntityType.html
-entityBlacklist: ['ENDER_DRAGON', 'PLAYER', 'DROPPED_ITEM']
+entityBlacklist: ['PLAYER', 'DROPPED_ITEM', 'BLOCK_DISPLAY', 'MARKER', 'INTERACTION', 'ITEM_DISPLAY', 'TEXT_DISPLAY']
 spawnerDelay: 10000
 maxNearbyEntities: 1000
 minSpawnDelay: 10000

@@ -25,13 +25,16 @@ import net.dezilla.bonetool.gui.GuiHolder;
 public class ToolConfig {
 	//Misc
 	public static Material toolMaterial = Material.BONE;
-	public static boolean overlayBUtilSecretBlocks = true;
-	public static boolean disableBUtilSecretBlocks = false;
+	public static boolean takeOverBUtilSecretBlocks = true;
 	public static boolean allowColorOnSign = true;
 	public static List<String> toolBlacklist = new ArrayList<String>();
 	public static boolean LightAPI = false;
 	public static boolean allowOutsidePlotArea = false;
 	public static String defaultLocale = "en";
+	
+	//fly speed
+	public static float minFlySpeed = 0;
+	public static float maxFlySpeed = 1;
 	
 	//Illegal Blocks
 	public static boolean netherPortal = true;
@@ -39,6 +42,7 @@ public class ToolConfig {
 	public static boolean pistonHead = true;
 	public static boolean doubleLadder = true;
 	public static boolean litRedstoneLamp = true;
+	public static boolean endGateway = true;
 	public static boolean paintingByName = true;
 	public static boolean commandBlocks = true;
 	public static boolean commandBlockMinecart = true;
@@ -80,19 +84,22 @@ public class ToolConfig {
 		try {
 			toolMaterial = Material.valueOf(config.getString("toolMaterial").toUpperCase());
 		} catch(Exception e) {}
-		try{overlayBUtilSecretBlocks = config.getBoolean("overlayBUtilSecretBlocks");}catch(Exception e) {}
-		try{disableBUtilSecretBlocks = config.getBoolean("disableBUtilSecretBlocks");}catch(Exception e) {}
+		try{takeOverBUtilSecretBlocks = config.getBoolean("takeOverBUtilSecretBlocks");}catch(Exception e) {}
 		try{allowColorOnSign = config.getBoolean("allowColorOnSign");}catch(Exception e) {}
 		try{toolBlacklist = config.getStringList("toolBlacklist");}catch(Exception e) {}
 		try{LightAPI = config.getBoolean("LightAPI");}catch(Exception e) {}
 		try{allowOutsidePlotArea = config.getBoolean("allowOutsidePlotArea");}catch(Exception e) {}
 		try{defaultLocale = config.getString("defaultLocale");}catch(Exception e) {}
+		//flyspeed
+		try{minFlySpeed = (float) config.getDouble("minFlySpeed");}catch(Exception e) {}
+		try{maxFlySpeed = (float) config.getDouble("maxFlySpeed");}catch(Exception e) {}
 		//Illegal Blocks
 		try{netherPortal = config.getBoolean("netherPortal");}catch(Exception e) {}
 		try{endPortal = config.getBoolean("endPortal");}catch(Exception e) {}
 		try{pistonHead = config.getBoolean("pistonHead");}catch(Exception e) {}
 		try{doubleLadder = config.getBoolean("doubleLadder");}catch(Exception e) {}
 		try{litRedstoneLamp = config.getBoolean("litRedstoneLamp");}catch(Exception e) {}
+		try{endGateway = config.getBoolean("endGateway");}catch(Exception e) {}
 		try{paintingByName = config.getBoolean("paintingByName");}catch(Exception e) {}
 		try{commandBlocks = config.getBoolean("commandBlocks");}catch(Exception e) {}
 		try{commandBlockMinecart = config.getBoolean("commandBlockMinecart");}catch(Exception e) {}
@@ -135,8 +142,8 @@ public class ToolConfig {
 		//yea I need to improve this. I was lazy and tired when I coded this bit
 		File localeFolder = Locale.getLocaleFolder();
 		List<String> localeToLoad = new ArrayList<String>();
-		final int enRev = 1;
-		final int frRev = 1;
+		final int enRev = 2;
+		final int frRev = 2;
 		File enLocale = new File(localeFolder.getPath(), "en.yml");
 		File frLocale = new File(localeFolder.getPath(), "fr.yml");
 		if(enLocale.exists()) {
@@ -157,7 +164,7 @@ public class ToolConfig {
 		} else localeToLoad.add("fr");
 		for(String key : localeToLoad) {
 			try {
-				loadFile("locale"+File.separator+key+".yml", localeFolder.getAbsolutePath()+File.separator+key+".yml");
+				loadFile("locale/"+key+".yml", localeFolder.getAbsolutePath()+File.separator+key+".yml");
 			} catch (IOException e) {
 				e.printStackTrace();
 			}
@@ -165,7 +172,7 @@ public class ToolConfig {
 		File localeReadMe = new File(localeFolder.getPath(), "readme.txt");
 		if(!localeReadMe.exists()) {
 			try {
-				loadFile("locale"+File.separator+"readme.txt", localeFolder.getAbsolutePath()+File.separator+"readme.txt");
+				loadFile("locale/readme.txt", localeFolder.getAbsolutePath()+File.separator+"readme.txt");
 			} catch(IOException e) {
 				e.printStackTrace();
 			}
@@ -185,6 +192,10 @@ public class ToolConfig {
 	}
 	
 	public static ItemStack invisFrameItem = null;
+	public static ItemStack firePainting = null;
+	public static ItemStack waterPainting = null;
+	public static ItemStack windPainting = null;
+	public static ItemStack earthPainting = null;
 	public static void loadItems() {
 		try {
 			YamlConfiguration yaml = YamlConfiguration.loadConfiguration(new InputStreamReader(ToolMain.getInstance().getResource("items.yml")));
@@ -193,9 +204,25 @@ public class ToolConfig {
 			e.printStackTrace();
 			invisFrameItem = Util.setName(new ItemStack(Material.ITEM_FRAME), "Error");
 		}
+		try {
+			YamlConfiguration yaml = YamlConfiguration.loadConfiguration(new InputStreamReader(ToolMain.getInstance().getResource("items.yml")));
+			firePainting = yaml.getItemStack("firePainting");
+			waterPainting = yaml.getItemStack("waterPainting");
+			windPainting = yaml.getItemStack("windPainting");
+			earthPainting = yaml.getItemStack("earthPainting");
+		} catch(Exception e) {
+			firePainting = Util.setName(new ItemStack(Material.PAINTING), "Error");
+			waterPainting = Util.setName(new ItemStack(Material.PAINTING), "Error");
+			earthPainting = Util.setName(new ItemStack(Material.PAINTING), "Error");
+			windPainting = Util.setName(new ItemStack(Material.PAINTING), "Error");
+		}
 		//This for whatever reasons prevent lags when loading the items for the first time
 		Inventory inv = Bukkit.getServer().createInventory(new GuiHolder(), 9, "ItemLoading");
 		inv.addItem(invisFrameItem);
+		inv.addItem(firePainting);
+		inv.addItem(waterPainting);
+		inv.addItem(windPainting);
+		inv.addItem(earthPainting);
 	}
 	
 	private static void loadFile(String source, String target) throws IOException {

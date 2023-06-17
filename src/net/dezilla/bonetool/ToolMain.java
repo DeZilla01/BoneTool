@@ -31,22 +31,22 @@ public class ToolMain extends JavaPlugin{
 		String a = getServer().getClass().getPackage().getName();
 		version = a.substring(a.lastIndexOf('.') + 1);
 		
-		System.out.println("[BoneTool] Loading Configs.");
+		getLogger().info("[BoneTool] Loading Configs.");
 		/*-----[Configs]-----*/
 		ToolConfig.loadConfig();
 		
 		/*-----[Version Warning]-----*/
 		if(getVersionNumber() < 16) {
-			System.out.println("[BoneTool] "+ChatColor.RED+Locale.parse("oldVersionWarning1"));
-			System.out.println("[BoneTool] "+ChatColor.RED+Locale.parse("oldVersionWarning2"));
+			getLogger().info("[BoneTool] "+ChatColor.RED+Locale.parse("oldVersionWarning1"));
+			getLogger().info("[BoneTool] "+ChatColor.RED+Locale.parse("oldVersionWarning2"));
 		}
 		
-		if(getVersionNumber() > 19) {
-			System.out.println("[BoneTool] "+ChatColor.RED+Locale.parse("newVersionWarning1"));
-			System.out.println("[BoneTool] "+ChatColor.RED+Locale.parse("newVersionWarning2"));
+		if(getVersionNumber() > 20) {
+			getLogger().info("[BoneTool] "+ChatColor.RED+Locale.parse("newVersionWarning1"));
+			getLogger().info("[BoneTool] "+ChatColor.RED+Locale.parse("newVersionWarning2"));
 		}
 		
-		System.out.println("[BoneTool] Enabling Listeners.");
+		getLogger().info("[BoneTool] Enabling Listeners.");
 		/*-----[Listeners]-----*/
 		getServer().getPluginManager().registerEvents(new GuiListener(), this);
 		getServer().getPluginManager().registerEvents(new ToolListener(), this);
@@ -56,7 +56,7 @@ public class ToolMain extends JavaPlugin{
 		getServer().getPluginManager().registerEvents(new SnipePlaceListener(), this);
 		getServer().getPluginManager().registerEvents(new SneakToggleListener(), this);
 		
-		System.out.println("[BoneTool] Enabling Commands.");
+		getLogger().info("[BoneTool] Enabling Commands.");
 		/*-----[Commands]-----*/
 		try {
 			final Field bukkitCommandMap = Bukkit.getServer().getClass().getDeclaredField("commandMap");
@@ -67,26 +67,24 @@ public class ToolMain extends JavaPlugin{
 			//BoneTool Commands
 			List<Command> commands = Arrays.asList(
 					new BoneToolCommand(), 
-					new PaintingCommand(),
 					new NoBlockUpdateCommand(),
 					new ForcePlaceCommand(),
 					new SnipePlaceCommand(),
 					new FlySpeedCommand(),
-					new EditSignCommand(),
 					new NoLitterCommand());
 			commandMap.registerAll("bonetool", commands);
 			if(getVersionNumber()>=17)
 				commandMap.register("bonetool", new LightBlockCommand());
+			if(getVersionNumber()<20) {
+				commandMap.register("bonetool", new EditSignCommand());
+				commandMap.register("bonetool", new PaintingCommand());
+			}
 			//Builder's Utilities Commands
 			if(getServer().getPluginManager().isPluginEnabled("Builders-Utilities")) {
-				if(ToolConfig.disableBUtilSecretBlocks) {
+				if(ToolConfig.takeOverBUtilSecretBlocks) {
 					BlockCommand secretBlockCommand = new BlockCommand();
 					getServer().getPluginCommand("blocks").setExecutor(secretBlockCommand);
 					commandMap.register("bonetool", secretBlockCommand);
-				} else if(ToolConfig.overlayBUtilSecretBlocks) {
-					BUtilSecretBlocksCommand secretBlockCommand = new BUtilSecretBlocksCommand();
-					getServer().getPluginCommand("blocks").setExecutor(secretBlockCommand);
-					commandMap.register("builders-utilities", secretBlockCommand);
 				}
 			}
 			else
@@ -95,7 +93,7 @@ public class ToolMain extends JavaPlugin{
 			e.printStackTrace();
 		}
 		
-		System.out.println("[BoneTool] Enabling Tools.");
+		getLogger().info("[BoneTool] Enabling Tools.");
 		/*-----[Tools]-----*/
 		WandTool[] wandTools = {
 			new NoneTool(),
@@ -110,7 +108,11 @@ public class ToolMain extends JavaPlugin{
 			new BellTool(),
 			new BigDripLeafTool(),
 			new BisectedTool(),
+			new BookshelfTool(),
+			new BookshelfOccupiedTool(),
 			new BrewingStandTool(),
+			new BrushableTool(),
+			new BrushableItemTool(),
 			new BubbleTool(),
 			new CakeTool(),
 			new CampfireTool(),
@@ -125,6 +127,7 @@ public class ToolMain extends JavaPlugin{
 			new DoorHingeTool(),
 			new DripstoneDirectionTool(),
 			new DripstoneTool(),
+			new EndGatewayTool(),
 			new EndPortalFrameTool(),
 			new FaceAttachableTool(),
 			new FarmlandTool(),
@@ -147,6 +150,7 @@ public class ToolMain extends JavaPlugin{
 			new NoteBlockTool(),
 			new OpenableTool(),
 			new OrientableTool(),
+			new PinkPetalsTool(),
 			new PistonHeadTool(),
 			new PistonTool(),
 			new PistonTypeTool(),
@@ -163,6 +167,7 @@ public class ToolMain extends JavaPlugin{
 			new SculkSensorTool(),
 			new SculkSensorPhaseTool(),
 			new SeaPickleTool(),
+			new SignEditableTool(),
 			new SignTool(),
 			new SlabTool(),
 			new SnowableTool(),
@@ -192,7 +197,7 @@ public class ToolMain extends JavaPlugin{
 				tools.add(t);
 		}
 	    
-		System.out.println("[BoneTool] Misc.");
+		getLogger().info("[BoneTool] Misc.");
 		/*-----[Misc]-----*/
 		if(this.getServer().getPluginManager().isPluginEnabled("PlotSquared"))
 			plotEnabled = true;

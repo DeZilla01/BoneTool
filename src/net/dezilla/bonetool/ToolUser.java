@@ -210,6 +210,8 @@ public class ToolUser {
 	}
 	
 	public boolean getEditSign() {
+		if(ToolMain.getVersionNumber()>=20)
+			return false;
 		if(!Util.permCheck(player, "bonetool.tool.signedit"))
 			return false;
 		return editSign;

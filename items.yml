@@ -7,3 +7,37 @@
     meta-type: ENTITY_TAG
     display-name: §fInvisible Item Frame
     internal: H4sIAAAAAAAAAONiYOBi4HTNK8ksqQxJTGdm4PTMK8sszkzKSWVgYGBkYAAAatraGSEAAAA=
+'firePainting':
+  ==: org.bukkit.inventory.ItemStack
+  v: 2586
+  type: PAINTING
+  meta:
+    ==: ItemMeta
+    meta-type: ENTITY_TAG
+    internal: H4sIAAAAAAAA/+NiYOBi4HTNK8ksqQxJTOdgYC9LLMpMzCth4MvNzEtNLkpMK7FKyyxKZWAAAImIzjQrAAAA
+'waterPainting':
+  ==: org.bukkit.inventory.ItemStack
+  v: 2586
+  type: PAINTING
+  meta:
+    ==: ItemMeta
+    meta-type: ENTITY_TAG
+    internal: H4sIAAAAAAAA/+NiYOBi4HTNK8ksqQxJTOdgYC9LLMpMzCth4M/NzEtNLkpMK7EqTyxJLWJgAADp8M9cLAAAAA==
+'windPainting':
+  ==: org.bukkit.inventory.ItemStack
+  v: 2586
+  type: PAINTING
+  meta:
+    ==: ItemMeta
+    meta-type: ENTITY_TAG
+    internal: H4sIAAAAAAAA/+NiYOBi4HTNK8ksqQxJTOdgYC9LLMpMzCth4MvNzEtNLkpMK7Eqz8xLYWAAAKfbSecrAAAA
+'earthPainting':
+  ==: org.bukkit.inventory.ItemStack
+  v: 2586
+  type: PAINTING
+  meta:
+    ==: ItemMeta
+    meta-type: ENTITY_TAG
+    internal: H4sIAAAAAAAA/+NiYOBi4HTNK8ksqQxJTOdgYC9LLMpMzCth4M/NzEtNLkpMK7FKTSwqyWBgAADyntraLAAAAA==
+
+#3463

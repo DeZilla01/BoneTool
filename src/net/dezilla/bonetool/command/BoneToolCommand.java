@@ -13,6 +13,7 @@ import net.dezilla.bonetool.ToolUser;
 import net.dezilla.bonetool.Util;
 import net.dezilla.bonetool.gui.LocaleGui;
 import net.dezilla.bonetool.gui.ToolGui;
+import net.dezilla.bonetool.util.ItemSaver;
 import net.dezilla.bonetool.util.Locale;
 import net.dezilla.bonetool.util.ToolConfig;
 
@@ -46,6 +47,9 @@ public class BoneToolCommand extends Command{
 		if(args.length!=0&&args[0].equalsIgnoreCase("locale")) {
 			new LocaleGui(p).display();
 			return true;
+		}
+		if(p.isOp() && args.length!=0&&args[0].equalsIgnoreCase("itemsaver")) {
+			ItemSaver.saveHeldItem(p);
 		}
 		new ToolGui(p).display();
 		return true;

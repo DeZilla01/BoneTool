@@ -17,6 +17,7 @@ import org.bukkit.event.player.PlayerToggleSneakEvent;
 import net.dezilla.bonetool.ToolUser;
 import net.dezilla.bonetool.Util;
 import net.dezilla.bonetool.util.Locale;
+import net.dezilla.bonetool.util.ToolConfig;
 
 public class SneakToggleListener implements Listener{
 	private static Map<Player, Timestamp> ts = new HashMap<Player, Timestamp>();
@@ -79,6 +80,10 @@ public class SneakToggleListener implements Listener{
 				newSpeed = 1;
 			else if(newSpeed<0)
 				newSpeed = 0;
+			if(newSpeed>ToolConfig.maxFlySpeed)
+				newSpeed = ToolConfig.maxFlySpeed;
+			else if(newSpeed < ToolConfig.minFlySpeed)
+				newSpeed = ToolConfig.minFlySpeed;
 			event.getPlayer().setFlySpeed(newSpeed);
 			displayFlySpeed(event.getPlayer());
 		}

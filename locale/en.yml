@@ -1,6 +1,6 @@
 name: English
 credits: Default language of BoneTool
-revision: 1
+revision: 2
 
 oldVersionWarning1: WARNING - You're running on an older version of Minecraft than BoneTool currently support.
 oldVersionWarning2: No support will be provided if the plugin/server crashes.
@@ -203,3 +203,27 @@ wallfacing: Wall Facing
 tripwiredisarmed: Tripwire Disarmed
 turtleeggamount: Turtle Egg Amount
 turtleegghatch: Turtle Egg Hatch
+#BoneTool 1.2
+brushable: Dusted
+brushableitem: Brushable Item
+bookshelfoccupied: Bookshelf Occupied
+bookshelfcontents: Bookshelf Contents
+slot: Slot
+switchtofirstrow: Switch to first row
+switchtosecondrow: Switch to second row
+pinkpetals: Pink Petals
+noteblockmobselect: Select Mob Noise
+mobnoise: Mob Noise
+endgateway: End Gateway
+locationlogged: Location has been logged
+ageinticks: Age in ticks
+getlocationlogger: Get Location Logger
+exactteleport: Exact Teleport
+setexitlocation: Set Exit Location
+nolocationset: No location set
+exitlocinstructions1: Place a location logger
+exitlocinstructions2: here to set an exit.
+exitlocinstructions3: Shift + Right-Click to remove
+locationlogger: Location Logger
+locloggerinstructions1: Right-Click this item
+locloggerinstructions2: to log a location.

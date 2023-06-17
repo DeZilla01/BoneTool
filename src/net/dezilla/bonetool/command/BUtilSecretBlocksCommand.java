@@ -29,10 +29,10 @@ import net.dezilla.bonetool.ToolMain;
 import net.dezilla.bonetool.Util;
 import net.dezilla.bonetool.gui.LightBlockGui;
 import net.dezilla.bonetool.gui.PaintingGui;
-import net.dezilla.bonetool.util.LegacyBU;
 import net.dezilla.bonetool.util.NewBU;
 import net.dezilla.bonetool.util.ToolConfig;
 
+@Deprecated
 public class BUtilSecretBlocksCommand extends Command implements CommandExecutor{
 	//This command takes over Builder's Utilities's command to add additional blocks.
 	
@@ -91,7 +91,7 @@ public class BUtilSecretBlocksCommand extends Command implements CommandExecutor
 			new SecretBlockMenuProvider().init(player, contents);
 			for(int i = 0; i < 9; i++) {
 				Optional<ClickableItem> item = contents.get(0, i);
-				if(item.isEmpty())
+				if(item == null)
 					continue;
 				if(banned.contains(item.get().getItem().getType()))
 					contents.set(0, i, null);
@@ -107,7 +107,7 @@ public class BUtilSecretBlocksCommand extends Command implements CommandExecutor
 				}
 				contents.set(ORIGINAL_MENU_SIZE+row, col++, ClickableItem.of(item, inventoryClickEvent -> player.getInventory().addItem(item)));
 			}
-			if(ToolConfig.paintingByName && Util.permCheck(player, "bonetool.blocks.paintings"))
+			if(ToolConfig.paintingByName && Util.permCheck(player, "bonetool.blocks.paintings") && ToolMain.getVersionNumber() < 20)
 				contents.set(ORIGINAL_MENU_SIZE, 8, ClickableItem.of(Util.setName(new ItemStack(Material.PAINTING), "Paintings"), inventoryClickEvent -> new PaintingGui(player).display()));
 			if(Util.permCheck(player, "bonetool.blocks.lightblock") && ToolMain.getVersionNumber() >= 17)
 				contents.set(ORIGINAL_MENU_SIZE+1, 8, ClickableItem.of(Util.setName(new ItemStack(Material.LIGHT), "Light Block"), inventoryClickEvent -> new LightBlockGui(player).display()));
@@ -116,30 +116,15 @@ public class BUtilSecretBlocksCommand extends Command implements CommandExecutor
 	}
 	
 	static JavaPlugin getMainClass() {
-		try {
-			Class.forName("net.arcaniax.buildersutilities.Main");
-			return LegacyBU.getMainClass();
-		}catch(Exception e) {
-			return NewBU.getMainClass();
-		}
+		return NewBU.getMainClass();
 	}
 	
 	static String getNoPermMsg() {
-		try {
-			Class.forName("net.arcaniax.buildersutilities.Main");
-			return LegacyBU.getNoPermMsg();
-		}catch(Exception e) {
-			return NewBU.getNoPermMsg();
-		}
+		return NewBU.getNoPermMsg();
 	}
 	
 	static InventoryManager getInvManager() {
-		try {
-			Class.forName("net.arcaniax.buildersutilities.Main");
-			return LegacyBU.getInvManager();
-		}catch(Exception e) {
-			return NewBU.getInvManager();
-		}
+		return NewBU.getInvManager();
 	}
 	
 	private static List<ItemStack> getBlocks() {

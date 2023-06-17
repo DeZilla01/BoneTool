@@ -28,7 +28,7 @@ public class IllegalBlocksGui extends GuiPage{
 				row++;
 			}
 		}
-		if(ToolConfig.paintingByName && Util.permCheck(player, "bonetool.blocks.paintings")) {
+		if(ToolConfig.paintingByName && Util.permCheck(player, "bonetool.blocks.paintings") && ToolMain.getVersionNumber() < 20) {
 			GuiItem paintings = new GuiItem(Util.setName(new ItemStack(Material.PAINTING), Locale.parse(ToolUser.getUser(player), "paintings")));
 			paintings.setRun((event) -> new PaintingGui(player).display());
 			setItem(0, 8, paintings);
@@ -57,6 +57,8 @@ public class IllegalBlocksGui extends GuiPage{
 			list.add(Util.getDoubleLadderItem());
 		if(ToolConfig.litRedstoneLamp)
 			list.add(Util.getLitLampItem());
+		if(ToolConfig.endGateway)
+			list.add(Util.getEndGateway());
 		if(ToolConfig.debugStick)
 			list.add(new ItemStack(Material.DEBUG_STICK));
 		if(ToolConfig.commandBlockMinecart)
@@ -82,6 +84,12 @@ public class IllegalBlocksGui extends GuiPage{
 			list.add(new ItemStack(Material.JIGSAW));
 		if(ToolConfig.invisFrame)
 			list.add(Util.getInvisibleFrame());
+		if(ToolConfig.paintingByName && ToolMain.getVersionNumber() >= 20) {
+			list.add(Util.getFirePainting());
+			list.add(Util.getWaterPainting());
+			list.add(Util.getWindPainting());
+			list.add(Util.getEarthPainting());
+		}
 		return list;
 	}
 

@@ -39,6 +39,7 @@ import net.md_5.bungee.api.chat.TextComponent;
 public class Util {
 	public static String MSG_START = ChatColor.DARK_GRAY+"» "+ChatColor.WHITE;
 	public static NamespacedKey specialBlockKey = new NamespacedKey(ToolMain.getInstance(), "blockType");
+	public static NamespacedKey locationKey = new NamespacedKey(ToolMain.getInstance(), "location");
 	//I wanted a proper clockwise list of blockface.
 	public static BlockFace[] BLOCKFACE_LIST = {
 			BlockFace.NORTH,
@@ -172,6 +173,9 @@ public class Util {
 	}
 	
 	public static ItemStack getEntityIcon(EntityType type) {
+		if(type == null) {
+			return setName(new ItemStack(Material.BARRIER), Locale.parse("none"));
+		}
 		switch(type.toString()) {
 			case "AREA_EFFECT_CLOUD": return setName(new ItemStack(Material.LINGERING_POTION), type.toString());
 			case "ARMOR_STAND": return setName(new ItemStack(Material.ARMOR_STAND), type.toString());
@@ -291,6 +295,12 @@ public class Util {
 			case "FROG": return setName(createTexturedHead("eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvMjNjZTZmOTk5OGVkMmRhNzU3ZDFlNjM3MmYwNGVmYTIwZTU3ZGZjMTdjM2EwNjQ3ODY1N2JiZGY1MWMyZjJhMiJ9fX0="), type.toString());
 			case "TADPOLE": return setName(createTexturedHead("eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvYjIzZWJmMjZiN2E0NDFlMTBhODZmYjVjMmE1ZjNiNTE5MjU4YTVjNWRkZGQ2YTFhNzU1NDlmNTE3MzMyODE1YiJ9fX0="), type.toString());
 			case "WARDEN": return setName(createTexturedHead("eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvNmNmMzY3NGIyZGRjMGVmN2MzOWUzYjljNmI1ODY3N2RlNWNmMzc3ZDJlYjA3M2YyZjNmZTUwOTE5YjFjYTRjOSJ9fX0="), type.toString());
+			case "CAMEL": return setName(createTexturedHead("eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvNzRiOGEzMzNkZmE5MmU3ZTVhOTVhZDRhZTJkODRiMWJhZmEzM2RjMjhjMDU0OTI1Mjc3ZjYwZTc5ZGFmYzhjNCJ9fX0="), type.toString());
+			case "BLOCK_DISPLAY": return setName(new ItemStack(Material.BARRIER), type.toString());
+			case "SNIFFER": return setName(createTexturedHead("eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvODdhZDkyMGE2NmUzOGNjMzQyNmE1YmZmMDg0NjY3ZTg3NzIxMTY5MTVlMjk4MDk4NTY3YzEzOWYyMjJlMmM0MiJ9fX0="), type.toString());
+			case "INTERACTION": return setName(new ItemStack(Material.BARRIER), type.toString());
+			case "ITEM_DISPLAY": return setName(new ItemStack(Material.BARRIER), type.toString());
+			case "TEXT_DISPLAY": return setName(new ItemStack(Material.BARRIER), type.toString());
 			default:
 				break;
 		}
@@ -427,6 +437,29 @@ public class Util {
 		return item;
 	}
 	
+	public static ItemStack getEndGateway() {
+		ItemStack item = createTexturedHead("eyJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvNTYzOWQ0MDc5ZDZiN2MwYTkxM2NmZjYwOGVjNDNmYTM5YTcyZmNhNWQ2NGZiMjI3MDBiMWNjNmM0NmNjNjljMiJ9fX0=");
+		setSpecialBlockType(item, "endGateway");
+		setName(item, Locale.parse("endgateway"));
+		return item;
+	}
+	
+	public static ItemStack getFirePainting() {
+		return ToolConfig.firePainting.clone();
+	}
+	
+	public static ItemStack getWaterPainting() {
+		return ToolConfig.waterPainting.clone();
+	}
+	
+	public static ItemStack getWindPainting() {
+		return ToolConfig.windPainting.clone();
+	}
+	
+	public static ItemStack getEarthPainting() {
+		return ToolConfig.earthPainting.clone();
+	}
+	
 	public static void sendNotification(Player player, String msg) {
 		ToolUser user = ToolUser.getUser(player);
 		sendNotification(user, msg);
@@ -497,10 +530,14 @@ public class Util {
 	public static void editSign(Player p, Block block) {
 		if(!(block.getState() instanceof Sign))
 			return;
+		if(ToolMain.getVersionNumber() >= 20) {
+			Sign s = (Sign) block.getState();
+			p.openSign(s);
+		}
 		if(ToolMain.getVersionNumber() == 17) {
 			SignEdit1_17.editSign(p, block);
 			return;
-		} else if(ToolMain.getVersionNumber() >= 18) {
+		} else if(ToolMain.getVersionNumber() == 18 || ToolMain.getVersionNumber() == 19) {
 			SignEdit1_18.editSign(p, block);
 			return;
 		}

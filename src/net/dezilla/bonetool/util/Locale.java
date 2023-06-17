@@ -231,6 +231,30 @@ public class Locale {
 			case "tripwiredisarmed": return "Tripwire Disarmed";
 			case "turtleeggamount": return "Turtle Egg Amount";
 			case "turtleegghatch": return "Turtle Egg Hatch";
+			//BoneTool 1.2 - MC 1.20
+			case "brushable": return "Dusted";
+			case "brushableitem": return "Brushable Item";
+			case "bookshelfoccupied": return "Bookshelf Occupied";
+			case "bookshelfcontents": return "Bookshelf Contents";
+			case "slot": return "Slot";
+			case "switchtofirstrow": return "Switch to first row";
+			case "switchtosecondrow": return "Switch to second row";
+			case "pinkpetals": return "Pink Petals";
+			case "noteblockmobselect": return "Select Mob Noise";
+			case "mobnoise": return "Mob Noise";
+			case "endgateway": return "End Gateway";
+			case "locationlogged": return "Location has been logged";
+			case "ageinticks": return "Age in ticks";
+			case "getlocationlogger": return "Get Location Logger";
+			case "exactteleport": return "Exact Teleport";
+			case "setexitlocation": return "Set Exit Location";
+			case "nolocationset": return "No location set";
+			case "exitlocinstructions1": return "Place a location logger";
+			case "exitlocinstructions2": return "here to set an exit.";
+			case "exitlocinstructions3": return "Shift + Right-Click to remove";
+			case "locationlogger": return "Location Logger";
+			case "locloggerinstructions1": return "Right-Click this item";
+			case "locloggerinstructions2": return "to log a location.";
 			//case "": return "";
 			
 			default: return "{"+key+"}";

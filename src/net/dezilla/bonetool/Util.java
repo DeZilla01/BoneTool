@@ -13,6 +13,7 @@ import org.bukkit.ChatColor;
 import org.bukkit.DyeColor;
 import org.bukkit.Material;
 import org.bukkit.NamespacedKey;
+import org.bukkit.Particle;
 import org.bukkit.block.Block;
 import org.bukkit.block.BlockFace;
 import org.bukkit.block.Sign;
@@ -339,6 +340,13 @@ public class Util {
 		icon.setItemMeta(meta);
 		setName(icon, StringUtils.capitalize(type.getName()));
 		return icon;
+	}
+	
+	public static Particle getRedstoneDust() {
+		if(ToolMain.getVersionNumber()<21)
+			return Particle.valueOf("REDSTONE");
+		else
+			return Particle.DUST;
 	}
 	
 	public static ChatColor DyetoChat(DyeColor color) {

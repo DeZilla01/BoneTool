@@ -128,7 +128,7 @@ public class SpecialBlockListener implements Listener{
 						if(e instanceof ItemFrame) {
 							ItemFrame i = (ItemFrame) e;
 							if(!i.isVisible())
-								event.getPlayer().spawnParticle(Particle.REDSTONE, i.getLocation(), 1, 0, 0, 0, 1, new Particle.DustOptions(Color.ORANGE, 1f));
+								event.getPlayer().spawnParticle(Util.getRedstoneDust(), i.getLocation(), 1, 0, 0, 0, 1, new Particle.DustOptions(Color.ORANGE, 1f));
 						}
 					}
 				}, 1, 8);

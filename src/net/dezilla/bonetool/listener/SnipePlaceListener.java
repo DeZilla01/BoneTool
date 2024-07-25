@@ -1,6 +1,6 @@
 package net.dezilla.bonetool.listener;
 
-import java.util.Arrays;
+import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
@@ -30,11 +30,19 @@ import net.dezilla.bonetool.util.ToolConfig;
 import net.dezilla.bonetool.wandtool.DirectionalTool;
 
 public class SnipePlaceListener implements Listener {
-	List<Material> StuffThatPlayersCanPlaceBlocksOver = Arrays.asList(
-			Material.AIR,
-			Material.WATER,
-			Material.LAVA,
-			Material.GRASS);
+	static private List<Material> StuffThatPlayersCanPlaceBlocksOver = new ArrayList<Material>();
+	
+	static {
+		StuffThatPlayersCanPlaceBlocksOver.add(Material.AIR);
+		StuffThatPlayersCanPlaceBlocksOver.add(Material.WATER);
+		StuffThatPlayersCanPlaceBlocksOver.add(Material.LAVA);
+		if(ToolMain.getVersionNumber() < 21)
+			StuffThatPlayersCanPlaceBlocksOver.add(Material.valueOf("GRASS"));
+		else {
+			StuffThatPlayersCanPlaceBlocksOver.add(Material.SHORT_GRASS);
+			StuffThatPlayersCanPlaceBlocksOver.add(Material.TALL_GRASS);
+		}
+	}
 	
 	@EventHandler(priority = EventPriority.LOW)
 	public void onInteract(PlayerInteractEvent event) {

@@ -137,6 +137,9 @@ public class ToolConfig {
 		if(ToolMain.getVersionNumber()>=19) {
 			sculkSensor = false; // Not needed since it appears in creative menu for 1.19
 		}
+		if(ToolMain.getVersionNumber()>=21) {
+			spawner = false; //Not needed since 1.21
+		}
 		
 		//locale
 		//yea I need to improve this. I was lazy and tired when I coded this bit

@@ -10,6 +10,7 @@ import org.bukkit.inventory.meta.PotionMeta;
 import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
 
+import net.dezilla.bonetool.ToolMain;
 import net.dezilla.bonetool.ToolUser;
 import net.dezilla.bonetool.Util;
 import net.dezilla.bonetool.listener.BlockUpdateListener;
@@ -41,7 +42,7 @@ public class BrewingStandGui extends GuiPage {
 		for(int i = 0 ; i <= 2 ; i++) {
 			ItemStack icon = new ItemStack(Material.POTION);
 			PotionMeta meta = (PotionMeta) icon.getItemMeta();
-			meta.addCustomEffect(new PotionEffect(PotionEffectType.HEAL, 1, 1), true);
+			meta.addCustomEffect(new PotionEffect(PotionEffectType.REGENERATION, 1, 1), true);
 			meta.setDisplayName(ChatColor.RESET+Locale.parse(ToolUser.getUser(getPlayer()), "potion")+" #"+i);
 			icon.setItemMeta(meta);
 			if(!stand.hasBottle(i))

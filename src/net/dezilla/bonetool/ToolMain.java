@@ -28,8 +28,12 @@ public class ToolMain extends JavaPlugin{
 	@Override
 	public void onEnable() {
 		instance = this;
-		String a = getServer().getClass().getPackage().getName();
-		version = a.substring(a.lastIndexOf('.') + 1);
+		//String a = getServer().getClass().getPackage().getName();
+		//version = a.substring(a.lastIndexOf('.') + 1);
+		
+		String v = getServer().getVersion();
+		version = v.substring(v.lastIndexOf("MC: ")+4);
+		version = version.replace(")", "");
 		
 		getLogger().info("[BoneTool] Loading Configs.");
 		/*-----[Configs]-----*/
@@ -41,7 +45,7 @@ public class ToolMain extends JavaPlugin{
 			getLogger().info("[BoneTool] "+ChatColor.RED+Locale.parse("oldVersionWarning2"));
 		}
 		
-		if(getVersionNumber() > 20) {
+		if(getVersionNumber() > 21) {
 			getLogger().info("[BoneTool] "+ChatColor.RED+Locale.parse("newVersionWarning1"));
 			getLogger().info("[BoneTool] "+ChatColor.RED+Locale.parse("newVersionWarning2"));
 		}
@@ -226,8 +230,15 @@ public class ToolMain extends JavaPlugin{
 	}
 	
 	public static int getVersionNumber() {
-		try {
+		/*try {
 			return Integer.parseInt(getVersion().split("v1_")[1].split("_")[0]);
+		}catch(Exception e) {
+			System.out.println("crash on "+getVersion());
+			e.printStackTrace();
+			return 0;
+		}*/
+		try {
+			return Integer.parseInt(getVersion().substring(2));
 		}catch(Exception e) {
 			e.printStackTrace();
 			return 0;
